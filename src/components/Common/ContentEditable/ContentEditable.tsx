@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import * as S from "./ContentEditable.style";
 
-export default function ContentEditable({ placeholder = "", maxLength = 50 }) {
-  const [text, setText] = useState("");
+interface ContentEditableProps {
+  placeholder?: string;
+  maxLength?: number;
+  fontSize?: number;
+  onChange?: (text: string) => void;
+}
 
+export default function ContentEditable({
+  placeholder = "",
+  maxLength = 50,
+  fontSize = 16,
+  onChange,
+}: ContentEditableProps) {
   const handleText = (e: React.ChangeEvent<HTMLDivElement>) => {
     const inputText = e.target.innerText || "";
     if (inputText.length <= maxLength) {
-      setText(inputText);
+      if (onChange) {
+        onChange(inputText);
+      }
     }
   };
 
@@ -15,8 +27,8 @@ export default function ContentEditable({ placeholder = "", maxLength = 50 }) {
     <S.EditableDiv
       contentEditable
       onInput={handleText}
-      style={{ color: text ? "black" : "gray" }}
       placeholder={placeholder}
+      fontSize={fontSize}
     />
   );
 }
