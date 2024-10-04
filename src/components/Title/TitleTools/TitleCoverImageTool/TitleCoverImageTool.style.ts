@@ -7,4 +7,5 @@ export const ImageFileInput = styled.input`
 
 export const ImageInputIcon = styled(PiImageThin)`
   cursor: pointer;
+  z-index: 1;
 `;
