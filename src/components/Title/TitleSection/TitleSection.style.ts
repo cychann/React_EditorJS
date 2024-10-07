@@ -17,7 +17,7 @@ export const TitleSectionWrapper = styled.div<TitleSectionWrapperProps>`
   background-size: cover;
   background-position: center;
   position: relative;
-
+  transition: all ease-in-out 0.2s;
   ${({ bgImage }) =>
     bgImage &&
     `
@@ -31,7 +31,7 @@ export const TitleSectionWrapper = styled.div<TitleSectionWrapperProps>`
         background-color: rgba(0, 0, 0, 0.3);
         z-index: 1; 
       }
-    `}
+    `};
 `;
 
 export const TitleTopWrapper = styled.div`
