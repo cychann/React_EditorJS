@@ -9,9 +9,10 @@ export default function TitleInput() {
   const [subtitle, setSubtitle] = useState("");
 
   const titleImage = useTitleImageStore((state) => state.titleCoverImage);
+  const titleAlign = useTitleImageStore((state) => state.alignment);
 
   return (
-    <S.TitleInputWrapper>
+    <S.TitleInputWrapper align={titleAlign}>
       <ContentEditable
         placeholder="제목을 입력하세요"
         fontSize={45}
