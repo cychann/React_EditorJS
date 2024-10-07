@@ -1,30 +1,27 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
 import * as S from "./TitleCoverColorSwiper.style";
-import useTitleImageStore from "store/useTitleImageStore";
-import { titleCoverColors } from "styles/Theme";
+import useTitleStore from "store/useTitleStore";
+import { TITLE_COVER_COLORS } from "styles/Theme";
 
 const TitleCoverColorSwiper = () => {
-  const currentColor = useTitleImageStore((state) => state.titleCoverColor);
-  const setTitleCoverColor = useTitleImageStore(
-    (state) => state.setTitleCoverColor
-  );
+  const currentColor = useTitleStore((state) => state.titleCoverColor);
+  const setTitleCoverColor = useTitleStore((state) => state.setTitleCoverColor);
 
-  const colorKeys = Object.keys(titleCoverColors);
+  const colorKeys = Object.keys(TITLE_COVER_COLORS);
   const currentIndex = colorKeys.indexOf(
-    Object.keys(titleCoverColors).find(
-      (key) => titleCoverColors[key] === currentColor
+    Object.keys(TITLE_COVER_COLORS).find(
+      (key) => TITLE_COVER_COLORS[key] === currentColor
     ) || ""
   );
 
   const nextSlide = () => {
     const nextIndex = (currentIndex + 1) % colorKeys.length;
-    setTitleCoverColor(titleCoverColors[colorKeys[nextIndex]]);
+    setTitleCoverColor(TITLE_COVER_COLORS[colorKeys[nextIndex]]);
   };
 
   const prevSlide = () => {
     const prevIndex = (currentIndex - 1 + colorKeys.length) % colorKeys.length;
-    setTitleCoverColor(titleCoverColors[colorKeys[prevIndex]]);
+    setTitleCoverColor(TITLE_COVER_COLORS[colorKeys[prevIndex]]);
   };
 
   return (
@@ -34,9 +31,9 @@ const TitleCoverColorSwiper = () => {
         {colorKeys.map((colorKey) => (
           <S.ColorCircle
             key={colorKey}
-            isSelected={titleCoverColors[colorKey] === currentColor}
-            onClick={() => setTitleCoverColor(titleCoverColors[colorKey])}
-            color={titleCoverColors[colorKey]}
+            $isSelected={TITLE_COVER_COLORS[colorKey] === currentColor}
+            onClick={() => setTitleCoverColor(TITLE_COVER_COLORS[colorKey])}
+            color={TITLE_COVER_COLORS[colorKey]}
           />
         ))}
       </S.ColorSelectContainer>

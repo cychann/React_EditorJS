@@ -33,15 +33,15 @@ export const ColorSelectContainer = styled.div`
   gap: 10px;
 `;
 
-export const ColorCircle = styled.div<{ isSelected: boolean }>`
+export const ColorCircle = styled.div<{ $isSelected: boolean }>`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: ${({ isSelected }) =>
-    isSelected ? "transparent" : "#fff"};
-  opacity: ${({ isSelected }) => (isSelected ? "1" : "0.4")};
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? "transparent" : "#fff"};
+  opacity: ${({ $isSelected }) => ($isSelected ? "1" : "0.4")};
   transition: border 0.3s ease, transform 0.3s ease;
-  border: ${({ isSelected }) => (isSelected ? "1px solid white" : "none")};
-  transform: ${({ isSelected }) => (isSelected ? "scale(1.4)" : "scale(1)")};
+  border: ${({ $isSelected }) => ($isSelected ? "1px solid white" : "none")};
+  transform: ${({ $isSelected }) => ($isSelected ? "scale(1.4)" : "scale(1)")};
   cursor: pointer;
 `;

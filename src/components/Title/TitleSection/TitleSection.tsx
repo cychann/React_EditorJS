@@ -1,20 +1,20 @@
 import React from "react";
 import * as S from "./TitleSection.style";
-import TitleToolbar from "../TitleToolbar/TitleToolbar";
-import TitleInput from "../TitleInput/TitleInput";
-import useTitleImageStore from "store/useTitleImageStore";
-import TitleCoverColorSwiper from "../TitleTools/TitleCoverColor/TitleCoverColorSwiper/TitleCoverColorSwiper";
+import TitleToolbar from "components/Title/TitleToolbar/TitleToolbar";
+import TitleInput from "components/Title/TitleInput/TitleInput";
+import useTitleStore from "store/useTitleStore";
+import TitleCoverColorSwiper from "components/Title/TitleTools/TitleCoverColor/TitleCoverColorSwiper/TitleCoverColorSwiper";
 
 export default function TitleSection() {
-  const titleImage = useTitleImageStore((state) => state.titleCoverImage);
-  const titleCoverColor = useTitleImageStore((state) => state.titleCoverColor);
-  const isTitleImageExpanded = useTitleImageStore((state) => state.isExpanded);
+  const titleImage = useTitleStore((state) => state.titleCoverImage);
+  const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
+  const isTitleImageExpanded = useTitleStore((state) => state.isExpanded);
 
   return (
     <S.TitleSectionWrapper
-      bgImage={titleImage}
-      expanded={isTitleImageExpanded}
-      bgColor={titleCoverColor}
+      $bgImage={titleImage}
+      $expanded={isTitleImageExpanded}
+      $bgColor={titleCoverColor}
     >
       <S.TitleTopWrapper>
         <S.TitleMenuWrapper>메뉴바</S.TitleMenuWrapper>

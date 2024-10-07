@@ -1,17 +1,20 @@
 import React from "react";
 import * as S from "./TitleCoverColorIcon.style";
-import useTitleImageStore from "store/useTitleImageStore";
-import { titleCoverColors } from "styles/Theme";
+import useTitleStore from "store/useTitleStore";
+import { TITLE_COVER_COLORS } from "styles/Theme";
 
 export default function TitleCoverColorIcon() {
-  const titleCoverColor = useTitleImageStore((state) => state.titleCoverColor);
-  const setTitleCoverColor = useTitleImageStore(
-    (state) => state.setTitleCoverColor
-  );
+  const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
+  const setTitleCoverColor = useTitleStore((state) => state.setTitleCoverColor);
 
   const toggleTitleCoverColor = () => {
     if (titleCoverColor) setTitleCoverColor(null);
-    if (!titleCoverColor) setTitleCoverColor(titleCoverColors.red);
+    if (!titleCoverColor) setTitleCoverColor(TITLE_COVER_COLORS.red);
   };
-  return <S.ColorIcon size={25} onClick={toggleTitleCoverColor} />;
+  return (
+    <S.ImageColorIcon
+      onClick={toggleTitleCoverColor}
+      $hasCoverBg={!!titleCoverColor}
+    />
+  );
 }

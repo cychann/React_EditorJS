@@ -4,7 +4,7 @@ export const TitleToolbarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
   position: absolute;
   top: 10px;
   right: -15%;

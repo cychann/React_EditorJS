@@ -1,11 +1,12 @@
 import React from "react";
 import * as S from "./ContentEditable.style";
-import { commonTheme } from "styles/Theme";
+import { COMMON_THEME } from "styles/Theme";
 
 interface ContentEditableProps {
   placeholder?: string;
   maxLength?: number;
   fontSize?: number;
+  fontWeight?: "regular" | "normal" | "semibold" | "bold" | "extraBold";
   fontColor?: string;
   placeholderColor?: string;
   cursorColor?: string;
@@ -17,9 +18,9 @@ export default function ContentEditable({
   maxLength = 50,
   fontSize = 16,
   onChange,
-  fontColor = commonTheme.black_primary,
-  placeholderColor = commonTheme.gray_primary,
-  cursorColor = commonTheme.black_primary,
+  fontColor = COMMON_THEME.black_primary,
+  placeholderColor = COMMON_THEME.gray_primary,
+  cursorColor = COMMON_THEME.black_primary,
 }: ContentEditableProps) {
   const handleText = (e: React.ChangeEvent<HTMLDivElement>) => {
     const inputText = e.target.innerText || "";
@@ -35,10 +36,10 @@ export default function ContentEditable({
       contentEditable
       onInput={handleText}
       placeholder={placeholder}
-      fontSize={fontSize}
-      fontColor={fontColor}
-      placeholderColor={placeholderColor}
-      cursorColor={cursorColor}
+      $fontSize={fontSize}
+      $fontColor={fontColor}
+      $placeholderColor={placeholderColor}
+      $cursorColor={cursorColor}
     />
   );
 }

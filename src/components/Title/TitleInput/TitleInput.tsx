@@ -1,40 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
 import * as S from "./TitleInput.style";
 import ContentEditable from "components/Common/ContentEditable/ContentEditable";
-import useTitleImageStore from "store/useTitleImageStore";
-import { commonTheme } from "styles/Theme";
+import useTitleStore from "store/useTitleStore";
+import { COMMON_THEME } from "styles/Theme";
 
 export default function TitleInput() {
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
-
-  const titleImage = useTitleImageStore((state) => state.titleCoverImage);
-  const titleAlign = useTitleImageStore((state) => state.alignment);
+  const setTitleText = useTitleStore((state) => state.setTitleText);
+  const setSubtitleText = useTitleStore((state) => state.setSubtitleText);
+  const titleImage = useTitleStore((state) => state.titleCoverImage);
+  const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
+  const titleAlign = useTitleStore((state) => state.alignment);
 
   return (
-    <S.TitleInputWrapper align={titleAlign}>
+    <S.TitleInputWrapper
+      $align={titleAlign}
+      $hasBackground={!!titleImage || !!titleCoverColor}
+    >
       <ContentEditable
         placeholder="제목을 입력하세요"
         fontSize={45}
-        onChange={setTitle}
+        onChange={setTitleText}
         fontColor={
-          titleImage ? commonTheme.white_primary : commonTheme.black_primary
+          titleImage ? COMMON_THEME.white_primary : COMMON_THEME.black_primary
         }
-        placeholderColor={commonTheme.gray_primary}
+        placeholderColor={COMMON_THEME.gray_primary}
         cursorColor={
-          titleImage ? commonTheme.white_primary : commonTheme.black_primary
+          titleImage ? COMMON_THEME.white_primary : COMMON_THEME.black_primary
         }
       />
       <ContentEditable
         placeholder="소제목을 입력하세요"
         fontSize={16}
-        onChange={setSubtitle}
+        onChange={setSubtitleText}
         fontColor={
-          titleImage ? commonTheme.white_primary : commonTheme.black_primary
+          titleImage ? COMMON_THEME.white_primary : COMMON_THEME.black_primary
         }
-        placeholderColor={commonTheme.gray_primary}
+        placeholderColor={COMMON_THEME.gray_primary}
         cursorColor={
-          titleImage ? commonTheme.white_primary : commonTheme.black_primary
+          titleImage ? COMMON_THEME.white_primary : COMMON_THEME.black_primary
         }
       />
     </S.TitleInputWrapper>

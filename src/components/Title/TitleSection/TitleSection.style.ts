@@ -1,25 +1,26 @@
 import styled from "styled-components";
-import { commonTheme } from "styles/Theme";
+import { COMMON_THEME } from "styles/Theme";
 
 interface TitleSectionWrapperProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  bgImage?: string | null;
-  bgColor?: string | null;
-  expanded?: boolean | null;
+  $bgImage?: string | null;
+  $bgColor?: string | null;
+  $expanded?: boolean | null;
 }
 
 export const TitleSectionWrapper = styled.div<TitleSectionWrapperProps>`
   width: 100%;
-  height: ${({ expanded }) => (expanded ? "100vh" : "450px")};
-  border-bottom: 1px solid ${commonTheme.light_gray};
-  background-color: ${({ bgColor }) => bgColor || "trasnparent"};
-  background-image: ${({ bgImage }) => (bgImage ? `url(${bgImage})` : "none")};
+  height: ${({ $expanded }) => ($expanded ? "100vh" : "450px")};
+  border-bottom: 1px solid ${COMMON_THEME.light_gray};
+  background-color: ${({ $bgColor }) => $bgColor || "trasnparent"};
+  background-image: ${({ $bgImage }) =>
+    $bgImage ? `url(${$bgImage})` : "none"};
   background-size: cover;
   background-position: center;
   position: relative;
-
-  ${({ bgImage }) =>
-    bgImage &&
+  transition: all ease-in-out 0.2s;
+  ${({ $bgImage }) =>
+    $bgImage &&
     `
       &::before {
         content: "";
@@ -31,7 +32,7 @@ export const TitleSectionWrapper = styled.div<TitleSectionWrapperProps>`
         background-color: rgba(0, 0, 0, 0.3);
         z-index: 1; 
       }
-    `}
+    `};
 `;
 
 export const TitleTopWrapper = styled.div`
@@ -45,11 +46,18 @@ export const TitleTopWrapper = styled.div`
 
 export const TitleMenuWrapper = styled.div``;
 
-export const TitleSaveWrapper = styled.div``;
+export const TitleSaveWrapper = styled.button`
+  border-radius: 15px;
+  width: 66px;
+  height: 30px;
+  border: 1px solid ${COMMON_THEME.gray_primary};
+  font-size: 12px;
+  color: ${COMMON_THEME.dark_gray};
+`;
 
 export const TitleBottomWrapper = styled.div`
   width: 700px;
-  height: 370px;
+  height: calc(100% - 80px);
   margin: auto;
   position: relative;
 `;
