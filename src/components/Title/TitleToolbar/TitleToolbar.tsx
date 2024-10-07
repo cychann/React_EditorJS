@@ -1,11 +1,11 @@
 import React from "react";
 import * as S from "./TitleToolbar.style";
-import { ImTextColor } from "react-icons/im";
 import { CiTextAlignLeft } from "react-icons/ci";
 import { CiTextAlignCenter } from "react-icons/ci";
 import TitleCoverImageTool from "../TitleTools/TitleCoverImageTool/TitleCoverImageTool";
 import useTitleImageStore from "store/useTitleImageStore";
 import TitleCoverImageActiveTool from "../TitleTools/TitleCoverImageActiveTool/TitleCoverImageActiveTool";
+import TitleCoverColorIcon from "../TitleTools/TitleCoverColor/TitleCoverColorIcon/TitleCoverColorIcon";
 
 export default function TitleToolbar() {
   const titleImage = useTitleImageStore((state) => state.titleCoverImage);
@@ -13,7 +13,7 @@ export default function TitleToolbar() {
   return (
     <S.TitleToolbarWrapper>
       <TitleCoverImageTool />
-      {!titleImage && <ImTextColor size={25} />}
+      {!titleImage && <TitleCoverColorIcon />}
       <CiTextAlignLeft size={25} />
       {/* <CiTextAlignCenter /> */}
       {titleImage && <TitleCoverImageActiveTool />}
