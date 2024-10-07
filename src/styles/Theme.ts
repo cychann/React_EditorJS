@@ -1,18 +1,17 @@
-export const device = {
+export const DEVICE = {
   tablet: `(max-width: 768px)`,
   laptop: `(max-width: 1024px)`,
 };
 
-export const fontWeight = {
+export const FONT_WEIGHT = {
   regular: 400,
   medium: 500,
   semiBold: 600,
   bold: 700,
   extraBold: 800,
-  black: 900,
 };
 
-export const commonTheme = {
+export const COMMON_THEME = {
   black_primary: "#333333",
   white_primary: "#FAFAFA",
   gray_primary: "#ccc",
@@ -25,7 +24,7 @@ type TitleCoverColors = {
   [key: string]: string;
 };
 
-export const titleCoverColors: TitleCoverColors = {
+export const TITLE_COVER_COLORS: TitleCoverColors = {
   red: "rgb(246, 112, 102)",
   orange: "rgb(248, 151, 46)",
   yellow: "rgb(250, 187, 17)",

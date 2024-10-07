@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./TitleCoverColorIcon.style";
 import useTitleStore from "store/useTitleStore";
-import { titleCoverColors } from "styles/Theme";
+import { TITLE_COVER_COLORS } from "styles/Theme";
 
 export default function TitleCoverColorIcon() {
   const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
@@ -9,7 +9,7 @@ export default function TitleCoverColorIcon() {
 
   const toggleTitleCoverColor = () => {
     if (titleCoverColor) setTitleCoverColor(null);
-    if (!titleCoverColor) setTitleCoverColor(titleCoverColors.red);
+    if (!titleCoverColor) setTitleCoverColor(TITLE_COVER_COLORS.red);
   };
   return <S.ColorIcon size={25} onClick={toggleTitleCoverColor} />;
 }

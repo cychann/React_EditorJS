@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { commonTheme } from "styles/Theme";
+import { COMMON_THEME } from "styles/Theme";
 
 interface TitleSectionWrapperProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,7 +11,7 @@ interface TitleSectionWrapperProps
 export const TitleSectionWrapper = styled.div<TitleSectionWrapperProps>`
   width: 100%;
   height: ${({ expanded }) => (expanded ? "100vh" : "450px")};
-  border-bottom: 1px solid ${commonTheme.light_gray};
+  border-bottom: 1px solid ${COMMON_THEME.light_gray};
   background-color: ${({ bgColor }) => bgColor || "trasnparent"};
   background-image: ${({ bgImage }) => (bgImage ? `url(${bgImage})` : "none")};
   background-size: cover;
