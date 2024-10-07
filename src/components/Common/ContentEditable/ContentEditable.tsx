@@ -36,7 +36,7 @@ export default function ContentEditable({
       contentEditable
       onInput={handleText}
       placeholder={placeholder}
-      fontSize={fontSize}
+      $fontSize={fontSize}
       $fontColor={fontColor}
       $placeholderColor={placeholderColor}
       $cursorColor={cursorColor}

@@ -1,9 +1,9 @@
 import React from "react";
 import * as S from "./TitleSection.style";
-import TitleToolbar from "../TitleToolbar/TitleToolbar";
-import TitleInput from "../TitleInput/TitleInput";
+import TitleToolbar from "components/Title/TitleToolbar/TitleToolbar";
+import TitleInput from "components/Title/TitleInput/TitleInput";
 import useTitleStore from "store/useTitleStore";
-import TitleCoverColorSwiper from "../TitleTools/TitleCoverColor/TitleCoverColorSwiper/TitleCoverColorSwiper";
+import TitleCoverColorSwiper from "components/Title/TitleTools/TitleCoverColor/TitleCoverColorSwiper/TitleCoverColorSwiper";
 
 export default function TitleSection() {
   const titleImage = useTitleStore((state) => state.titleCoverImage);
