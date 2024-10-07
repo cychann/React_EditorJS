@@ -20,6 +20,9 @@ export default function TitleInput() {
           titleImage ? commonTheme.white_primary : commonTheme.black_primary
         }
         placeholderColor={commonTheme.gray_primary}
+        cursorColor={
+          titleImage ? commonTheme.white_primary : commonTheme.black_primary
+        }
       />
       <ContentEditable
         placeholder="소제목을 입력하세요"
@@ -29,6 +32,9 @@ export default function TitleInput() {
           titleImage ? commonTheme.white_primary : commonTheme.black_primary
         }
         placeholderColor={commonTheme.gray_primary}
+        cursorColor={
+          titleImage ? commonTheme.white_primary : commonTheme.black_primary
+        }
       />
     </S.TitleInputWrapper>
   );

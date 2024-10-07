@@ -19,7 +19,7 @@ export default function ContentEditable({
   onChange,
   fontColor = commonTheme.black_primary,
   placeholderColor = commonTheme.gray_primary,
-  cursorColor = commonTheme.white_primary,
+  cursorColor = commonTheme.black_primary,
 }: ContentEditableProps) {
   const handleText = (e: React.ChangeEvent<HTMLDivElement>) => {
     const inputText = e.target.innerText || "";
