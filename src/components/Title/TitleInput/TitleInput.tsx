@@ -8,10 +8,14 @@ export default function TitleInput() {
   const setTitleText = useTitleStore((state) => state.setTitleText);
   const setSubtitleText = useTitleStore((state) => state.setSubtitleText);
   const titleImage = useTitleStore((state) => state.titleCoverImage);
+  const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
   const titleAlign = useTitleStore((state) => state.alignment);
 
   return (
-    <S.TitleInputWrapper align={titleAlign}>
+    <S.TitleInputWrapper
+      align={titleAlign}
+      hasBackground={!!titleImage || !!titleCoverColor}
+    >
       <ContentEditable
         placeholder="제목을 입력하세요"
         fontSize={45}
