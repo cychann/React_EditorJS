@@ -19,6 +19,7 @@ export default function TitleInput() {
       <ContentEditable
         placeholder="제목을 입력하세요"
         fontSize={45}
+        fontWeight={400}
         onChange={setTitleText}
         fontColor={
           titleImage ? COMMON_THEME.white_primary : COMMON_THEME.black_primary
@@ -31,6 +32,7 @@ export default function TitleInput() {
       <ContentEditable
         placeholder="소제목을 입력하세요"
         fontSize={16}
+        fontWeight={300}
         onChange={setSubtitleText}
         fontColor={
           titleImage ? COMMON_THEME.white_primary : COMMON_THEME.black_primary

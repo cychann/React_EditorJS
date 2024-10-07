@@ -3,14 +3,6 @@ export const DEVICE = {
   laptop: `(max-width: 1024px)`,
 };
 
-export const FONT_WEIGHT = {
-  regular: 400,
-  medium: 500,
-  semiBold: 600,
-  bold: 700,
-  extraBold: 800,
-};
-
 export const COMMON_THEME = {
   black_primary: "#333333",
   white_primary: "#FAFAFA",
