@@ -19,8 +19,8 @@ export default function TitleCoverImageActiveTool() {
 
   return (
     <S.IconWrapper>
-      <S.ExpandIcon size={25} onClick={expandImage} />
-      <S.TrashIcon size={25} onClick={deleteTitleImage} />
+      <S.ExpandIcon expanded={isTitleImageExpanded} onClick={expandImage} />
+      <S.TrashIcon onClick={deleteTitleImage} />
     </S.IconWrapper>
   );
 }

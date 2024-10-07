@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { FaRegTrashCan } from "react-icons/fa6";
-import { RiExpandHeightFill } from "react-icons/ri";
+
+interface ExpandIconProps extends React.HTMLAttributes<HTMLDivElement> {
+  expanded?: boolean | null;
+}
 
 export const IconWrapper = styled.div`
   display: flex;
@@ -9,12 +11,32 @@ export const IconWrapper = styled.div`
   gap: 12px;
 `;
 
-export const ExpandIcon = styled(RiExpandHeightFill)`
+export const ExpandIcon = styled.div<ExpandIconProps>`
+  width: 25px;
+  height: 25px;
+  background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);
+  background-repeat: no-repeat;
+  background-position: ${({ expanded }) =>
+    expanded ? "-29px -166px" : "-29px -208px"};
   cursor: pointer;
   z-index: 1;
+
+  &:hover {
+    background-position: ${({ expanded }) =>
+      expanded ? "-59px -166px" : "-59px -208px"};
+  }
 `;
 
-export const TrashIcon = styled(FaRegTrashCan)`
+export const TrashIcon = styled.div`
+  width: 25px;
+  height: 25px;
+  background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);
+  background-repeat: no-repeat;
+  background-position: -29px -250px;
   cursor: pointer;
   z-index: 1;
+
+  &:hover {
+    background-position: -59px -250px;
+  }
 `;

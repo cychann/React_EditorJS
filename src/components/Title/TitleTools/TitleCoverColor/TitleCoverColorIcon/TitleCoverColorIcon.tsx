@@ -11,5 +11,10 @@ export default function TitleCoverColorIcon() {
     if (titleCoverColor) setTitleCoverColor(null);
     if (!titleCoverColor) setTitleCoverColor(TITLE_COVER_COLORS.red);
   };
-  return <S.ColorIcon size={25} onClick={toggleTitleCoverColor} />;
+  return (
+    <S.ImageColorIcon
+      onClick={toggleTitleCoverColor}
+      hasCoverBg={!!titleCoverColor}
+    />
+  );
 }
