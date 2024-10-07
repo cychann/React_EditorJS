@@ -4,11 +4,12 @@ import { commonTheme } from "styles/Theme";
 interface TitleSectionWrapperProps
   extends React.HTMLAttributes<HTMLDivElement> {
   bgImage?: string | null;
+  expanded?: boolean | null;
 }
 
 export const TitleSectionWrapper = styled.div<TitleSectionWrapperProps>`
   width: 100%;
-  height: 450px;
+  height: ${({ expanded }) => (expanded ? "100vh" : "450px")};
   border-bottom: 1px solid ${commonTheme.light_gray};
   background-image: ${({ bgImage }) => (bgImage ? `url(${bgImage})` : "none")};
   background-size: cover;

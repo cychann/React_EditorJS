@@ -10,7 +10,7 @@ export const IconWrapper = styled.div`
 `;
 
 export const ExpandIcon = styled(RiExpandHeightFill)`
-  cursor: ponter;
+  cursor: pointer;
   z-index: 1;
 `;
 
