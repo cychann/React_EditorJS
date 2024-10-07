@@ -21,7 +21,7 @@ export default function TitleCoverImageTool() {
   };
 
   return (
-    <div>
+    <S.ImageInputWrapper>
       <S.ImageFileInput
         id="file-upload"
         type="file"
@@ -30,6 +30,6 @@ export default function TitleCoverImageTool() {
         onChange={handleFileChange}
       />
       <S.ImageInputIcon size={25} onClick={handleIconClick} />
-    </div>
+    </S.ImageInputWrapper>
   );
 }
