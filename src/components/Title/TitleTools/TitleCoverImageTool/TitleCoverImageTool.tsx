@@ -33,7 +33,7 @@ export default function TitleCoverImageTool() {
       />
       <S.ImageInputIcon
         onClick={handleIconClick}
-        hasCoverBg={!!titleCoverImage || !!titleCoverColor}
+        $hasCoverBg={!!titleCoverImage || !!titleCoverColor}
       />
     </S.ImageInputWrapper>
   );

@@ -3,23 +3,24 @@ import { COMMON_THEME } from "styles/Theme";
 
 interface TitleSectionWrapperProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  bgImage?: string | null;
-  bgColor?: string | null;
-  expanded?: boolean | null;
+  $bgImage?: string | null;
+  $bgColor?: string | null;
+  $expanded?: boolean | null;
 }
 
 export const TitleSectionWrapper = styled.div<TitleSectionWrapperProps>`
   width: 100%;
-  height: ${({ expanded }) => (expanded ? "100vh" : "450px")};
+  height: ${({ $expanded }) => ($expanded ? "100vh" : "450px")};
   border-bottom: 1px solid ${COMMON_THEME.light_gray};
-  background-color: ${({ bgColor }) => bgColor || "trasnparent"};
-  background-image: ${({ bgImage }) => (bgImage ? `url(${bgImage})` : "none")};
+  background-color: ${({ $bgColor }) => $bgColor || "trasnparent"};
+  background-image: ${({ $bgImage }) =>
+    $bgImage ? `url(${$bgImage})` : "none"};
   background-size: cover;
   background-position: center;
   position: relative;
   transition: all ease-in-out 0.2s;
-  ${({ bgImage }) =>
-    bgImage &&
+  ${({ $bgImage }) =>
+    $bgImage &&
     `
       &::before {
         content: "";

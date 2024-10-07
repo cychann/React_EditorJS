@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface AlignIcon extends React.HTMLAttributes<HTMLDivElement> {
-  hasCoverBg: boolean;
+  $hasCoverBg: boolean;
 }
 
 export const AlignLeftIcon = styled.div<AlignIcon>`
@@ -9,8 +9,8 @@ export const AlignLeftIcon = styled.div<AlignIcon>`
   height: 25px;
   background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);
   background-repeat: no-repeat;
-  background-position: ${({ hasCoverBg }) =>
-    hasCoverBg ? "-29px -82px" : "1px -82px"};
+  background-position: ${({ $hasCoverBg }) =>
+    $hasCoverBg ? "-29px -82px" : "1px -82px"};
   cursor: pointer;
   z-index: 1;
 
@@ -24,8 +24,9 @@ export const AlignCenterIcon = styled.div<AlignIcon>`
   height: 25px;
   background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);
   background-repeat: no-repeat;
-  background-position: ${({ hasCoverBg }) =>
-    hasCoverBg ? "-29px -124px" : "1px -124px"};
+  background-position: 1px -124px;
+  background-position: ${({ $hasCoverBg }) =>
+    $hasCoverBg ? "-29px -124px" : "1px -124px"};
   cursor: pointer;
   z-index: 1;
 

@@ -13,8 +13,8 @@ export default function TitleInput() {
 
   return (
     <S.TitleInputWrapper
-      align={titleAlign}
-      hasBackground={!!titleImage || !!titleCoverColor}
+      $align={titleAlign}
+      $hasBackground={!!titleImage || !!titleCoverColor}
     >
       <ContentEditable
         placeholder="제목을 입력하세요"

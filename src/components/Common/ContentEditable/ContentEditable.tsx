@@ -37,9 +37,9 @@ export default function ContentEditable({
       onInput={handleText}
       placeholder={placeholder}
       fontSize={fontSize}
-      fontColor={fontColor}
-      placeholderColor={placeholderColor}
-      cursorColor={cursorColor}
+      $fontColor={fontColor}
+      $placeholderColor={placeholderColor}
+      $cursorColor={cursorColor}
     />
   );
 }

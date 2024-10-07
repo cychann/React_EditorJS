@@ -12,9 +12,9 @@ export default function TitleSection() {
 
   return (
     <S.TitleSectionWrapper
-      bgImage={titleImage}
-      expanded={isTitleImageExpanded}
-      bgColor={titleCoverColor}
+      $bgImage={titleImage}
+      $expanded={isTitleImageExpanded}
+      $bgColor={titleCoverColor}
     >
       <S.TitleTopWrapper>
         <S.TitleMenuWrapper>메뉴바</S.TitleMenuWrapper>

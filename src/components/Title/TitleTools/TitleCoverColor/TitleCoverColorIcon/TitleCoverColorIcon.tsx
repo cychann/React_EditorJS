@@ -14,7 +14,7 @@ export default function TitleCoverColorIcon() {
   return (
     <S.ImageColorIcon
       onClick={toggleTitleCoverColor}
-      hasCoverBg={!!titleCoverColor}
+      $hasCoverBg={!!titleCoverColor}
     />
   );
 }

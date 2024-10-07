@@ -17,13 +17,13 @@ export default function TitleAlignTool() {
       {titleAlign === "left" && (
         <S.AlignLeftIcon
           onClick={() => handleTitleAlign("center")}
-          hasCoverBg={!!titleCoverImage || !!titleCoverColor}
+          $hasCoverBg={!!titleCoverImage || !!titleCoverColor}
         />
       )}
       {titleAlign === "center" && (
         <S.AlignCenterIcon
           onClick={() => handleTitleAlign("left")}
-          hasCoverBg={!!titleCoverImage || !!titleCoverColor}
+          $hasCoverBg={!!titleCoverImage || !!titleCoverColor}
         />
       )}
     </>

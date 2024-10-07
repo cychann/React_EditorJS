@@ -31,7 +31,7 @@ const TitleCoverColorSwiper = () => {
         {colorKeys.map((colorKey) => (
           <S.ColorCircle
             key={colorKey}
-            isSelected={TITLE_COVER_COLORS[colorKey] === currentColor}
+            $isSelected={TITLE_COVER_COLORS[colorKey] === currentColor}
             onClick={() => setTitleCoverColor(TITLE_COVER_COLORS[colorKey])}
             color={TITLE_COVER_COLORS[colorKey]}
           />

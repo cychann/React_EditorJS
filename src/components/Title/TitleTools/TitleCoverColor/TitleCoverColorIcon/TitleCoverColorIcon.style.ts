@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface ImageColorIconProps extends React.HTMLAttributes<HTMLDivElement> {
-  hasCoverBg: boolean;
+  $hasCoverBg: boolean;
 }
 
 export const ImageColorIcon = styled.div<ImageColorIconProps>`
@@ -9,8 +9,8 @@ export const ImageColorIcon = styled.div<ImageColorIconProps>`
   height: 25px;
   background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);
   background-repeat: no-repeat;
-  background-position: ${({ hasCoverBg }) =>
-    hasCoverBg ? "-29px -40px" : "1px -40px"};
+  background-position: ${({ $hasCoverBg }) =>
+    $hasCoverBg ? "-29px -40px" : "1px -40px"};
   cursor: pointer;
   z-index: 1;
 

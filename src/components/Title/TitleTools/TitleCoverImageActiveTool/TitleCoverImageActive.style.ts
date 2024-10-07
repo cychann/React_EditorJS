@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 interface ExpandIconProps extends React.HTMLAttributes<HTMLDivElement> {
-  expanded?: boolean | null;
+  $expanded?: boolean | null;
 }
 
 export const IconWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 `;
 
 export const ExpandIcon = styled.div<ExpandIconProps>`
@@ -16,14 +16,14 @@ export const ExpandIcon = styled.div<ExpandIconProps>`
   height: 25px;
   background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);
   background-repeat: no-repeat;
-  background-position: ${({ expanded }) =>
-    expanded ? "-29px -166px" : "-29px -208px"};
+  background-position: ${({ $expanded }) =>
+    $expanded ? "-29px -166px" : "-29px -208px"};
   cursor: pointer;
   z-index: 1;
 
   &:hover {
-    background-position: ${({ expanded }) =>
-      expanded ? "-59px -166px" : "-59px -208px"};
+    background-position: ${({ $expanded }) =>
+      $expanded ? "-59px -166px" : "-59px -208px"};
   }
 `;
 
