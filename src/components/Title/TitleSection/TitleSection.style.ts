@@ -49,7 +49,7 @@ export const TitleSaveWrapper = styled.div``;
 
 export const TitleBottomWrapper = styled.div`
   width: 700px;
-  height: 370px;
+  height: calc(100% - 80px);
   margin: auto;
   position: relative;
 `;

@@ -10,6 +10,7 @@ export default function TitleCoverImageActiveTool() {
 
   const deleteTitleImage = () => {
     setTitleImage(null);
+    setImageExpanded(false);
   };
 
   const expandImage = () => {
