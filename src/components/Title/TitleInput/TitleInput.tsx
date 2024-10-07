@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import * as S from "./TitleInput.style";
 import ContentEditable from "components/Common/ContentEditable/ContentEditable";
-import useTitleImageStore from "store/useTitleImageStore";
+import useTitleStore from "store/useTitleStore";
 import { commonTheme } from "styles/Theme";
 
 export default function TitleInput() {
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
 
-  const titleImage = useTitleImageStore((state) => state.titleCoverImage);
-  const titleAlign = useTitleImageStore((state) => state.alignment);
+  const titleImage = useTitleStore((state) => state.titleCoverImage);
+  const titleAlign = useTitleStore((state) => state.alignment);
 
   return (
     <S.TitleInputWrapper align={titleAlign}>

@@ -12,7 +12,7 @@ interface StoreProps {
   setAlignment: (alignment: "left" | "center") => void;
 }
 
-const useTitleImageStore = create<StoreProps>((set) => ({
+const useTitleStore = create<StoreProps>((set) => ({
   titleCoverImage: null,
   titleCoverColor: null,
   isExpanded: false,
@@ -31,4 +31,4 @@ const useTitleImageStore = create<StoreProps>((set) => ({
   setAlignment: (alignment) => set({ alignment }),
 }));
 
-export default useTitleImageStore;
+export default useTitleStore;

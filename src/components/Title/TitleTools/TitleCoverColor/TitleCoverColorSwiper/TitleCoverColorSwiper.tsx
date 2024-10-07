@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
 import * as S from "./TitleCoverColorSwiper.style";
-import useTitleImageStore from "store/useTitleImageStore";
+import useTitleStore from "store/useTitleStore";
 import { titleCoverColors } from "styles/Theme";
 
 const TitleCoverColorSwiper = () => {
-  const currentColor = useTitleImageStore((state) => state.titleCoverColor);
-  const setTitleCoverColor = useTitleImageStore(
-    (state) => state.setTitleCoverColor
-  );
+  const currentColor = useTitleStore((state) => state.titleCoverColor);
+  const setTitleCoverColor = useTitleStore((state) => state.setTitleCoverColor);
 
   const colorKeys = Object.keys(titleCoverColors);
   const currentIndex = colorKeys.indexOf(
