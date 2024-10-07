@@ -16,6 +16,7 @@ export const COMMON_THEME = {
   white_primary: "#FAFAFA",
   gray_primary: "#ccc",
   light_gray: "#eee",
+  dark_gray: "#666",
   red: "#FF7C60",
   green: "#67CF56",
 };

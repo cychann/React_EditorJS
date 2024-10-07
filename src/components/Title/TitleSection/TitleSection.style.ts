@@ -45,7 +45,14 @@ export const TitleTopWrapper = styled.div`
 
 export const TitleMenuWrapper = styled.div``;
 
-export const TitleSaveWrapper = styled.div``;
+export const TitleSaveWrapper = styled.button`
+  border-radius: 15px;
+  width: 66px;
+  height: 30px;
+  border: 1px solid ${COMMON_THEME.gray_primary};
+  font-size: 12px;
+  color: ${COMMON_THEME.dark_gray};
+`;
 
 export const TitleBottomWrapper = styled.div`
   width: 700px;
