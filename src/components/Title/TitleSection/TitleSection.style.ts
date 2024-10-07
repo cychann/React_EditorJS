@@ -4,6 +4,7 @@ import { commonTheme } from "styles/Theme";
 interface TitleSectionWrapperProps
   extends React.HTMLAttributes<HTMLDivElement> {
   bgImage?: string | null;
+  bgColor?: string | null;
   expanded?: boolean | null;
 }
 
@@ -11,6 +12,7 @@ export const TitleSectionWrapper = styled.div<TitleSectionWrapperProps>`
   width: 100%;
   height: ${({ expanded }) => (expanded ? "100vh" : "450px")};
   border-bottom: 1px solid ${commonTheme.light_gray};
+  background-color: ${({ bgColor }) => bgColor || "trasnparent"};
   background-image: ${({ bgImage }) => (bgImage ? `url(${bgImage})` : "none")};
   background-size: cover;
   background-position: center;
