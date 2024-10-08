@@ -3,22 +3,16 @@ export const DEVICE = {
   laptop: `(max-width: 1024px)`,
 };
 
-export const FONT_WEIGHT = {
-  regular: 400,
-  medium: 500,
-  semiBold: 600,
-  bold: 700,
-  extraBold: 800,
-};
-
 export const COMMON_THEME = {
   black_primary: "#333333",
-  white_primary: "#FAFAFA",
+  white_primary: "#FFF",
+  off_white: "#FAFAFA",
   gray_primary: "#ccc",
   light_gray: "#eee",
   dark_gray: "#666",
   red: "#FF7C60",
   green: "#67CF56",
+  text_active: "#00b8b2",
 };
 
 type TitleCoverColors = {

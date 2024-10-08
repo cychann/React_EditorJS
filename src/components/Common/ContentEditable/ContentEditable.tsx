@@ -6,8 +6,10 @@ interface ContentEditableProps {
   placeholder?: string;
   maxLength?: number;
   fontSize?: number;
-  fontWeight?: "regular" | "normal" | "semibold" | "bold" | "extraBold";
+  fontWeight?: number;
+  fontFamily?: string;
   fontColor?: string;
+  lineHeight?: number;
   placeholderColor?: string;
   cursorColor?: string;
   onChange?: (text: string) => void;
@@ -17,6 +19,9 @@ export default function ContentEditable({
   placeholder = "",
   maxLength = 50,
   fontSize = 16,
+  fontWeight = 400,
+  fontFamily = "Noto Sans",
+  lineHeight = 19,
   onChange,
   fontColor = COMMON_THEME.black_primary,
   placeholderColor = COMMON_THEME.gray_primary,
@@ -36,8 +41,11 @@ export default function ContentEditable({
       contentEditable
       onInput={handleText}
       placeholder={placeholder}
+      $fontFamily={fontFamily}
       $fontSize={fontSize}
+      $fontWeight={fontWeight}
       $fontColor={fontColor}
+      $lineHeight={lineHeight}
       $placeholderColor={placeholderColor}
       $cursorColor={cursorColor}
     />

@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import React from "react";
-import { FONT_WEIGHT } from "styles/Theme";
 
 interface EditableDivProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder?: string;
+  $fontFamily?: string;
   $fontSize: number;
-  $fontWeight?: "regular" | "medium" | "semiBold" | "bold" | "extraBold";
+  $fontWeight?: number;
+  $lineHeight?: number;
   $placeholderColor?: string;
   $fontColor?: string;
   $cursorColor?: string;
@@ -13,9 +14,10 @@ interface EditableDivProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const EditableDiv = styled.div<EditableDivProps>`
   width: 100%;
+  font-family: ${({ $fontFamily }) => $fontFamily};
   font-size: ${({ $fontSize }) => $fontSize}px;
-  font-weight: ${({ $fontWeight }) =>
-    $fontWeight ? FONT_WEIGHT[$fontWeight] : FONT_WEIGHT.regular};
+  font-weight: ${({ $fontWeight }) => $fontWeight};
+  line-height: ${({ $lineHeight }) => $lineHeight}px;
   border: none;
   outline: none;
   cursor: text;

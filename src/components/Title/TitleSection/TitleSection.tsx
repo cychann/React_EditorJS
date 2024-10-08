@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./TitleSection.style";
 import TitleToolbar from "components/Title/TitleToolbar/TitleToolbar";
-import TitleInput from "components/Title/TitleInput/TitleInput";
+import TitleInputWrapper from "components/Title/TitleInput/TitleInputWrapper/TitleInputWrapper";
 import useTitleStore from "store/useTitleStore";
 import TitleCoverColorSwiper from "components/Title/TitleTools/TitleCoverColor/TitleCoverColorSwiper/TitleCoverColorSwiper";
 
@@ -22,7 +22,7 @@ export default function TitleSection() {
       </S.TitleTopWrapper>
       <S.TitleBottomWrapper>
         <TitleToolbar />
-        <TitleInput />
+        <TitleInputWrapper />
         {titleCoverColor && <TitleCoverColorSwiper />}
       </S.TitleBottomWrapper>
     </S.TitleSectionWrapper>
