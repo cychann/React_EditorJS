@@ -3,6 +3,7 @@ import React from "react";
 
 interface EditableDivProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder?: string;
+  $fontFamily?: string;
   $fontSize: number;
   $fontWeight?: number;
   $placeholderColor?: string;
@@ -12,6 +13,7 @@ interface EditableDivProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const EditableDiv = styled.div<EditableDivProps>`
   width: 100%;
+  font-family: ${({ $fontFamily }) => $fontFamily};
   font-size: ${({ $fontSize }) => $fontSize}px;
   font-weight: ${({ $fontWeight }) => $fontWeight};
   border: none;

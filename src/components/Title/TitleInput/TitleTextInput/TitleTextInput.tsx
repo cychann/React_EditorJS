@@ -3,10 +3,12 @@ import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import { COMMON_THEME } from "styles/Theme";
 import useTitleStore from "store/useTitleStore";
 import Tooltip from "components/Common/Tooltip/Tooltip";
+import FontTooltip from "components/TextTooltip/FontTooltip/FontTooltip";
 
 export default function TitleTextInput() {
   const setTitleText = useTitleStore((state) => state.setTitleText);
   const titleImage = useTitleStore((state) => state.titleCoverImage);
+  const titleFont = useTitleStore((state) => state.titleFont);
 
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
@@ -39,8 +41,6 @@ export default function TitleTextInput() {
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    console.log(tooltipRef?.current?.contains(e.target as Node), tooltipRef);
-
     if (tooltipRef?.current?.contains(e.target as Node)) {
       e.preventDefault();
 
@@ -66,6 +66,7 @@ export default function TitleTextInput() {
         placeholder="제목을 입력하세요"
         fontSize={45}
         fontWeight={400}
+        fontFamily={titleFont}
         onChange={setTitleText}
         fontColor={
           titleImage ? COMMON_THEME.white_primary : COMMON_THEME.black_primary
@@ -80,8 +81,7 @@ export default function TitleTextInput() {
         visible={isTooltipVisible}
         position={tooltipPosition}
       >
-        글꼴 설정
-        {/* <FontTooltip /> */}
+        <FontTooltip />
       </Tooltip>
     </div>
   );

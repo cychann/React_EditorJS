@@ -18,7 +18,6 @@ export const TooltipWrapper = styled.div<{
   $top: number;
 }>`
   position: absolute;
-  padding: 8px;
   border: 1px solid ${COMMON_THEME.gray_primary};
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
