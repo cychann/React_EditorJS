@@ -10,29 +10,29 @@ export const DropdownWrapper = styled.div`
 `;
 
 export const DropdownHeader = styled.div<{
-  isDropdownOpen: boolean;
+  $isDropdownOpen: boolean;
 }>`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  background-color: ${({ isDropdownOpen }) =>
-    isDropdownOpen
+  background-color: ${({ $isDropdownOpen }) =>
+    $isDropdownOpen
       ? `${COMMON_THEME.off_white}`
       : `${COMMON_THEME.white_primary}`};
 `;
 
 export const DropdownIcon = styled.span<{
-  isDropdownOpen: boolean;
+  $isDropdownOpen: boolean;
 }>`
   height: 5px;
   width: 7px;
 
   background-image: url("https://t1.daumcdn.net/brunch/static/img/help/pc/editor/ico_stylebar.v4.png");
   background-repeat: no-repeat;
-  transform: ${({ isDropdownOpen }) =>
-    isDropdownOpen ? "rotateX(180deg)" : "none"};
+  transform: ${({ $isDropdownOpen }) =>
+    $isDropdownOpen ? "rotateX(180deg)" : "none"};
 `;
 
 export const DropdownList = styled.div`

@@ -38,10 +38,10 @@ export default function FontTooltip() {
     <S.DropdownWrapper>
       <S.DropdownHeader
         onClick={() => setDropdownOpen(!isDropdownOpen)}
-        isDropdownOpen={isDropdownOpen}
+        $isDropdownOpen={isDropdownOpen}
       >
         {selectedFont}
-        <S.DropdownIcon isDropdownOpen={isDropdownOpen} />
+        <S.DropdownIcon $isDropdownOpen={isDropdownOpen} />
       </S.DropdownHeader>
       {isDropdownOpen && (
         <S.DropdownList>
