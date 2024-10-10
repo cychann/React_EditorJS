@@ -3,7 +3,7 @@ import * as S from "./NotificationBar.style";
 
 interface Props {
   children: React.ReactNode;
-  isVisible: boolean; // 알림 표시 여부
+  isVisible: boolean;
 }
 
 export default function NotificationBar({ children, isVisible }: Props) {

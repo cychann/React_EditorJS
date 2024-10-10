@@ -12,6 +12,7 @@ export default function SubtitleTextInput() {
     <ContentEditable
       placeholder="소제목을 입력하세요"
       maxLength={40}
+      exceedMessage="소제목은 40자 이상 입력할 수 없습니다."
       fontSize={16}
       fontWeight={300}
       onChange={setSubtitleText}

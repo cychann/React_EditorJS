@@ -69,6 +69,7 @@ export default function TitleTextInput() {
       <ContentEditable
         placeholder="제목을 입력하세요"
         maxLength={30}
+        exceedMessage="제목은 30자 이상 입력할 수 없습니다."
         fontSize={45}
         fontWeight={400}
         fontFamily={titleFont}
