@@ -5,12 +5,14 @@ import { COMMON_THEME } from "styles/Theme";
 import useTitleStore from "store/useTitleStore";
 import InlineTooltip from "components/Common/InlineTooltip/InlineTooltip";
 import FontFamilyTooltip from "components/TextTooltip/FontFamilyTooltip/FontFamilyTooltip";
+import FontColorTooltip from "components/TextTooltip/FontColorTooltip/FontColorTooltip";
 
 export default function TitleTextInput() {
   const setTitleText = useTitleStore((state) => state.setTitleText);
   const titleImage = useTitleStore((state) => state.titleCoverImage);
   const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
   const titleFont = useTitleStore((state) => state.titleFont);
+  const titleColor = useTitleStore((state) => state.titleColor);
 
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
@@ -72,7 +74,9 @@ export default function TitleTextInput() {
         lineHeight={53}
         onChange={setTitleText}
         fontColor={
-          titleImage || titleCoverColor
+          titleColor
+            ? titleColor
+            : titleImage || titleCoverColor
             ? COMMON_THEME.white_primary
             : COMMON_THEME.black_primary
         }
@@ -93,6 +97,7 @@ export default function TitleTextInput() {
         position={tooltipPosition}
       >
         <FontFamilyTooltip />
+        {!titleImage && !titleCoverColor && <FontColorTooltip />}
       </InlineTooltip>
     </S.TitleTextInputContainer>
   );

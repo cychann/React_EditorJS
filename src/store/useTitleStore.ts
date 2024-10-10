@@ -14,6 +14,7 @@ interface StoreProps {
     | "Nanum Barun Gothic"
     | "Helvetica"
     | "Georgia";
+  titleColor: string | null;
 
   setTitleText: (text: string) => void;
   setSubtitleText: (text: string) => void;
@@ -30,6 +31,7 @@ interface StoreProps {
       | "Helvetica"
       | "Georgia"
   ) => void;
+  setTitleColor: (color: string | null) => void;
 }
 
 const useTitleStore = create<StoreProps>((set) => ({
@@ -40,6 +42,7 @@ const useTitleStore = create<StoreProps>((set) => ({
   isExpanded: false,
   alignment: "left",
   titleFont: "Noto Sans",
+  titleColor: null,
   setTitleText: (text) =>
     set({
       titleText: text,
@@ -64,6 +67,7 @@ const useTitleStore = create<StoreProps>((set) => ({
     set({
       titleFont: font,
     }),
+  setTitleColor: (color) => set({ titleColor: color }),
 }));
 
 export default useTitleStore;

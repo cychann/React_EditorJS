@@ -31,3 +31,21 @@ export const TITLE_COVER_COLORS: TitleCoverColors = {
   brown: "rgb(169, 120, 87)",
   black: "rgb(85, 85, 85)",
 };
+
+export const TITLE_TEXT_COLORS = {
+  black: "#333333",
+  gray: "#959595",
+  steel_blue: "#536b82",
+  light_bluePurple: "#6c7ce0",
+  medium_bluePurple: "#5c5cb2",
+  dark_blueGray: "#384654",
+  bright_blue: "#2e84b6",
+  green: "#16b06d",
+  olive_green: "#769650",
+  teal: "#029d98",
+  orange: "#f37b06",
+  golden_brown: "#c4890d",
+  bright_orange: "#f6665b",
+  accent_red: "#ec4c6a",
+  brown: "#aa724c",
+};
