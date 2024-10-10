@@ -11,6 +11,7 @@ export default function SubtitleTextInput() {
   return (
     <ContentEditable
       placeholder="소제목을 입력하세요"
+      maxLength={40}
       fontSize={16}
       fontWeight={300}
       onChange={setSubtitleText}
