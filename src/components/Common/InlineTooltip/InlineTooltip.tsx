@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import * as S from "./Tooltip.style";
+import * as S from "./InlineTooltip.style";
 
 const Tooltip = forwardRef<
   HTMLDivElement,
