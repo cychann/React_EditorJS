@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as S from "./FontTooltip.style";
+import * as S from "./FontFamilyTooltip.style";
 import useTitleStore from "store/useTitleStore";
 
 type TitleFont =

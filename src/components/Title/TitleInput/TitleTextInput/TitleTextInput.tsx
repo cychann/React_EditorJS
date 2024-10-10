@@ -4,7 +4,7 @@ import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import { COMMON_THEME } from "styles/Theme";
 import useTitleStore from "store/useTitleStore";
 import InlineTooltip from "components/Common/InlineTooltip/InlineTooltip";
-import FontTooltip from "components/TextTooltip/FontTooltip/FontTooltip";
+import FontFamilyTooltip from "components/TextTooltip/FontFamilyTooltip/FontFamilyTooltip";
 
 export default function TitleTextInput() {
   const setTitleText = useTitleStore((state) => state.setTitleText);
@@ -92,7 +92,7 @@ export default function TitleTextInput() {
         visible={isTooltipVisible}
         position={tooltipPosition}
       >
-        <FontTooltip />
+        <FontFamilyTooltip />
       </InlineTooltip>
     </S.TitleTextInputContainer>
   );
