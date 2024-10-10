@@ -13,6 +13,7 @@ interface ContentEditableProps {
   placeholderColor?: string;
   cursorColor?: string;
   onChange?: (text: string) => void;
+  children?: React.ReactNode; // children prop 추가
 }
 
 export default function ContentEditable({
@@ -26,6 +27,7 @@ export default function ContentEditable({
   fontColor = COMMON_THEME.black_primary,
   placeholderColor = COMMON_THEME.gray_primary,
   cursorColor = COMMON_THEME.black_primary,
+  children,
 }: ContentEditableProps) {
   const handleText = (e: React.ChangeEvent<HTMLDivElement>) => {
     const inputText = e.target.innerText || "";
@@ -48,6 +50,9 @@ export default function ContentEditable({
       $lineHeight={lineHeight}
       $placeholderColor={placeholderColor}
       $cursorColor={cursorColor}
-    />
+      suppressContentEditableWarning
+    >
+      {children}
+    </S.EditableDiv>
   );
 }
