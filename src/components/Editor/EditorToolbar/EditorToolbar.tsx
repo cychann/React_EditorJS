@@ -9,9 +9,14 @@ interface Props {
 export default function EditorToolbar({ toolbarTop }: Props) {
   return (
     <FixedToolbar position={{ top: toolbarTop, right: 15 }}>
-      <p>Tool1</p>
-      <p>Tool2</p>
-      <p>Tool3</p>
+      <S.ImageIcon />
+      <S.GroupImageIcon />
+      <S.VideoIcon />
+      <S.LinkIcon />
+      <S.LocationIcon />
+      <S.EmojiIcon />
+      <S.LineIcon />
+      <S.AlignIcon />
     </FixedToolbar>
   );
 }
