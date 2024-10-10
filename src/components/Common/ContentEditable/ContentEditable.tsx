@@ -13,7 +13,7 @@ interface ContentEditableProps {
   placeholderColor?: string;
   cursorColor?: string;
   onChange?: (text: string) => void;
-  children?: React.ReactNode; // children prop 추가
+  children?: React.ReactNode;
 }
 
 export default function ContentEditable({
