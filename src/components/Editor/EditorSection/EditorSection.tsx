@@ -1,11 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "./EditorSection.style";
-import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import EditorToolbar from "../EditorToolbar/EditorToolbar";
+import EditorContent from "../EditorContent/EditorContent";
+import { EditorBlockType, EditorElement } from "types/Editor";
+
+const ELEMENTS: EditorElement[] = [{ id: 0, type: "text", data: "" }];
 
 export default function EditorSection() {
   const editorSectionRef = useRef<HTMLDivElement>(null);
   const [toolbarTop, setToolbarTop] = useState(487);
+
+  const [elements, setElements] = useState<EditorElement[]>(ELEMENTS);
+
+  const addElement = (type: EditorBlockType) => {
+    const newElement = { id: elements.length, type, data: "" };
+    setElements([...elements, newElement]);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,10 +40,8 @@ export default function EditorSection() {
   }, []);
   return (
     <S.EditorSectionContainer ref={editorSectionRef}>
-      <ContentEditable>
-        <p>일반 텍스트 컴포넌트</p>
-      </ContentEditable>
-      <EditorToolbar toolbarTop={toolbarTop} />
+      <EditorContent elements={elements} />
+      <EditorToolbar toolbarTop={toolbarTop} onAddElement={addElement} />
     </S.EditorSectionContainer>
   );
 }
