@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
   html,
   body,
   #root {
+    width: 100%;
     height: 100%;
   }
   
@@ -41,50 +42,7 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
-  ::-webkit-scrollbar {
-    width: 1rem;
-    height: 1rem;
-  }
 
-  ::-webkit-scrollbar-track {
-    -webkit-appearance: none;
-    &:hover {
-      border-radius: 1rem;
-    }
-  }
-
-  ::-webkit-scrollbar-thumb {
-    min-height: 5rem;
-    border-radius: 1rem;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  
-  &::-webkit-scrollbar-button:vertical:start {
-    display: block;
-    height: 0.3rem;
-  }
-
-  &::-webkit-scrollbar-button:vertical:end {
-    display: block;
-    height: 0.3rem;
-  }
-
-  &::-webkit-scrollbar-button:horizontal:start {
-    display: block;
-    width: 0.2rem;
-  }
-
-  &::-webkit-scrollbar-button:horizontal:end {
-    display: block;
-    width: 0.2rem;
-  }
-
-  textarea::-webkit-scrollbar {
-    width: 1em;
-    max-height: 2rem;
-}
 
 /* 본고딕 */
   @font-face {
