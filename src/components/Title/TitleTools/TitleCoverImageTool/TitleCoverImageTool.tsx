@@ -7,12 +7,14 @@ export default function TitleCoverImageTool() {
   const titleCoverImage = useTitleStore((state) => state.titleCoverImage);
   const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
   const setTitleImage = useTitleStore((state) => state.setTitleCoverImage);
+  const setTitleColor = useTitleStore((state) => state.setTitleColor);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setTitleImage(imageUrl);
+      setTitleColor(null);
     }
   };
 

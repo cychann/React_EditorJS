@@ -17,7 +17,13 @@ export const TooltipWrapper = styled.div<{
   $left: number;
   $top: number;
 }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   position: absolute;
+  left: ${({ $left }) => $left}px;
+  top: ${({ $top }) => $top}px;
   border: 1px solid ${COMMON_THEME.gray_primary};
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
@@ -26,9 +32,15 @@ export const TooltipWrapper = styled.div<{
   transition: visibility 0.1s ease-in-out;
   background-color: ${COMMON_THEME.white_primary};
   z-index: 10;
-  left: ${({ $left }) => $left}px;
-  top: ${({ $top }) => $top}px;
 
   animation: ${({ $visible }) => ($visible ? slideDown : "")} 0.2s ease-in-out
     forwards;
+
+  & > * {
+    border-right: 1px solid ${COMMON_THEME.gray_primary};
+  }
+
+  & > *:last-child {
+    border-right: none;
+  }
 `;
