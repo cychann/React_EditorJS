@@ -20,8 +20,8 @@ export default function TitleSection() {
         <S.TitleMenuWrapper>메뉴바</S.TitleMenuWrapper>
         <S.TitleSaveWrapper>저장</S.TitleSaveWrapper>
       </S.TitleTopWrapper>
+      <TitleToolbar />
       <S.TitleBottomWrapper>
-        <TitleToolbar />
         <TitleInputWrapper />
         {titleCoverColor && <TitleCoverColorSwiper />}
       </S.TitleBottomWrapper>

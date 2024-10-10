@@ -7,5 +7,6 @@ export const TitleToolbarWrapper = styled.div`
   gap: 16px;
   position: absolute;
   top: 10px;
-  right: -15%;
+  right: 15%;
+  margin-top: 80px;
 `;

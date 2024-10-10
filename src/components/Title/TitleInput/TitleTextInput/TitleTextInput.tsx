@@ -3,7 +3,7 @@ import * as S from "./TitleTextInput.style";
 import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import { COMMON_THEME } from "styles/Theme";
 import useTitleStore from "store/useTitleStore";
-import Tooltip from "components/Common/Tooltip/Tooltip";
+import InlineTooltip from "components/Common/InlineTooltip/InlineTooltip";
 import FontTooltip from "components/TextTooltip/FontTooltip/FontTooltip";
 
 export default function TitleTextInput() {
@@ -87,13 +87,13 @@ export default function TitleTextInput() {
             : COMMON_THEME.black_primary
         }
       />
-      <Tooltip
+      <InlineTooltip
         ref={tooltipRef}
         visible={isTooltipVisible}
         position={tooltipPosition}
       >
         <FontTooltip />
-      </Tooltip>
+      </InlineTooltip>
     </S.TitleTextInputContainer>
   );
 }
