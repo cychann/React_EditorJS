@@ -1,47 +1,44 @@
-import { useState } from "react";
-
-export const useTextFormatting = () => {
-  const [selectionRange, setSelectionRange] = useState<Range | null>(null);
-
-  // 선택한 텍스트의 Range 저장
-  const saveSelection = () => {
+export const textFormatting = () => {
+  const saveSelection = (): Range | null => {
     const selection = window.getSelection();
-    if (selection && selection.toString().length > 0) {
-      setSelectionRange(selection.getRangeAt(0));
-    }
+    return selection && selection.toString().length > 0
+      ? selection.getRangeAt(0)
+      : null;
   };
 
   // 특정 태그로 감싸기
   const applyTag = (tag: string) => {
-    console.log("tag", tag);
-    console.log("selectionRange", selectionRange);
+    const selectionRange = saveSelection();
+
     if (selectionRange) {
-      const selectedText = selectionRange.toString();
+      const selectedText = selectionRange.extractContents();
+      const parentElement =
+        selectionRange.commonAncestorContainer.parentElement;
       const newNode = document.createElement(tag);
-      newNode.textContent = selectedText;
-      selectionRange.deleteContents();
+      newNode.appendChild(selectedText);
+
       selectionRange.insertNode(newNode);
     }
   };
 
   // 스타일 적용 (예: 색상)
   const applyStyle = (tag: string, style: Record<string, string>) => {
+    const selectionRange = saveSelection();
+
     if (selectionRange) {
       const selectedText = selectionRange.toString();
       const newNode = document.createElement(tag);
-
       Object.entries(style).forEach(([key, value]) => {
         newNode.style[key as any] = value;
       });
-
       newNode.textContent = selectedText;
       selectionRange.deleteContents();
       selectionRange.insertNode(newNode);
     }
   };
 
-  // 특정 포맷이 적용되었는지 체크
   const isFormatted = (tag: string) => {
+    const selectionRange = saveSelection();
     if (selectionRange) {
       const parentElement =
         selectionRange.commonAncestorContainer.parentElement;
@@ -53,5 +50,5 @@ export const useTextFormatting = () => {
     return false;
   };
 
-  return { selectionRange, saveSelection, applyTag, applyStyle, isFormatted };
+  return { saveSelection, applyTag, applyStyle, isFormatted };
 };
