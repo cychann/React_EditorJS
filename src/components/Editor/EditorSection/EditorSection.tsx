@@ -2,20 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import * as S from "./EditorSection.style";
 import EditorToolbar from "../EditorToolbar/EditorToolbar";
 import EditorContent from "../EditorContent/EditorContent";
-import { EditorBlockType, EditorElement } from "types/Editor";
+import { EditorElement } from "types/Editor";
 
 const ELEMENTS: EditorElement[] = [{ id: 0, type: "text", data: "" }];
 
 export default function EditorSection() {
   const editorSectionRef = useRef<HTMLDivElement>(null);
   const [toolbarTop, setToolbarTop] = useState(487);
-
-  const [elements, setElements] = useState<EditorElement[]>(ELEMENTS);
-
-  const addElement = (type: EditorBlockType) => {
-    const newElement = { id: elements.length, type, data: "" };
-    setElements([...elements, newElement]);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,8 +33,8 @@ export default function EditorSection() {
   }, []);
   return (
     <S.EditorSectionContainer ref={editorSectionRef}>
-      <EditorContent elements={elements} />
-      <EditorToolbar toolbarTop={toolbarTop} onAddElement={addElement} />
+      <EditorContent />
+      <EditorToolbar toolbarTop={toolbarTop} />
     </S.EditorSectionContainer>
   );
 }

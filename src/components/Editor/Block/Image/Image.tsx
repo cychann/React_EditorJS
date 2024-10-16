@@ -1,5 +1,6 @@
 import React from "react";
+import * as S from "./Image.style";
 
 export default function Image() {
-  return <div>이미지!</div>;
+  return <S.ImageContainer>이미지!</S.ImageContainer>;
 }
