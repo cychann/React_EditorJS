@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import * as S from "./ContentEditable.style";
 import { COMMON_THEME } from "styles/Theme";
 import NotificationBar from "../NotificationBar/NotificationBar";
@@ -21,8 +21,8 @@ interface ContentEditableProps {
 
 export default function ContentEditable({
   placeholder = "",
-  maxLength = 500,
-  exceedMessage = "500자 이상 입력할 수 없습니다.",
+  maxLength = 2000,
+  exceedMessage = "2000자 이상 입력할 수 없습니다.",
   fontSize = 16,
   fontWeight = 400,
   fontFamily = "Noto Sans",
