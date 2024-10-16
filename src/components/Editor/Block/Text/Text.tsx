@@ -2,13 +2,14 @@ import React, { useRef, useState } from "react";
 import * as S from "./Text.style";
 import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import InlineTooltip from "components/Common/InlineTooltip/InlineTooltip";
-import { useTextFormatting } from "hooks/useTextFormatting";
-import BoldButton from "./Tooltip/BoldButton/BoldButton";
+import BoldButton from "components/Editor/Block/Text/Tooltip/BoldButton/BoldButton";
+import CancelLineButton from "components/Editor/Block/Text/Tooltip/CancelLineButton/CancelLineButton";
+import UnderLineButton from "components/Editor/Block/Text/Tooltip/UnderLineButton/UnderLineButton";
 
 export default function Text() {
-  const { saveSelection, applyTag } = useTextFormatting(); // 커스텀 훅 사용
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+  const [formattedTags, setFormattedTags] = useState<string[]>([]);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -26,13 +27,31 @@ export default function Text() {
       const mouseY = e.clientY;
 
       if (selection && selection.toString().length > 0) {
-        // 커스텀 훅에서 텍스트의 Range 저장
-        saveSelection();
-
         setTooltipPosition({
           left: mouseX - wrapperRect.left - 60,
           top: mouseY - wrapperRect.top + 20,
         });
+
+        const selectionRange = selection.getRangeAt(0);
+        if (selectionRange) {
+          let currentElement =
+            selectionRange.commonAncestorContainer.parentElement;
+
+          const tags: string[] = [];
+
+          while (currentElement) {
+            const tagName = currentElement.tagName.toLowerCase();
+
+            if (currentElement.getAttribute("contenteditable") === "true") {
+              break;
+            }
+
+            tags.push(tagName);
+            currentElement = currentElement.parentElement;
+          }
+
+          setFormattedTags(tags);
+        }
 
         setTooltipVisible(true);
       } else {
@@ -54,6 +73,10 @@ export default function Text() {
     setTooltipVisible(false);
   };
 
+  const checkFormattedTag = (tag: string) => {
+    return formattedTags.includes(tag);
+  };
+
   return (
     <S.TextContainer
       ref={wrapperRef}
@@ -67,9 +90,9 @@ export default function Text() {
         visible={tooltipVisible}
         position={tooltipPosition}
       >
-        <button onClick={() => applyTag("b")}>Bold</button>
-        <button onClick={() => applyTag("u")}>Underline</button>
-        <button onClick={() => applyTag("s")}>CancelLine</button>
+        <BoldButton isBold={checkFormattedTag("b")} />
+        <UnderLineButton isUnderLine={checkFormattedTag("u")} />
+        <CancelLineButton isCancleLine={checkFormattedTag("s")} />
       </InlineTooltip>
     </S.TextContainer>
   );

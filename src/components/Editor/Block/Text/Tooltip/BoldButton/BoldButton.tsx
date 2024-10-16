@@ -1,21 +1,23 @@
-import React from "react";
-import { useTextFormatting } from "hooks/useTextFormatting";
+import React, { useEffect } from "react";
+import * as S from "./BoldButton.style";
+import { textFormatting } from "utils/textFormatting";
 
-const BoldButton: React.FC<{ saveSelection: () => void }> = ({
-  saveSelection,
-}) => {
-  const { applyTag, isFormatted } = useTextFormatting();
-  const isBold = isFormatted("b");
+interface Props {
+  isBold: boolean;
+}
+
+const BoldButton = ({ isBold }: Props) => {
+  const { applyTag, saveSelection } = textFormatting();
 
   const handleClick = () => {
-    saveSelection(); // 선택된 텍스트 범위를 저장
-    applyTag("b"); // 볼드 적용
+    saveSelection();
+    applyTag("b");
   };
 
   return (
-    <button onClick={handleClick} style={{ color: isBold ? "red" : "black" }}>
-      Bold
-    </button>
+    <S.BoldButtonContainer onClick={handleClick} $isBold={isBold}>
+      <S.BoldButton $isBold={isBold} />
+    </S.BoldButtonContainer>
   );
 };
 

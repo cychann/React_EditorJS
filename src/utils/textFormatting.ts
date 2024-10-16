@@ -37,16 +37,32 @@ export const textFormatting = () => {
     }
   };
 
-  const isFormatted = (tag: string) => {
+  const isFormatted = (tag: string): boolean => {
     const selectionRange = saveSelection();
+    console.log(selectionRange);
     if (selectionRange) {
-      const parentElement =
-        selectionRange.commonAncestorContainer.parentElement;
-      return (
-        parentElement &&
-        parentElement.tagName.toLowerCase() === tag.toLowerCase()
-      );
+      const selectedText = selectionRange.toString();
+      console.log("Selected Text:", selectedText); // 선택된 텍스트 출력
+      let currentElement = selectionRange.commonAncestorContainer.parentElement;
+
+      const tags: string[] = [];
+
+      while (currentElement) {
+        const tagName = currentElement.tagName.toLowerCase();
+        console.log("currentElement", currentElement);
+
+        if (currentElement.getAttribute("contenteditable") === "true") {
+          break;
+        }
+
+        tags.push(tagName);
+        currentElement = currentElement.parentElement;
+      }
+      console.log(tags);
+
+      return tags.includes(tag);
     }
+
     return false;
   };
 
