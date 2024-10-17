@@ -11,8 +11,9 @@ import Emoji from "../Block/Emoji/Emoji";
 import Line from "../Block/Line/Line";
 import Align from "../Block/Align/Align";
 import { EditorBlockType, EditorElement } from "types/Editor";
+import useEditorStore from "store/useEditorStore";
 
-const elementComponents: Record<EditorBlockType, React.FC> = {
+const elementComponents: Record<EditorBlockType, React.FC<{ data: string }>> = {
   text: Text,
   image: Image,
   groupImage: GroupImage,
@@ -24,17 +25,16 @@ const elementComponents: Record<EditorBlockType, React.FC> = {
   align: Align,
 };
 
-interface EditorContentProps {
-  elements: EditorElement[];
-}
-
-export default function EditorContent({ elements }: EditorContentProps) {
+export default function EditorContent() {
+  const { blokcs } = useEditorStore();
   return (
     <S.EditorContentContainer>
       <ContentEditable>
-        {elements.map((element) => {
+        {blokcs.map((element) => {
           const Component = elementComponents[element.type];
-          return Component ? <Component key={element.id} /> : null;
+          return Component ? (
+            <Component key={element.id} data={element.data} />
+          ) : null;
         })}
       </ContentEditable>
     </S.EditorContentContainer>
