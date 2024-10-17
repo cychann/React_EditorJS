@@ -10,7 +10,7 @@ import Place from "../Block/Place/Place";
 import Emoji from "../Block/Emoji/Emoji";
 import Line from "../Block/Line/Line";
 import Align from "../Block/Align/Align";
-import { EditorBlockType, EditorElement } from "types/Editor";
+import { EditorBlockType } from "types/Editor";
 import useEditorStore from "store/useEditorStore";
 
 const elementComponents: Record<EditorBlockType, React.FC<{ data: string }>> = {

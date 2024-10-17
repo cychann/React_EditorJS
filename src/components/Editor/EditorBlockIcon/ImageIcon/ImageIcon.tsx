@@ -9,13 +9,9 @@ const ImageIcon = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const imageUrl = reader.result as string;
-        addBlock("image", imageUrl);
-        addBlock("text");
-      };
-      reader.readAsDataURL(file);
+      const videoUrl = URL.createObjectURL(file);
+      addBlock("video", videoUrl);
+      addBlock("text");
     }
   };
 
