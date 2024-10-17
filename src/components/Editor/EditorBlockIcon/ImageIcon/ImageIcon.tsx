@@ -9,8 +9,8 @@ const ImageIcon = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const videoUrl = URL.createObjectURL(file);
-      addBlock("video", videoUrl);
+      const imageUrl = URL.createObjectURL(file);
+      addBlock("image", { url: imageUrl });
       addBlock("text");
     }
   };

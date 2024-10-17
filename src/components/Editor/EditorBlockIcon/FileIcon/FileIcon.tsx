@@ -1,21 +1,21 @@
 import React, { useRef } from "react";
-import * as S from "./VideoIcon.style";
+import * as S from "./FileIcon.style";
 import useEditorStore from "store/useEditorStore";
 
-export default function VideoIcon() {
+export default function FileIcon() {
   const { addBlock } = useEditorStore();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const videoUrl = reader.result as string;
-        addBlock("video", { url: videoUrl });
-        addBlock("text");
+      const fileInfo = {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        // 필요에 따라 다른 파일 속성 추가
       };
-      reader.readAsDataURL(file);
+      addBlock("file", fileInfo); // 파일 정보를 addBlock에 전달
     }
   };
 
@@ -26,15 +26,14 @@ export default function VideoIcon() {
   };
 
   return (
-    <S.VideoIconWrapper>
-      <S.VideoIcon onClick={handleIconClick} />
-      <S.VideoFileInput
+    <>
+      <S.FileIcon onClick={handleIconClick} />
+      <input
         type="file"
-        accept="video/*" // 비디오 파일만 허용
         ref={fileInputRef}
         onChange={handleFileChange}
-        style={{ display: "none" }}
+        style={{ display: "none" }} // 파일 입력 숨김
       />
-    </S.VideoIconWrapper>
+    </>
   );
 }
