@@ -12,3 +12,7 @@ export const FileIcon = styled.div`
     background-position: -29px -124px;
   }
 `;
+
+export const FileInput = styled.input`
+  display: none;
+`;

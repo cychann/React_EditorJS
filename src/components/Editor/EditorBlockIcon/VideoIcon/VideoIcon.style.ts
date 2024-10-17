@@ -17,4 +17,5 @@ export const VideoIcon = styled.div`
 
 export const VideoFileInput = styled.input`
   display: none;
+  pointer-events: none;
 `;
