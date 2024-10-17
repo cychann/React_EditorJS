@@ -2,9 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import * as S from "./EditorSection.style";
 import EditorToolbar from "../EditorToolbar/EditorToolbar";
 import EditorContent from "../EditorContent/EditorContent";
-import { EditorElement } from "types/Editor";
-
-const ELEMENTS: EditorElement[] = [{ id: 0, type: "text", data: "" }];
 
 export default function EditorSection() {
   const editorSectionRef = useRef<HTMLDivElement>(null);

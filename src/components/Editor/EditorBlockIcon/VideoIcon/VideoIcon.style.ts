@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+export const VideoIconWrapper = styled.div``;
+
 export const VideoIcon = styled.div`
   width: 25px;
   height: 25px;
@@ -11,4 +13,8 @@ export const VideoIcon = styled.div`
   &:hover {
     background-position: -29px -83px;
   }
+`;
+
+export const VideoFileInput = styled.input`
+  display: none;
 `;
