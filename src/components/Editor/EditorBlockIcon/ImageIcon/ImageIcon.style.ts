@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+export const ImageIconWrapper = styled.div``;
+
 export const ImageIcon = styled.div`
   width: 25px;
   height: 25px;
@@ -11,4 +13,8 @@ export const ImageIcon = styled.div`
   &:hover {
     background-position: -29px 2px;
   }
+`;
+
+export const ImageFileInput = styled.input`
+  display: none;
 `;
