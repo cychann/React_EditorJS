@@ -12,7 +12,7 @@ export default function VideoIcon() {
       const reader = new FileReader();
       reader.onloadend = () => {
         const videoUrl = reader.result as string;
-        addBlock("video", videoUrl);
+        addBlock("video", { url: videoUrl });
         addBlock("text");
       };
       reader.readAsDataURL(file);
@@ -30,7 +30,7 @@ export default function VideoIcon() {
       <S.VideoIcon onClick={handleIconClick} />
       <S.VideoFileInput
         type="file"
-        accept="video/*" // 비디오 파일만 허용
+        accept="video/*"
         ref={fileInputRef}
         onChange={handleFileChange}
         style={{ display: "none" }}

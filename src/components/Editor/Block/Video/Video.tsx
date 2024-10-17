@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "./Video.style";
 
+type VideoData = {
+  url: string;
+};
+
 interface Props {
-  data: string;
+  data: VideoData;
 }
 
 export default function Video({ data }: Props) {
@@ -35,7 +39,7 @@ export default function Video({ data }: Props) {
     <S.VideoContainer ref={videoRef}>
       <S.VideoSrc
         controls
-        src={data}
+        src={data.url}
         onClick={handleVideoClick}
         $clicked={isVideoClicked}
       />

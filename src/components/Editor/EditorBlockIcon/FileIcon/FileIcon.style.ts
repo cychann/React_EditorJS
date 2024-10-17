@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LinkIcon = styled.div`
+export const FileIcon = styled.div`
   width: 25px;
   height: 25px;
   background-position: 1px -124px;
@@ -11,4 +11,8 @@ export const LinkIcon = styled.div`
   &:hover {
     background-position: -29px -124px;
   }
+`;
+
+export const FileInput = styled.input`
+  display: none;
 `;

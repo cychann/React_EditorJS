@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "./Image.style";
 
+type ImageData = {
+  url: string;
+};
+
 interface Props {
-  data: string;
+  data: ImageData;
 }
 
 export default function Image({ data }: Props) {
@@ -19,17 +23,14 @@ export default function Image({ data }: Props) {
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-    // 클릭한 요소가 imageRef에 해당되지 않는 경우
     if (imageRef.current && !imageRef.current.contains(event.target as Node)) {
       setImageClicked(false);
     }
   };
 
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 이벤트 리스너 추가
     document.addEventListener("mousedown", handleClickOutside);
 
-    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -38,7 +39,7 @@ export default function Image({ data }: Props) {
   return (
     <S.ImageContainer ref={imageRef}>
       <S.ImageSrc
-        src={data}
+        src={data.url}
         onClick={handleImageClick}
         alt="User uploaded"
         $clicked={isImageClicked}

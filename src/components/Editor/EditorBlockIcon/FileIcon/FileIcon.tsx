@@ -1,16 +1,21 @@
 import React, { useRef } from "react";
-import * as S from "./ImageIcon.style";
+import * as S from "./FileIcon.style";
 import useEditorStore from "store/useEditorStore";
 
-const ImageIcon = () => {
+export default function FileIcon() {
   const { addBlock } = useEditorStore();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      addBlock("image", { url: imageUrl });
+      const fileInfo = {
+        url: URL.createObjectURL(file),
+        name: file.name,
+        type: file.type,
+        size: file.size,
+      };
+      addBlock("file", fileInfo);
       addBlock("text");
     }
   };
@@ -22,17 +27,9 @@ const ImageIcon = () => {
   };
 
   return (
-    <S.ImageIconWrapper>
-      <S.ImageIcon onClick={handleIconClick} />
-      <S.ImageFileInput
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        style={{ display: "none" }}
-      />
-    </S.ImageIconWrapper>
+    <>
+      <S.FileIcon onClick={handleIconClick} />
+      <S.FileInput type="file" ref={fileInputRef} onChange={handleFileChange} />
+    </>
   );
-};
-
-export default ImageIcon;
+}

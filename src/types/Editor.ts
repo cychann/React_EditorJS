@@ -3,7 +3,7 @@ export type EditorBlockType =
   | "image"
   | "groupImage"
   | "video"
-  | "link"
+  | "file"
   | "place"
   | "emoji"
   | "line"
@@ -12,5 +12,5 @@ export type EditorBlockType =
 export type EditorElement = {
   id: number;
   type: EditorBlockType;
-  data: string;
+  data: object;
 };
