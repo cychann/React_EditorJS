@@ -8,22 +8,36 @@ import LocationIcon from "../EditorBlockIcon/LocationIcon/LocationIcon";
 import EmojiIcon from "../EditorBlockIcon/EmojiIcon/EmojiIcon";
 import LineIcon from "../EditorBlockIcon/LineIcon/LineIcon";
 import AlignIcon from "../EditorBlockIcon/AlignIcon/AlignIcon";
+import useEditorStore from "store/useEditorStore";
+import EditorToolModal from "../EditorToolModal/EditorToolModal";
+import PlaceModal from "../EditorToolModal/PlaceModal/PlaceModal";
 
 interface Props {
   toolbarTop: number;
 }
 
 export default function EditorToolbar({ toolbarTop }: Props) {
+  const { isModalOpen, activeModal } = useEditorStore();
+
   return (
-    <FixedToolbar position={{ top: toolbarTop, right: 15 }}>
-      <ImageIcon />
-      <GroupImageIcon />
-      <VideoIcon />
-      <FileIcon />
-      <LocationIcon />
-      <EmojiIcon />
-      <LineIcon />
-      <AlignIcon />
-    </FixedToolbar>
+    <>
+      {isModalOpen && (
+        <EditorToolModal top={toolbarTop}>
+          {activeModal === "place" && <PlaceModal />}
+          {activeModal === "emoji" && <div>이모지 모달</div>}
+          {activeModal === "line" && <div>구분선 모달</div>}
+        </EditorToolModal>
+      )}
+      <FixedToolbar position={{ top: toolbarTop, right: 15 }}>
+        <ImageIcon />
+        <GroupImageIcon />
+        <VideoIcon />
+        <FileIcon />
+        <LocationIcon />
+        <EmojiIcon />
+        <LineIcon />
+        <AlignIcon />
+      </FixedToolbar>
+    </>
   );
 }
