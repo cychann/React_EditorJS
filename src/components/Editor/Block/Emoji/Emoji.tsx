@@ -1,5 +1,18 @@
 import React from "react";
+import * as S from "./Emoji.style";
 
-export default function Emoji() {
-  return <div>Emoji!</div>;
+type EmojiType = {
+  emoji: string;
+};
+
+interface Props {
+  data: EmojiType;
+}
+
+export default function Emoji({ data }: Props) {
+  return (
+    <S.EmojiContainer>
+      <S.Emoji contentEditable={false}>{data.emoji}</S.Emoji>
+    </S.EmojiContainer>
+  );
 }

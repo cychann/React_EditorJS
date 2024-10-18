@@ -3,13 +3,6 @@ import * as S from "./PlaceModal.style";
 import useEditorStore from "store/useEditorStore";
 import { fetchPlaceData } from "utils/fetchPlaceData";
 
-type AddressData = {
-  id: string;
-  place_name: string;
-  road_address_name: string;
-  place_url: string;
-};
-
 export default function PlaceModal() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [results, setResults] = useState<
@@ -46,6 +39,7 @@ export default function PlaceModal() {
     url: string;
   }) => {
     addBlock("place", item);
+    addBlock("text");
     toggleModal();
   };
 
