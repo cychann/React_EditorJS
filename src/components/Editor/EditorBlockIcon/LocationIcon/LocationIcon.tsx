@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./LocationIcon.style";
 import useEditorStore from "store/useEditorStore";
 
 export default function LocationIcon() {
-  const { addBlock } = useEditorStore();
+  const { toggleModal, setActiveModal } = useEditorStore();
 
-  return <S.LocationIcon onClick={() => addBlock("place")} />;
+  const handleIconClick = () => {
+    setActiveModal("place");
+    toggleModal();
+  };
+
+  return <S.LocationIcon onClick={handleIconClick} />;
 }

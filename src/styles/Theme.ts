@@ -4,15 +4,18 @@ export const DEVICE = {
 };
 
 export const COMMON_THEME = {
+  primary: "#00c6be",
   black_primary: "#333333",
   white_primary: "#FFF",
   off_white: "#FAFAFA",
   gray_primary: "#ccc",
   light_gray: "#eee",
+  medium_gray: "#909090",
   dark_gray: "#666",
   red: "#FF7C60",
   green: "#67CF56",
   text_active: "#00b8b2",
+  modal_border_color: "#d9d9d9",
 };
 
 type TitleCoverColors = {
