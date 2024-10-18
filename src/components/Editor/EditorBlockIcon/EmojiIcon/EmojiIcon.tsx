@@ -3,7 +3,11 @@ import * as S from "./EmojiIcon.style";
 import useEditorStore from "store/useEditorStore";
 
 export default function EmojiIcon() {
-  const { addBlock } = useEditorStore();
+  const { toggleModal, setActiveModal } = useEditorStore();
 
-  return <S.EmojiIcon onClick={() => addBlock("emoji")} />;
+  const handleIconClick = () => {
+    setActiveModal("emoji");
+    toggleModal();
+  };
+  return <S.EmojiIcon onClick={handleIconClick} />;
 }

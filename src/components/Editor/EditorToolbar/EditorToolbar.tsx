@@ -11,6 +11,7 @@ import AlignIcon from "../EditorBlockIcon/AlignIcon/AlignIcon";
 import useEditorStore from "store/useEditorStore";
 import EditorToolModal from "../EditorToolModal/EditorToolModal";
 import PlaceModal from "../EditorToolModal/PlaceModal/PlaceModal";
+import EmojiModal from "../EditorToolModal/EmojiModal/EmojiModal";
 
 interface Props {
   toolbarTop: number;
@@ -24,7 +25,7 @@ export default function EditorToolbar({ toolbarTop }: Props) {
       {isModalOpen && (
         <EditorToolModal top={toolbarTop}>
           {activeModal === "place" && <PlaceModal />}
-          {activeModal === "emoji" && <div>이모지 모달</div>}
+          {activeModal === "emoji" && <EmojiModal />}
           {activeModal === "line" && <div>구분선 모달</div>}
         </EditorToolModal>
       )}

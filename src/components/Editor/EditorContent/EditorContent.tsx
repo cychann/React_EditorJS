@@ -29,14 +29,12 @@ export default function EditorContent() {
   const { blokcs } = useEditorStore();
   return (
     <S.EditorContentContainer>
-      <ContentEditable>
-        {blokcs.map((block) => {
-          const Component = elementComponents[block.type];
-          return Component ? (
-            <Component key={block.id} data={block.data} />
-          ) : null;
-        })}
-      </ContentEditable>
+      {blokcs.map((block) => {
+        const Component = elementComponents[block.type];
+        return Component ? (
+          <Component key={block.id} data={block.data} />
+        ) : null;
+      })}
     </S.EditorContentContainer>
   );
 }
