@@ -16,12 +16,7 @@ export default function Place({ data }: Props) {
     window.open(data.url, "_blank");
   };
   return (
-    <S.PlaceWrapper
-      onClick={handlePlaceClick}
-      onMouseDown={(e) => {
-        e.preventDefault();
-      }}
-    >
+    <S.PlaceWrapper onClick={handlePlaceClick}>
       <S.PlaceWrapperIcon />
       <S.PlaceTextWrapper>
         <S.PlaceName>{data.name}</S.PlaceName>

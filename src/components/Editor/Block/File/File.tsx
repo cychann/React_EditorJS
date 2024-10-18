@@ -18,12 +18,7 @@ export default function File({ data }: Props) {
   };
 
   return (
-    <S.FileWrapper
-      onClick={handleFileClick}
-      onMouseDown={(e) => {
-        e.preventDefault();
-      }}
-    >
+    <S.FileWrapper onClick={handleFileClick}>
       <S.FileWrapperIcon />
       <S.FileName>{data.name}</S.FileName>
     </S.FileWrapper>
