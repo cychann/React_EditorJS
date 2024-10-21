@@ -1,6 +1,6 @@
-// store/editorStore.ts
 import { create } from "zustand";
 import { EditorBlockType, EditorElement } from "types/Editor";
+import { v4 as uuidv4 } from "uuid";
 
 interface StoreProps {
   blokcs: EditorElement[];
@@ -9,14 +9,14 @@ interface StoreProps {
   align: "left" | "center";
 
   addBlock: (type: EditorBlockType, data?: object) => void;
-  updateBlockData: (id: number, newData: object) => void;
+  updateBlockData: (id: string, newData: object) => void;
   toggleModal: () => void;
   setActiveModal: (modalType: "place" | "emoji" | "line" | null) => void;
   toggleAlign: () => void;
 }
 
 const useEditorStore = create<StoreProps>((set) => ({
-  blokcs: [{ id: 0, type: "text", data: {} }],
+  blokcs: [{ id: uuidv4(), type: "text", data: {} }],
   isModalOpen: false,
   activeModal: null,
   align: "left",
@@ -33,21 +33,17 @@ const useEditorStore = create<StoreProps>((set) => ({
         return {
           blokcs: [
             ...state.blokcs.slice(0, -1),
-            { id: lastBlock.id + 1, type, data: data || {} },
+            { id: uuidv4(), type, data: data || {} },
           ],
         };
       }
 
       return {
-        blokcs: [
-          ...state.blokcs,
-          { id: state.blokcs.length, type, data: data || {} },
-        ],
+        blokcs: [...state.blokcs, { id: uuidv4(), type, data: data || {} }],
       };
     });
   },
   updateBlockData: (id, newData) => {
-    console.log(id, newData);
     set((state) => ({
       blokcs: state.blokcs.map((block) =>
         block.id === id

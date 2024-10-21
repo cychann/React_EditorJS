@@ -9,7 +9,7 @@ import useEditorStore from "store/useEditorStore";
 
 interface Props {
   data: object;
-  id: number;
+  id: string;
 }
 
 export default function Text({ data, id }: Props) {
