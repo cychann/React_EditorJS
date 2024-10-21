@@ -1,5 +1,15 @@
 import React from "react";
+import * as S from "./Line.style";
 
-export default function Line() {
-  return <div>Line</div>;
+type lineData = {
+  url: string;
+  imagePosition: string;
+};
+
+interface Props {
+  data: lineData;
+}
+
+export default function Line({ data }: Props) {
+  return <S.Hr $imageUrl={data.url} $imagePosition={data.imagePosition} />;
 }
