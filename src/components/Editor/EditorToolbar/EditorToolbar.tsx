@@ -12,6 +12,7 @@ import useEditorStore from "store/useEditorStore";
 import EditorToolModal from "../EditorToolModal/EditorToolModal";
 import PlaceModal from "../EditorToolModal/PlaceModal/PlaceModal";
 import EmojiModal from "../EditorToolModal/EmojiModal/EmojiModal";
+import LineModal from "../EditorToolModal/LineModal/LineModal";
 
 interface Props {
   toolbarTop: number;
@@ -26,7 +27,7 @@ export default function EditorToolbar({ toolbarTop }: Props) {
         <EditorToolModal top={toolbarTop}>
           {activeModal === "place" && <PlaceModal />}
           {activeModal === "emoji" && <EmojiModal />}
-          {activeModal === "line" && <div>구분선 모달</div>}
+          {activeModal === "line" && <LineModal />}
         </EditorToolModal>
       )}
       <FixedToolbar position={{ top: toolbarTop, right: 15 }}>
