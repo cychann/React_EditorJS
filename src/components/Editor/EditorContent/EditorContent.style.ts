@@ -6,3 +6,7 @@ export const EditorContentContainer = styled.div`
   padding-bottom: 120px;
   cursor: text;
 `;
+
+export const EditorBlockContainer = styled.div`
+  margin: 20px 0;
+`;

@@ -74,7 +74,9 @@ export default function EditorContent() {
       {blokcs.map((block) => {
         const Component = elementComponents[block.type];
         return Component ? (
-          <Component key={block.id} data={block.data} id={block.id} />
+          <S.EditorBlockContainer>
+            <Component key={block.id} data={block.data} id={block.id} />
+          </S.EditorBlockContainer>
         ) : null;
       })}
     </S.EditorContentContainer>
