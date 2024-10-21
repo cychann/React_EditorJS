@@ -15,6 +15,7 @@ interface ContentEditableProps {
   lineHeight?: number;
   placeholderColor?: string;
   cursorColor?: string;
+  textAlign?: string;
   onChange?: (text: string) => void;
   children?: React.ReactNode;
 }
@@ -31,6 +32,7 @@ export default function ContentEditable({
   fontColor = COMMON_THEME.black_primary,
   placeholderColor = COMMON_THEME.gray_primary,
   cursorColor = COMMON_THEME.black_primary,
+  textAlign = "left",
   children,
 }: ContentEditableProps) {
   const contentEditableRef = useRef<HTMLDivElement>(null);
@@ -89,6 +91,7 @@ export default function ContentEditable({
         $lineHeight={lineHeight}
         $placeholderColor={placeholderColor}
         $cursorColor={cursorColor}
+        $textAlign={textAlign}
         suppressContentEditableWarning
       >
         {children}

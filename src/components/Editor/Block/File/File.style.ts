@@ -1,7 +1,20 @@
 import styled from "styled-components";
 import { COMMON_THEME } from "styles/Theme";
 
-export const FileWrapper = styled.div`
+const alignItemsMap: Record<string, string> = {
+  left: "flex-start",
+  center: "center",
+};
+
+export const FileWrapper = styled.div<{
+  $align: "left" | "center";
+}>`
+  width: 100%;
+  display: flex;
+  justify-content: ${({ $align }) => alignItemsMap[$align]};
+`;
+
+export const FileContainer = styled.div`
   border: 1px solid ${COMMON_THEME.gray_primary};
   border-radius: 18px;
   width: 290px;

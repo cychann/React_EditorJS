@@ -1,4 +1,3 @@
-import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import React from "react";
 import Text from "components/Editor/Block/Text/Text";
 import * as S from "./EditorContent.style";

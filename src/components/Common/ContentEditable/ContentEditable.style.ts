@@ -10,6 +10,7 @@ interface EditableDivProps extends React.HTMLAttributes<HTMLDivElement> {
   $placeholderColor?: string;
   $fontColor?: string;
   $cursorColor?: string;
+  $textAlign?: string;
 }
 
 export const EditableDiv = styled.div<EditableDivProps>`
@@ -18,6 +19,7 @@ export const EditableDiv = styled.div<EditableDivProps>`
   font-size: ${({ $fontSize }) => $fontSize}px;
   font-weight: ${({ $fontWeight }) => $fontWeight};
   line-height: ${({ $lineHeight }) => $lineHeight}px;
+  text-align: ${({ $textAlign }) => $textAlign};
   border: none;
   outline: none;
   cursor: text;

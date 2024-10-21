@@ -1,7 +1,20 @@
 import styled from "styled-components";
 import { COMMON_THEME } from "styles/Theme";
 
-export const PlaceWrapper = styled.div`
+const alignItemsMap: Record<string, string> = {
+  left: "flex-start",
+  center: "center",
+};
+
+export const PlaceWrapper = styled.div<{
+  $align: "left" | "center";
+}>`
+  width: 100%;
+  display: flex;
+  justify-content: ${({ $align }) => alignItemsMap[$align]};
+`;
+
+export const PlaceContainer = styled.div`
   border: 1px solid ${COMMON_THEME.gray_primary};
   border-radius: 34px;
   width: 290px;
@@ -15,7 +28,7 @@ export const PlaceWrapper = styled.div`
   cursor: pointer;
 `;
 
-export const PlaceWrapperIcon = styled.div`
+export const PlaceContainerIcon = styled.div`
   width: 24px;
   height: 68px;
   background: url("https://t1.daumcdn.net/brunch/static/img/help/pc/ico_attach_place_1.png")

@@ -1,5 +1,6 @@
 import React from "react";
 import * as S from "./Line.style";
+import useEditorStore from "store/useEditorStore";
 
 type lineData = {
   url: string;
@@ -11,5 +12,13 @@ interface Props {
 }
 
 export default function Line({ data }: Props) {
-  return <S.Hr $imageUrl={data.url} $imagePosition={data.imagePosition} />;
+  const { align } = useEditorStore();
+
+  return (
+    <S.Hr
+      $imageUrl={data.url}
+      $imagePosition={data.imagePosition}
+      $align={align}
+    />
+  );
 }
