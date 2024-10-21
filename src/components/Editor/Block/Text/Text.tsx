@@ -5,6 +5,7 @@ import InlineTooltip from "components/Common/InlineTooltip/InlineTooltip";
 import BoldButton from "components/Editor/Block/Text/Tooltip/BoldButton/BoldButton";
 import CancelLineButton from "components/Editor/Block/Text/Tooltip/CancelLineButton/CancelLineButton";
 import UnderLineButton from "components/Editor/Block/Text/Tooltip/UnderLineButton/UnderLineButton";
+import useEditorStore from "store/useEditorStore";
 
 export default function Text() {
   const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -13,6 +14,8 @@ export default function Text() {
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
+
+  const { align } = useEditorStore();
 
   const handleMouseUp = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -84,7 +87,7 @@ export default function Text() {
       onMouseUp={handleMouseUp}
       onBlur={handleBlur}
     >
-      <ContentEditable />
+      <ContentEditable textAlign={align} />
       <InlineTooltip
         ref={tooltipRef}
         visible={tooltipVisible}
