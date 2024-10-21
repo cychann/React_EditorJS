@@ -7,7 +7,12 @@ import CancelLineButton from "components/Editor/Block/Text/Tooltip/CancelLineBut
 import UnderLineButton from "components/Editor/Block/Text/Tooltip/UnderLineButton/UnderLineButton";
 import useEditorStore from "store/useEditorStore";
 
-export default function Text() {
+interface Props {
+  data: object;
+  id: number;
+}
+
+export default function Text({ data, id }: Props) {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   const [formattedTags, setFormattedTags] = useState<string[]>([]);
@@ -15,7 +20,11 @@ export default function Text() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  const { align } = useEditorStore();
+  const { align, updateBlockData } = useEditorStore();
+
+  const handleTextChange = (newText: string) => {
+    updateBlockData(id, { text: newText });
+  };
 
   const handleMouseUp = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -87,7 +96,7 @@ export default function Text() {
       onMouseUp={handleMouseUp}
       onBlur={handleBlur}
     >
-      <ContentEditable textAlign={align} />
+      <ContentEditable textAlign={align} onChange={handleTextChange} />
       <InlineTooltip
         ref={tooltipRef}
         visible={tooltipVisible}

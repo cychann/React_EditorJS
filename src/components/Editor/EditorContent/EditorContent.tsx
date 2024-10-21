@@ -12,7 +12,10 @@ import Align from "../Block/Align/Align";
 import { EditorBlockType } from "types/Editor";
 import useEditorStore from "store/useEditorStore";
 
-const elementComponents: Record<EditorBlockType, React.FC<{ data: any }>> = {
+const elementComponents: Record<
+  EditorBlockType,
+  React.FC<{ data: any; id: any }>
+> = {
   text: Text,
   image: Image,
   groupImage: GroupImage,
@@ -71,7 +74,7 @@ export default function EditorContent() {
       {blokcs.map((block) => {
         const Component = elementComponents[block.type];
         return Component ? (
-          <Component key={block.id} data={block.data} />
+          <Component key={block.id} data={block.data} id={block.id} />
         ) : null;
       })}
     </S.EditorContentContainer>
