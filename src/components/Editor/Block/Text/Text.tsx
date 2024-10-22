@@ -20,7 +20,7 @@ export default function Text({ data, id }: Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  const { align, updateBlockData } = useEditorStore();
+  const { align, updateBlockData, addBlock } = useEditorStore();
 
   const handleTextChange = (newText: string) => {
     updateBlockData(id, { text: newText });
@@ -89,12 +89,42 @@ export default function Text({ data, id }: Props) {
     return formattedTags.includes(tag);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      if (!e.shiftKey) {
+        e.preventDefault();
+        addBlock("text");
+      }
+
+      setTimeout(() => {
+        const lastBlock = document.querySelectorAll(
+          "[contenteditable='true']"
+        ) as NodeListOf<HTMLDivElement>;
+
+        if (lastBlock.length > 0) {
+          const lastEditableBlock = lastBlock[lastBlock.length - 1];
+          const range = document.createRange();
+          const selection = window.getSelection();
+
+          if (selection) {
+            range.selectNodeContents(lastEditableBlock);
+            range.collapse(false);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            lastEditableBlock.focus();
+          }
+        }
+      }, 0);
+    }
+  };
+
   return (
     <S.TextContainer
       ref={wrapperRef}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
     >
       <ContentEditable textAlign={align} onChange={handleTextChange} />
       <InlineTooltip
