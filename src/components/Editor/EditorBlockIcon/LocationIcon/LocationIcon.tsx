@@ -3,11 +3,10 @@ import * as S from "./LocationIcon.style";
 import useEditorStore from "store/useEditorStore";
 
 export default function LocationIcon() {
-  const { toggleModal, setActiveModal } = useEditorStore();
+  const { setActiveModal } = useEditorStore();
 
   const handleIconClick = () => {
     setActiveModal("place");
-    toggleModal();
   };
 
   return <S.LocationIcon onClick={handleIconClick} />;

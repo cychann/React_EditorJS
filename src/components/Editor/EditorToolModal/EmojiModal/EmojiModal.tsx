@@ -3,14 +3,14 @@ import useEditorStore from "store/useEditorStore";
 import EmojiPicker from "emoji-picker-react";
 
 export default function EmojiModal() {
-  const { addBlock, toggleModal } = useEditorStore();
+  const { addBlock, setActiveModal } = useEditorStore();
 
   const handleEmojiClick = (emojiData: { emoji: string }) => {
     addBlock("emoji", {
       emoji: emojiData.emoji,
     });
     addBlock("text");
-    toggleModal();
+    setActiveModal(null);
   };
 
   return (

@@ -10,7 +10,7 @@ interface StoreProps {
 
   addBlock: (type: EditorBlockType, data?: object) => void;
   updateBlockData: (id: string, newData: object) => void;
-  toggleModal: () => void;
+
   setActiveModal: (modalType: "place" | "emoji" | "line" | null) => void;
   toggleAlign: () => void;
 }
@@ -53,12 +53,12 @@ const useEditorStore = create<StoreProps>((set) => ({
     }));
   },
 
-  toggleModal: () =>
+  setActiveModal: (modalType) => {
     set((state) => ({
-      isModalOpen: !state.isModalOpen,
-      activeModal: !state.isModalOpen ? state.activeModal : null,
-    })),
-  setActiveModal: (modalType) => set({ activeModal: modalType }),
+      isModalOpen: state.activeModal !== modalType,
+      activeModal: state.activeModal === modalType ? null : modalType,
+    }));
+  },
   toggleAlign: () =>
     set((state) => ({
       align: state.align === "left" ? "center" : "left",

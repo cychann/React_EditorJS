@@ -9,7 +9,7 @@ export default function PlaceModal() {
     { name: string; id: string; address: string; url: string }[]
   >([]);
 
-  const { addBlock, toggleModal } = useEditorStore();
+  const { addBlock, setActiveModal } = useEditorStore();
 
   const handleSearch = async (query: string) => {
     const placeData = await fetchPlaceData(query);
@@ -40,7 +40,7 @@ export default function PlaceModal() {
   }) => {
     addBlock("place", item);
     addBlock("text");
-    toggleModal();
+    setActiveModal(null);
   };
 
   useEffect(() => {
