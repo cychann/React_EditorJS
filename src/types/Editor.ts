@@ -10,7 +10,7 @@ export type EditorBlockType =
   | "align";
 
 export type EditorElement = {
-  id: number;
+  id: string;
   type: EditorBlockType;
   data: object;
 };

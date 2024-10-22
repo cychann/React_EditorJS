@@ -7,7 +7,12 @@ import CancelLineButton from "components/Editor/Block/Text/Tooltip/CancelLineBut
 import UnderLineButton from "components/Editor/Block/Text/Tooltip/UnderLineButton/UnderLineButton";
 import useEditorStore from "store/useEditorStore";
 
-export default function Text() {
+interface Props {
+  data: object;
+  id: string;
+}
+
+export default function Text({ data, id }: Props) {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   const [formattedTags, setFormattedTags] = useState<string[]>([]);
@@ -15,7 +20,11 @@ export default function Text() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  const { align } = useEditorStore();
+  const { align, updateBlockData, addBlock } = useEditorStore();
+
+  const handleTextChange = (newText: string) => {
+    updateBlockData(id, { text: newText });
+  };
 
   const handleMouseUp = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -80,14 +89,44 @@ export default function Text() {
     return formattedTags.includes(tag);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      if (!e.shiftKey) {
+        e.preventDefault();
+        addBlock("text");
+      }
+
+      setTimeout(() => {
+        const lastBlock = document.querySelectorAll(
+          "[contenteditable='true']"
+        ) as NodeListOf<HTMLDivElement>;
+
+        if (lastBlock.length > 0) {
+          const lastEditableBlock = lastBlock[lastBlock.length - 1];
+          const range = document.createRange();
+          const selection = window.getSelection();
+
+          if (selection) {
+            range.selectNodeContents(lastEditableBlock);
+            range.collapse(false);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            lastEditableBlock.focus();
+          }
+        }
+      }, 0);
+    }
+  };
+
   return (
     <S.TextContainer
       ref={wrapperRef}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
     >
-      <ContentEditable textAlign={align} />
+      <ContentEditable textAlign={align} onChange={handleTextChange} />
       <InlineTooltip
         ref={tooltipRef}
         visible={tooltipVisible}

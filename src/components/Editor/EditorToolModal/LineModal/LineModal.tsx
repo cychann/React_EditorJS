@@ -4,7 +4,7 @@ import useEditorStore from "store/useEditorStore";
 import { LineData, Line } from "./LineData";
 
 export default function LineModal() {
-  const { addBlock, toggleModal } = useEditorStore();
+  const { addBlock, setActiveModal } = useEditorStore();
 
   const handleLineClick = (line: Line) => {
     const lineData = {
@@ -13,7 +13,7 @@ export default function LineModal() {
     };
     addBlock("line", lineData);
     addBlock("text");
-    toggleModal();
+    setActiveModal(null);
   };
 
   return (
