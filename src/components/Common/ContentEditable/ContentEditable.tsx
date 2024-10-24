@@ -1,10 +1,11 @@
-import React, { useRef } from "react";
+import React, { ChangeEvent, useRef } from "react";
 import * as S from "./ContentEditable.style";
 import { COMMON_THEME } from "styles/Theme";
 import NotificationBar from "../NotificationBar/NotificationBar";
 import { useNotification } from "hooks/useNotification";
 
 interface ContentEditableProps {
+  initialText?: string;
   placeholder?: string;
   maxLength?: number;
   exceedMessage?: string;
@@ -17,10 +18,10 @@ interface ContentEditableProps {
   cursorColor?: string;
   textAlign?: string;
   onChange?: (text: string) => void;
-  children?: React.ReactNode;
 }
 
 export default function ContentEditable({
+  initialText = "",
   placeholder = "",
   maxLength = 2000,
   exceedMessage = "2000자 이상 입력할 수 없습니다.",
@@ -33,9 +34,8 @@ export default function ContentEditable({
   placeholderColor = COMMON_THEME.gray_primary,
   cursorColor = COMMON_THEME.black_primary,
   textAlign = "left",
-  children,
 }: ContentEditableProps) {
-  const contentEditableRef = useRef<HTMLDivElement>(null);
+  const contentEditable = useRef<HTMLDivElement>(null);
 
   const { isVisible, showNotification } = useNotification(2000);
 
@@ -43,7 +43,7 @@ export default function ContentEditable({
     const inputText = e.target.innerText || "";
 
     // 입력된 텍스트가 maxLength를 초과하면
-    if (inputText.length > maxLength && contentEditableRef.current) {
+    if (inputText.length > maxLength && contentEditable.current) {
       // 커서 위치를 저장합니다.
       const selection = window.getSelection();
       const range = selection?.getRangeAt(0);
@@ -51,7 +51,7 @@ export default function ContentEditable({
 
       // 텍스트를 잘라내고 업데이트합니다.
       const trimmedText = inputText.slice(0, maxLength);
-      contentEditableRef.current.textContent = trimmedText;
+      contentEditable.current.textContent = trimmedText;
 
       // 잘린 후 커서를 원래 위치로 복원합니다.
       if (selection && range && cursorPosition) {
@@ -61,7 +61,7 @@ export default function ContentEditable({
         // 새로운 range를 설정하여 커서를 원래 위치로 이동합니다.
         const newRange = document.createRange();
         newRange.setStart(
-          contentEditableRef.current.childNodes[0],
+          contentEditable.current.childNodes[0],
           newCursorPosition
         );
         newRange.collapse(true);
@@ -80,7 +80,7 @@ export default function ContentEditable({
   return (
     <>
       <S.EditableDiv
-        ref={contentEditableRef}
+        ref={contentEditable}
         contentEditable
         onInput={handleText}
         placeholder={placeholder}
@@ -94,7 +94,7 @@ export default function ContentEditable({
         $textAlign={textAlign}
         suppressContentEditableWarning
       >
-        {children}
+        {initialText}
       </S.EditableDiv>
 
       <NotificationBar isVisible={isVisible}>{exceedMessage}</NotificationBar>
