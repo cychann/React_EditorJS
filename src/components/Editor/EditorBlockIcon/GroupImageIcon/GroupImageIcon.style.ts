@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+export const GroupImageIconWrapper = styled.div``;
+
 export const GroupImageIcon = styled.div`
   width: 25px;
   height: 25px;
