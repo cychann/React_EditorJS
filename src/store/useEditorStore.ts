@@ -4,11 +4,14 @@ import { v4 as uuidv4 } from "uuid";
 
 interface StoreProps {
   blokcs: EditorElement[];
+  activeBlockId: string | null;
   isModalOpen: boolean;
   activeModal: "place" | "emoji" | "line" | null;
   align: "left" | "center";
 
   addBlock: (type: EditorBlockType, data?: object) => void;
+  setActiveBlock: (id: string | null) => void;
+  deleteBlock: (id: string) => void;
   updateBlockData: (id: string, newData: object) => void;
 
   setActiveModal: (modalType: "place" | "emoji" | "line" | null) => void;
@@ -17,6 +20,7 @@ interface StoreProps {
 
 const useEditorStore = create<StoreProps>((set) => ({
   blokcs: [{ id: uuidv4(), type: "text", data: {} }],
+  activeBlockId: null,
   isModalOpen: false,
   activeModal: null,
   align: "left",
@@ -42,6 +46,16 @@ const useEditorStore = create<StoreProps>((set) => ({
         blokcs: [...state.blokcs, { id: uuidv4(), type, data: data || {} }],
       };
     });
+  },
+  setActiveBlock: (id) => {
+    set(() => ({
+      activeBlockId: id,
+    }));
+  },
+  deleteBlock: (id) => {
+    set((state) => ({
+      blokcs: state.blokcs.filter((block) => block.id !== id),
+    }));
   },
   updateBlockData: (id, newData) => {
     set((state) => ({
