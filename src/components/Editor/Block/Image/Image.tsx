@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "./Image.style";
+import useEditorStore from "store/useEditorStore";
 
 type ImageData = {
   url: string;
@@ -7,24 +8,22 @@ type ImageData = {
 
 interface Props {
   data: ImageData;
+  active: boolean;
 }
 
-export default function Image({ data }: Props) {
+export default function Image({ data, active }: Props) {
   const [caption, setCaption] = useState<string>("");
-  const [isImageClicked, setImageClicked] = useState(false);
-  const imageRef = useRef<HTMLDivElement | null>(null); // ref 생성
+  const imageRef = useRef<HTMLDivElement | null>(null);
 
-  const handleImageClick = () => {
-    setImageClicked(true);
-  };
+  const { setActiveBlock } = useEditorStore();
 
   const handleBlur = () => {
-    setImageClicked(false);
+    setActiveBlock(null);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
     if (imageRef.current && !imageRef.current.contains(event.target as Node)) {
-      setImageClicked(false);
+      setActiveBlock(null);
     }
   };
 
@@ -38,13 +37,8 @@ export default function Image({ data }: Props) {
 
   return (
     <S.ImageContainer ref={imageRef}>
-      <S.ImageSrc
-        src={data.url}
-        onClick={handleImageClick}
-        alt="User uploaded"
-        $clicked={isImageClicked}
-      />
-      {(isImageClicked || caption) && (
+      <S.ImageSrc src={data.url} alt="User uploaded" $clicked={active} />
+      {(active || caption) && (
         <S.CaptionInput
           type="text"
           value={caption}

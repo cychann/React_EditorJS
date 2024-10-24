@@ -11,18 +11,15 @@ type FileData = {
 
 interface Props {
   data: FileData;
+  active: boolean;
 }
 
-export default function File({ data }: Props) {
+export default function File({ data, active }: Props) {
   const { align } = useEditorStore();
 
-  const handleFileClick = () => {
-    window.open(data.url, "_blank");
-  };
-
   return (
-    <S.FileWrapper $align={align}>
-      <S.FileContainer onClick={handleFileClick}>
+    <S.FileWrapper $align={align} $active={active}>
+      <S.FileContainer>
         <S.FileWrapperIcon />
         <S.FileName>{data.name}</S.FileName>
       </S.FileContainer>

@@ -8,10 +8,13 @@ const alignItemsMap: Record<string, string> = {
 
 export const FileWrapper = styled.div<{
   $align: "left" | "center";
+  $active: boolean;
 }>`
   width: 100%;
   display: flex;
   justify-content: ${({ $align }) => alignItemsMap[$align]};
+  border: ${({ $active }) =>
+    $active ? `2px solid ${COMMON_THEME.primary}` : "none"};
 `;
 
 export const FileContainer = styled.div`

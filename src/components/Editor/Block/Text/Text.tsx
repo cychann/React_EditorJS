@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import * as S from "./Text.style";
 import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import InlineTooltip from "components/Common/InlineTooltip/InlineTooltip";
@@ -6,9 +6,14 @@ import BoldButton from "components/Editor/Block/Text/Tooltip/BoldButton/BoldButt
 import CancelLineButton from "components/Editor/Block/Text/Tooltip/CancelLineButton/CancelLineButton";
 import UnderLineButton from "components/Editor/Block/Text/Tooltip/UnderLineButton/UnderLineButton";
 import useEditorStore from "store/useEditorStore";
+import { useContentEditable } from "hooks/useContentEditable";
+
+type textData = {
+  text: string;
+};
 
 interface Props {
-  data: object;
+  data: textData;
   id: string;
 }
 
@@ -20,10 +25,20 @@ export default function Text({ data, id }: Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  const { align, updateBlockData, addBlock } = useEditorStore();
+  const { align, updateBlockData, addBlock, deleteBlock } = useEditorStore();
+  const { content, setContent, onInput, $contentEditable } = useContentEditable(
+    data.text || ""
+  );
 
-  const handleTextChange = (newText: string) => {
-    updateBlockData(id, { text: newText });
+  const handleInput = (e: ChangeEvent<HTMLDivElement>) => {
+    const currerntText = e.target.innerText;
+
+    updateBlockData(id, { text: currerntText });
+    // setContent(currerntText);
+    onInput(e);
+
+    if (!$contentEditable.current) return;
+    focusContentEditableTextToEnd($contentEditable.current);
   };
 
   const handleMouseUp = (e: React.MouseEvent) => {
@@ -95,17 +110,14 @@ export default function Text({ data, id }: Props) {
         e.preventDefault();
         addBlock("text");
       }
-
       setTimeout(() => {
         const lastBlock = document.querySelectorAll(
           "[contenteditable='true']"
         ) as NodeListOf<HTMLDivElement>;
-
         if (lastBlock.length > 0) {
           const lastEditableBlock = lastBlock[lastBlock.length - 1];
           const range = document.createRange();
           const selection = window.getSelection();
-
           if (selection) {
             range.selectNodeContents(lastEditableBlock);
             range.collapse(false);
@@ -116,6 +128,45 @@ export default function Text({ data, id }: Props) {
         }
       }, 0);
     }
+    if (e.key === "Backspace") {
+      console.log(content);
+      if (content === "") {
+        console.log("delete", id);
+        deleteBlock(id);
+        setTimeout(() => {
+          const lastBlock = document.querySelectorAll(
+            "[contenteditable='true']"
+          ) as NodeListOf<HTMLDivElement>;
+          if (lastBlock.length > 0) {
+            const lastEditableBlock = lastBlock[lastBlock.length - 1];
+            const range = document.createRange();
+            const selection = window.getSelection();
+            if (selection) {
+              range.selectNodeContents(lastEditableBlock);
+              range.collapse(false);
+              selection.removeAllRanges();
+              selection.addRange(range);
+              lastEditableBlock.focus();
+            }
+          }
+        }, 0);
+      }
+    }
+  };
+
+  const focusContentEditableTextToEnd = (element: HTMLElement) => {
+    if (element.innerText.length === 0) {
+      element.focus();
+
+      return;
+    }
+
+    const selection = window.getSelection();
+    const newRange = document.createRange();
+    newRange.selectNodeContents(element);
+    newRange.collapse(false);
+    selection?.removeAllRanges();
+    selection?.addRange(newRange);
   };
 
   return (
@@ -126,7 +177,18 @@ export default function Text({ data, id }: Props) {
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
     >
-      <ContentEditable textAlign={align} onChange={handleTextChange} />
+      {/* <ContentEditable
+        initialText={content}
+        textAlign={align}
+        onChange={handleTextChange}
+      /> */}
+
+      <S.TextContentEditable
+        ref={$contentEditable}
+        contentEditable
+        onInput={handleInput}
+      />
+
       <InlineTooltip
         ref={tooltipRef}
         visible={tooltipVisible}

@@ -14,7 +14,7 @@ import useEditorStore from "store/useEditorStore";
 
 const elementComponents: Record<
   EditorBlockType,
-  React.FC<{ data: any; id: any }>
+  React.FC<{ data: any; id: any; active: boolean }>
 > = {
   text: Text,
   image: Image,
@@ -28,7 +28,8 @@ const elementComponents: Record<
 };
 
 export default function EditorContent() {
-  const { blokcs } = useEditorStore();
+  const { blokcs, activeBlockId, setActiveBlock, deleteBlock } =
+    useEditorStore();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -69,13 +70,39 @@ export default function EditorContent() {
     }
   };
 
+  const handleBlockClick = (id: string) => {
+    setActiveBlock(id);
+  };
+
+  const handleBlockKeydown = (
+    e: React.KeyboardEvent,
+    id: string,
+    type: EditorBlockType
+  ) => {
+    if (e.key === "Backspace" && type !== "text") {
+      if (activeBlockId === id) {
+        console.log("will be deleted", id);
+        deleteBlock(id);
+      }
+    }
+  };
+
   return (
     <S.EditorContentContainer ref={containerRef} onClick={handleClick}>
       {blokcs.map((block) => {
         const Component = elementComponents[block.type];
         return Component ? (
-          <S.EditorBlockContainer>
-            <Component key={block.id} data={block.data} id={block.id} />
+          <S.EditorBlockContainer
+            tabIndex={0}
+            onKeyDown={(e) => handleBlockKeydown(e, block.id, block.type)}
+            onClick={() => handleBlockClick(block.id)}
+          >
+            <Component
+              key={block.id}
+              data={block.data}
+              id={block.id}
+              active={block.id === activeBlockId}
+            />
           </S.EditorBlockContainer>
         ) : null;
       })}
