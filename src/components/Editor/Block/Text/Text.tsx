@@ -7,6 +7,7 @@ import CancelLineButton from "components/Editor/Block/Text/Tooltip/CancelLineBut
 import UnderLineButton from "components/Editor/Block/Text/Tooltip/UnderLineButton/UnderLineButton";
 import useEditorStore from "store/useEditorStore";
 import { useContentEditable } from "hooks/useContentEditable";
+import { setCursorToElement } from "utils/setCursorToElement";
 
 type textData = {
   text: string;
@@ -108,48 +109,41 @@ export default function Text({ data, id }: Props) {
     if (e.key === "Enter") {
       if (!e.shiftKey) {
         e.preventDefault();
-        addBlock("text");
-      }
-      setTimeout(() => {
-        const lastBlock = document.querySelectorAll(
-          "[contenteditable='true']"
-        ) as NodeListOf<HTMLDivElement>;
-        if (lastBlock.length > 0) {
-          const lastEditableBlock = lastBlock[lastBlock.length - 1];
-          const range = document.createRange();
-          const selection = window.getSelection();
-          if (selection) {
-            range.selectNodeContents(lastEditableBlock);
-            range.collapse(false);
-            selection.removeAllRanges();
-            selection.addRange(range);
-            lastEditableBlock.focus();
-          }
-        }
-      }, 0);
-    }
-    if (e.key === "Backspace") {
-      console.log(content);
-      if (content === "") {
-        console.log("delete", id);
-        deleteBlock(id);
+        const newBlockId = addBlock("text");
+        console.log("newBlockId", newBlockId);
         setTimeout(() => {
-          const lastBlock = document.querySelectorAll(
-            "[contenteditable='true']"
-          ) as NodeListOf<HTMLDivElement>;
-          if (lastBlock.length > 0) {
-            const lastEditableBlock = lastBlock[lastBlock.length - 1];
-            const range = document.createRange();
-            const selection = window.getSelection();
-            if (selection) {
-              range.selectNodeContents(lastEditableBlock);
-              range.collapse(false);
-              selection.removeAllRanges();
-              selection.addRange(range);
-              lastEditableBlock.focus();
-            }
-          }
+          setFocusToBlock(newBlockId);
         }, 0);
+      }
+    }
+
+    // if (e.key === "Backspace") {
+    //   if (content === "") {
+    //     deleteBlock(id);
+    //     const lastBlock = document.querySelectorAll(
+    //       "[contenteditable='true']"
+    //     ) as NodeListOf<HTMLDivElement>;
+    //     const lastEditableBlock = lastBlock[lastBlock.length - 1];
+
+    //     setTimeout(() => {
+    //       if (lastBlock.length > 0) {
+    //         setCursorToElement(lastEditableBlock);
+    //       }
+    //     }, 0);
+    //   }
+    // }
+  };
+
+  const setFocusToBlock = (blockId: string) => {
+    const blockElement = document.getElementById(blockId);
+
+    if (blockElement) {
+      const contentEditableElement = blockElement.querySelector(
+        "[contenteditable='true']"
+      ) as HTMLElement;
+
+      if (contentEditableElement) {
+        setCursorToElement(contentEditableElement);
       }
     }
   };
@@ -171,7 +165,7 @@ export default function Text({ data, id }: Props) {
 
   return (
     <S.TextContainer
-      ref={wrapperRef}
+      id={id}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onBlur={handleBlur}

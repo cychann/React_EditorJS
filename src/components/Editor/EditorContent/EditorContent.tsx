@@ -96,12 +96,12 @@ export default function EditorContent() {
         const Component = elementComponents[block.type];
         return Component ? (
           <S.EditorBlockContainer
+            key={block.id}
             tabIndex={0}
             onKeyDown={(e) => handleBlockKeydown(e, block.id, block.type)}
             onClick={() => handleBlockClick(block.id)}
           >
             <Component
-              key={block.id}
               data={block.data}
               id={block.id}
               active={block.id === activeBlockId}
