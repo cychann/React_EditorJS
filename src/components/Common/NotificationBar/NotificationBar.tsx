@@ -8,7 +8,7 @@ interface Props {
 
 export default function NotificationBar({ children, isVisible }: Props) {
   return (
-    <S.NotificationBarContainer isVisible={isVisible}>
+    <S.NotificationBarContainer $isVisible={isVisible}>
       {children}
     </S.NotificationBarContainer>
   );

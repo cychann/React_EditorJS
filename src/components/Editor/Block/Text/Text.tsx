@@ -1,6 +1,5 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import * as S from "./Text.style";
-import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import InlineTooltip from "components/Common/InlineTooltip/InlineTooltip";
 import BoldButton from "components/Editor/Block/Text/Tooltip/BoldButton/BoldButton";
 import CancelLineButton from "components/Editor/Block/Text/Tooltip/CancelLineButton/CancelLineButton";
@@ -26,10 +25,8 @@ export default function Text({ data, id }: Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  const { align, updateBlockData, addBlock, deleteBlock } = useEditorStore();
-  const { content, setContent, onInput, $contentEditable } = useContentEditable(
-    data.text || ""
-  );
+  const { align, updateBlockData, addBlock } = useEditorStore();
+  const { onInput, $contentEditable } = useContentEditable(data.text || "");
 
   const handleInput = (e: ChangeEvent<HTMLDivElement>) => {
     const currerntText = e.target.innerText;

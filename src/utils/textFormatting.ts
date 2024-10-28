@@ -12,8 +12,8 @@ export const textFormatting = () => {
 
     if (selectionRange) {
       const selectedText = selectionRange.extractContents();
-      const parentElement =
-        selectionRange.commonAncestorContainer.parentElement;
+      // const parentElement =
+      //   selectionRange.commonAncestorContainer.parentElement;
       const newNode = document.createElement(tag);
       newNode.appendChild(selectedText);
 
