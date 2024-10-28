@@ -1,4 +1,3 @@
-import React from "react";
 import * as S from "./TitleToolbar.style";
 import TitleCoverImageTool from "components/Title/TitleTools/TitleCoverImageTool/TitleCoverImageTool";
 import useTitleStore from "store/useTitleStore";

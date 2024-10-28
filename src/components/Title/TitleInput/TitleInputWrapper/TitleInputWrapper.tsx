@@ -1,8 +1,7 @@
-import React from "react";
 import * as S from "./TitleInputWrapper.style";
 import useTitleStore from "store/useTitleStore";
-import TitleTextInput from "../TitleTextInput/TitleTextInput";
-import SubtitleTextInput from "../SubtitleTextInput/SubtitleTextInput";
+import TitleTextInput from "components/Title/TitleInput/TitleTextInput/TitleTextInput";
+import SubtitleTextInput from "components/Title/TitleInput/SubtitleTextInput/SubtitleTextInput";
 
 export default function TitleInputWrapper() {
   const titleImage = useTitleStore((state) => state.titleCoverImage);

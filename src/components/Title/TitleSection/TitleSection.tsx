@@ -1,4 +1,3 @@
-import React from "react";
 import * as S from "./TitleSection.style";
 import TitleToolbar from "components/Title/TitleToolbar/TitleToolbar";
 import TitleInputWrapper from "components/Title/TitleInput/TitleInputWrapper/TitleInputWrapper";

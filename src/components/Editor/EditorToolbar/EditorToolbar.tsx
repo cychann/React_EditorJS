@@ -1,18 +1,24 @@
 import React from "react";
+import {
+  AlignIcon,
+  EmojiIcon,
+  FileIcon,
+  GroupImageIcon,
+  ImageIcon,
+  LineIcon,
+  PlaceIcon,
+  VideoIcon,
+} from "components/Editor/EditorBlockIcon/index";
+
+import {
+  EditorToolModal,
+  PlaceModal,
+  EmojiModal,
+  LineModal,
+} from "components/Editor/EditorToolModal/index";
+
 import FixedToolbar from "components/Common/FixedToolbar/FixedToolbar";
-import ImageIcon from "../EditorBlockIcon/ImageIcon/ImageIcon";
-import GroupImageIcon from "../EditorBlockIcon/GroupImageIcon/GroupImageIcon";
-import VideoIcon from "../EditorBlockIcon/VideoIcon/VideoIcon";
-import FileIcon from "../EditorBlockIcon/FileIcon/FileIcon";
-import LocationIcon from "../EditorBlockIcon/LocationIcon/LocationIcon";
-import EmojiIcon from "../EditorBlockIcon/EmojiIcon/EmojiIcon";
-import LineIcon from "../EditorBlockIcon/LineIcon/LineIcon";
-import AlignIcon from "../EditorBlockIcon/AlignIcon/AlignIcon";
 import useEditorStore from "store/useEditorStore";
-import EditorToolModal from "../EditorToolModal/EditorToolModal";
-import PlaceModal from "../EditorToolModal/PlaceModal/PlaceModal";
-import EmojiModal from "../EditorToolModal/EmojiModal/EmojiModal";
-import LineModal from "../EditorToolModal/LineModal/LineModal";
 
 interface Props {
   toolbarTop: number;
@@ -35,7 +41,7 @@ export default function EditorToolbar({ toolbarTop }: Props) {
         <GroupImageIcon />
         <VideoIcon />
         <FileIcon />
-        <LocationIcon />
+        <PlaceIcon />
         <EmojiIcon />
         <LineIcon />
         <AlignIcon />

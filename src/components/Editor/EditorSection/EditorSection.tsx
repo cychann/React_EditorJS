@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "./EditorSection.style";
-import EditorToolbar from "../EditorToolbar/EditorToolbar";
-import EditorContent from "../EditorContent/EditorContent";
+import EditorToolbar from "components/Editor/EditorToolbar/EditorToolbar";
+import EditorContent from "components/Editor/EditorContent/EditorContent";
 
 export default function EditorSection() {
   const editorSectionRef = useRef<HTMLDivElement>(null);
