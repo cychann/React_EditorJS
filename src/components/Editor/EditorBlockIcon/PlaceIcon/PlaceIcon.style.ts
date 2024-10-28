@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LocationIcon = styled.div`
+export const PlaceIcon = styled.div`
   width: 25px;
   height: 25px;
   background-position: 1px -168px;

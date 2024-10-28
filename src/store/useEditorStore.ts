@@ -9,7 +9,7 @@ interface StoreProps {
   activeModal: "place" | "emoji" | "line" | null;
   align: "left" | "center";
 
-  addBlock: (type: EditorBlockType, data?: object) => void;
+  addBlock: (type: EditorBlockType, data?: object) => string;
   setActiveBlock: (id: string | null) => void;
   deleteBlock: (id: string) => void;
   updateBlockData: (id: string, newData: object) => void;
@@ -26,6 +26,7 @@ const useEditorStore = create<StoreProps>((set) => ({
   align: "left",
 
   addBlock: (type, data) => {
+    const newBlockId = uuidv4();
     set((state) => {
       const lastBlock = state.blokcs[state.blokcs.length - 1];
 
@@ -37,15 +38,27 @@ const useEditorStore = create<StoreProps>((set) => ({
         return {
           blokcs: [
             ...state.blokcs.slice(0, -1),
-            { id: uuidv4(), type, data: data || {} },
+            { id: newBlockId, type, data: data || {} },
+          ],
+        };
+      }
+
+      if (type !== "text") {
+        return {
+          blokcs: [
+            ...state.blokcs,
+            { id: newBlockId, type, data: data || {} },
+            { id: uuidv4(), type: "text", data: {} },
           ],
         };
       }
 
       return {
-        blokcs: [...state.blokcs, { id: uuidv4(), type, data: data || {} }],
+        blokcs: [...state.blokcs, { id: newBlockId, type, data: data || {} }],
       };
     });
+
+    return newBlockId;
   },
   setActiveBlock: (id) => {
     set(() => ({

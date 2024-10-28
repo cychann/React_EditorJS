@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import * as S from "./Image.style";
 import useEditorStore from "store/useEditorStore";
+import { useClickOutside } from "hooks/useClickOutside";
 
 type ImageData = {
   url: string;
@@ -13,7 +14,9 @@ interface Props {
 
 export default function Image({ data, active }: Props) {
   const [caption, setCaption] = useState<string>("");
-  const imageRef = useRef<HTMLDivElement | null>(null);
+  const { $ref } = useClickOutside<HTMLDivElement>(() => {
+    setActiveBlock(null);
+  });
 
   const { setActiveBlock } = useEditorStore();
 
@@ -21,22 +24,8 @@ export default function Image({ data, active }: Props) {
     setActiveBlock(null);
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (imageRef.current && !imageRef.current.contains(event.target as Node)) {
-      setActiveBlock(null);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   return (
-    <S.ImageContainer ref={imageRef}>
+    <S.ImageContainer ref={$ref}>
       <S.ImageSrc src={data.url} alt="User uploaded" $clicked={active} />
       {(active || caption) && (
         <S.CaptionInput

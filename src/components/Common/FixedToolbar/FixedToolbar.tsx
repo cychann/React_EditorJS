@@ -8,7 +8,7 @@ interface Props {
 
 export default function FixedToolbar({ position, children }: Props) {
   return (
-    <S.FixedToolbarContainer top={position.top} right={position.right}>
+    <S.FixedToolbarContainer $top={position.top} $right={position.right}>
       {children}
     </S.FixedToolbarContainer>
   );

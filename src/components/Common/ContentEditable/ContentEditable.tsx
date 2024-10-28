@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useRef } from "react";
+import React, { useRef } from "react";
 import * as S from "./ContentEditable.style";
 import { COMMON_THEME } from "styles/Theme";
-import NotificationBar from "../NotificationBar/NotificationBar";
+import NotificationBar from "components/Common/NotificationBar/NotificationBar";
 import { useNotification } from "hooks/useNotification";
 
 interface ContentEditableProps {

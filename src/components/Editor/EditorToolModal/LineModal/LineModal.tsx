@@ -12,7 +12,6 @@ export default function LineModal() {
       imagePosition: line.inBlockImagePosition,
     };
     addBlock("line", lineData);
-    addBlock("text");
     setActiveModal(null);
   };
 

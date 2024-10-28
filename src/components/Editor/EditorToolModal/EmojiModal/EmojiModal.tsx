@@ -25,7 +25,6 @@ export default function EmojiModal() {
     addBlock("emoji", {
       emoji: emojiData.emoji,
     });
-    addBlock("text");
     setActiveModal(null);
   };
 

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 interface ToolbarProps {
-  top: number;
-  right: number;
+  $top: number;
+  $right: number;
 }
 
 export const FixedToolbarContainer = styled.div<ToolbarProps>`
@@ -11,6 +11,6 @@ export const FixedToolbarContainer = styled.div<ToolbarProps>`
   justify-content: center;
   gap: 16px;
   position: fixed;
-  top: ${(props) => props.top}px;
-  right: ${(props) => props.right}%;
+  top: ${(props) => props.$top}px;
+  right: ${(props) => props.$right}%;
 `;

@@ -20,7 +20,6 @@ export default function GroupImageIcon() {
       });
 
       addBlock("groupImage", { images: imagesData });
-      addBlock("text");
     }
   };
 

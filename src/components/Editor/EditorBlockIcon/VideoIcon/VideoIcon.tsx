@@ -13,7 +13,6 @@ export default function VideoIcon() {
       reader.onloadend = () => {
         const videoUrl = reader.result as string;
         addBlock("video", { url: videoUrl });
-        addBlock("text");
       };
       reader.readAsDataURL(file);
     }

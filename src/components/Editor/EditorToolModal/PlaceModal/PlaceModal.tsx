@@ -39,7 +39,6 @@ export default function PlaceModal() {
     url: string;
   }) => {
     addBlock("place", item);
-    addBlock("text");
     setActiveModal(null);
   };
 

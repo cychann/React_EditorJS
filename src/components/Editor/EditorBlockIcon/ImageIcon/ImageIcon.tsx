@@ -11,7 +11,6 @@ const ImageIcon = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       addBlock("image", { url: imageUrl });
-      addBlock("text");
     }
   };
 

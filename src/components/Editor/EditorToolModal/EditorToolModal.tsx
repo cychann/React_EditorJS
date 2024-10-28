@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import * as S from "./EditorToolModal.style";
 import useEditorStore from "store/useEditorStore";
+import { useClickOutside } from "hooks/useClickOutside";
 
 interface Props {
   top: number;
@@ -8,27 +9,14 @@ interface Props {
 }
 
 export default function EditorToolModal({ top, children }: Props) {
-  const modalRef = useRef<HTMLDivElement | null>(null);
   const { setActiveModal } = useEditorStore();
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        setActiveModal(null);
-      }
-    };
+  const { $ref } = useClickOutside<HTMLDivElement>(() => {
+    setActiveModal(null);
+  });
 
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [setActiveModal]);
   return (
-    <S.EditorToolModalContainer $top={top} ref={modalRef}>
+    <S.EditorToolModalContainer $top={top} ref={$ref}>
       {children}
     </S.EditorToolModalContainer>
   );

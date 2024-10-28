@@ -1,12 +1,12 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import * as S from "./Text.style";
-import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import InlineTooltip from "components/Common/InlineTooltip/InlineTooltip";
 import BoldButton from "components/Editor/Block/Text/Tooltip/BoldButton/BoldButton";
 import CancelLineButton from "components/Editor/Block/Text/Tooltip/CancelLineButton/CancelLineButton";
 import UnderLineButton from "components/Editor/Block/Text/Tooltip/UnderLineButton/UnderLineButton";
 import useEditorStore from "store/useEditorStore";
 import { useContentEditable } from "hooks/useContentEditable";
+import { setCursorToElement } from "utils/setCursorToElement";
 
 type textData = {
   text: string;
@@ -25,10 +25,8 @@ export default function Text({ data, id }: Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  const { align, updateBlockData, addBlock, deleteBlock } = useEditorStore();
-  const { content, setContent, onInput, $contentEditable } = useContentEditable(
-    data.text || ""
-  );
+  const { align, updateBlockData, addBlock } = useEditorStore();
+  const { onInput, $contentEditable } = useContentEditable(data.text || "");
 
   const handleInput = (e: ChangeEvent<HTMLDivElement>) => {
     const currerntText = e.target.innerText;
@@ -108,48 +106,41 @@ export default function Text({ data, id }: Props) {
     if (e.key === "Enter") {
       if (!e.shiftKey) {
         e.preventDefault();
-        addBlock("text");
-      }
-      setTimeout(() => {
-        const lastBlock = document.querySelectorAll(
-          "[contenteditable='true']"
-        ) as NodeListOf<HTMLDivElement>;
-        if (lastBlock.length > 0) {
-          const lastEditableBlock = lastBlock[lastBlock.length - 1];
-          const range = document.createRange();
-          const selection = window.getSelection();
-          if (selection) {
-            range.selectNodeContents(lastEditableBlock);
-            range.collapse(false);
-            selection.removeAllRanges();
-            selection.addRange(range);
-            lastEditableBlock.focus();
-          }
-        }
-      }, 0);
-    }
-    if (e.key === "Backspace") {
-      console.log(content);
-      if (content === "") {
-        console.log("delete", id);
-        deleteBlock(id);
+        const newBlockId = addBlock("text");
+        console.log("newBlockId", newBlockId);
         setTimeout(() => {
-          const lastBlock = document.querySelectorAll(
-            "[contenteditable='true']"
-          ) as NodeListOf<HTMLDivElement>;
-          if (lastBlock.length > 0) {
-            const lastEditableBlock = lastBlock[lastBlock.length - 1];
-            const range = document.createRange();
-            const selection = window.getSelection();
-            if (selection) {
-              range.selectNodeContents(lastEditableBlock);
-              range.collapse(false);
-              selection.removeAllRanges();
-              selection.addRange(range);
-              lastEditableBlock.focus();
-            }
-          }
+          setFocusToBlock(newBlockId);
         }, 0);
+      }
+    }
+
+    // if (e.key === "Backspace") {
+    //   if (content === "") {
+    //     deleteBlock(id);
+    //     const lastBlock = document.querySelectorAll(
+    //       "[contenteditable='true']"
+    //     ) as NodeListOf<HTMLDivElement>;
+    //     const lastEditableBlock = lastBlock[lastBlock.length - 1];
+
+    //     setTimeout(() => {
+    //       if (lastBlock.length > 0) {
+    //         setCursorToElement(lastEditableBlock);
+    //       }
+    //     }, 0);
+    //   }
+    // }
+  };
+
+  const setFocusToBlock = (blockId: string) => {
+    const blockElement = document.getElementById(blockId);
+
+    if (blockElement) {
+      const contentEditableElement = blockElement.querySelector(
+        "[contenteditable='true']"
+      ) as HTMLElement;
+
+      if (contentEditableElement) {
+        setCursorToElement(contentEditableElement);
       }
     }
   };
@@ -171,7 +162,7 @@ export default function Text({ data, id }: Props) {
 
   return (
     <S.TextContainer
-      ref={wrapperRef}
+      id={id}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onBlur={handleBlur}
@@ -187,6 +178,7 @@ export default function Text({ data, id }: Props) {
         ref={$contentEditable}
         contentEditable
         onInput={handleInput}
+        $textAlign={align}
       />
 
       <InlineTooltip

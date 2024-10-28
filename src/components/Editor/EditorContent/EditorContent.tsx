@@ -1,14 +1,17 @@
 import React, { useRef } from "react";
-import Text from "components/Editor/Block/Text/Text";
 import * as S from "./EditorContent.style";
-import Image from "../Block/Image/Image";
-import GroupImage from "../Block/GroupImage/GroupImage";
-import Video from "../Block/Video/Video";
-import File from "../Block/File/File";
-import Place from "../Block/Place/Place";
-import Emoji from "../Block/Emoji/Emoji";
-import Line from "../Block/Line/Line";
-import Align from "../Block/Align/Align";
+
+import {
+  Align,
+  Emoji,
+  File,
+  GroupImage,
+  Image,
+  Line,
+  Place,
+  Text,
+  Video,
+} from "components/Editor/Block/index";
 import { EditorBlockType } from "types/Editor";
 import useEditorStore from "store/useEditorStore";
 
@@ -93,12 +96,12 @@ export default function EditorContent() {
         const Component = elementComponents[block.type];
         return Component ? (
           <S.EditorBlockContainer
+            key={block.id}
             tabIndex={0}
             onKeyDown={(e) => handleBlockKeydown(e, block.id, block.type)}
             onClick={() => handleBlockClick(block.id)}
           >
             <Component
-              key={block.id}
               data={block.data}
               id={block.id}
               active={block.id === activeBlockId}
