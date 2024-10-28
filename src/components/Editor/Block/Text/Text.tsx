@@ -187,6 +187,7 @@ export default function Text({ data, id }: Props) {
         ref={$contentEditable}
         contentEditable
         onInput={handleInput}
+        $textAlign={align}
       />
 
       <InlineTooltip
