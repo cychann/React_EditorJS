@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import * as S from "./Video.style";
+import { useClickOutside } from "hooks/useClickOutside";
 
 type VideoData = {
   url: string;
@@ -12,7 +13,9 @@ interface Props {
 export default function Video({ data }: Props) {
   const [caption, setCaption] = useState<string>("");
   const [isVideoClicked, setVideoClicked] = useState(false);
-  const videoRef = useRef<HTMLDivElement | null>(null);
+  const { $ref } = useClickOutside<HTMLDivElement>(() => {
+    setVideoClicked(false);
+  });
 
   const handleVideoClick = () => {
     setVideoClicked(true);
@@ -22,21 +25,8 @@ export default function Video({ data }: Props) {
     setVideoClicked(false);
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (videoRef.current && !videoRef.current.contains(event.target as Node)) {
-      setVideoClicked(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   return (
-    <S.VideoContainer ref={videoRef}>
+    <S.VideoContainer ref={$ref}>
       <S.VideoSrc
         controls
         src={data.url}
