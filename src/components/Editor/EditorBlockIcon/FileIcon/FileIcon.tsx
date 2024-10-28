@@ -16,7 +16,6 @@ export default function FileIcon() {
         size: file.size,
       };
       addBlock("file", fileInfo);
-      addBlock("text");
     }
   };
 

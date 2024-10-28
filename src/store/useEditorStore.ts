@@ -43,6 +43,16 @@ const useEditorStore = create<StoreProps>((set) => ({
         };
       }
 
+      if (type !== "text") {
+        return {
+          blokcs: [
+            ...state.blokcs,
+            { id: newBlockId, type, data: data || {} },
+            { id: uuidv4(), type: "text", data: {} },
+          ],
+        };
+      }
+
       return {
         blokcs: [...state.blokcs, { id: newBlockId, type, data: data || {} }],
       };
