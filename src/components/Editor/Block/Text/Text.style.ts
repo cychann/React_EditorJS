@@ -4,7 +4,7 @@ export const TextContainer = styled.div`
   position: relative;
 `;
 
-export const TextContentEditable = styled.div<{
+export const TextContentEditable = styled.p<{
   $textAlign: string;
 }>`
   border: none;

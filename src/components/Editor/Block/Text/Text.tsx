@@ -7,6 +7,7 @@ import UnderLineButton from "components/Editor/Block/Text/Tooltip/UnderLineButto
 import useEditorStore from "store/useEditorStore";
 import { useContentEditable } from "hooks/useContentEditable";
 import { setCursorToElement } from "utils/setCursorToElement";
+import FontFamilyButton from "components/Editor/Block/Text/Tooltip/FontFamilyButton/FontFamilyButton";
 
 type textData = {
   text: string;
@@ -107,7 +108,6 @@ export default function Text({ data, id }: Props) {
       if (!e.shiftKey) {
         e.preventDefault();
         const newBlockId = addBlock("text");
-        console.log("newBlockId", newBlockId);
         setTimeout(() => {
           setFocusToBlock(newBlockId);
         }, 0);
@@ -163,6 +163,7 @@ export default function Text({ data, id }: Props) {
   return (
     <S.TextContainer
       id={id}
+      ref={wrapperRef}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onBlur={handleBlur}
@@ -186,6 +187,7 @@ export default function Text({ data, id }: Props) {
         visible={tooltipVisible}
         position={tooltipPosition}
       >
+        <FontFamilyButton />
         <BoldButton isBold={checkFormattedTag("b")} />
         <UnderLineButton isUnderLine={checkFormattedTag("u")} />
         <CancelLineButton isCancleLine={checkFormattedTag("s")} />
