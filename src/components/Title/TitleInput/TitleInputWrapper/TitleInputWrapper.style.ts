@@ -7,7 +7,6 @@ interface TitleInputDivProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const TitleInputWrapper = styled.div<TitleInputDivProps>`
-  font-family: "Georgia";
   display: flex;
   flex-direction: column;
   gap: 16px;

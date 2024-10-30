@@ -1,36 +1,36 @@
 import { useState } from "react";
 import * as S from "./FontFamilyTooltip.style";
-import useTitleStore from "store/useTitleStore";
+import { FontType } from "types/Font";
 
-type TitleFont =
-  | "Noto Sans"
-  | "Nanum Myeongjo"
-  | "Nanum Gothic"
-  | "Nanum Barun Gothic"
-  | "Helvetica"
-  | "Georgia";
-
-const FONT_OPTIONS: { value: TitleFont; label: string }[] = [
-  { value: "Noto Sans", label: "본고딕" },
-  { value: "Nanum Myeongjo", label: "나눔명조" },
-  { value: "Nanum Gothic", label: "나눔고딕" },
-  { value: "Nanum Barun Gothic", label: "나눔바른고딕" },
+const FONT_OPTIONS: { value: FontType; label: string }[] = [
+  { value: "NotoSans", label: "본고딕" },
+  { value: "NanumMyeongjo", label: "나눔명조" },
+  { value: "NanumGothic", label: "나눔고딕" },
+  { value: "NanumBarunGothic", label: "나눔바른고딕" },
   { value: "Helvetica", label: "Helvetica" },
   { value: "Georgia", label: "Georgia" },
 ];
 
-export default function FontTooltip() {
-  const [selectedFont, setSelectedFont] = useState(FONT_OPTIONS[0].label);
+interface FontFamilyTooltipProps {
+  selectedFont: FontType;
+  onFontSelect: (font: FontType) => void;
+}
+
+export default function FontFamilyTooltip({
+  selectedFont,
+  onFontSelect,
+}: FontFamilyTooltipProps) {
+  const [activeFont, setActiveFont] = useState(
+    FONT_OPTIONS.find((option) => option.value === selectedFont)?.label
+  );
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  const setTitleFont = useTitleStore((state) => state.setTitleFont);
-
-  const handleFontSelect = (font: TitleFont) => {
-    setSelectedFont(
+  const handleFontSelect = (font: FontType) => {
+    onFontSelect(font);
+    setActiveFont(
       FONT_OPTIONS.find((option) => option.value === font)?.label ||
         FONT_OPTIONS[0].label
     );
-    setTitleFont(font);
     setDropdownOpen(false);
   };
 
@@ -40,7 +40,7 @@ export default function FontTooltip() {
         onClick={() => setDropdownOpen(!isDropdownOpen)}
         $isDropdownOpen={isDropdownOpen}
       >
-        {selectedFont}
+        {activeFont}
         <S.DropdownIcon $isDropdownOpen={isDropdownOpen} />
       </S.DropdownHeader>
       {isDropdownOpen && (

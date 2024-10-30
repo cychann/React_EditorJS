@@ -1,0 +1,77 @@
+/* 본고딕 */
+@font-face {
+  font-family: "NotoSans";
+  src: url("/public/assets/fonts/NotoSansKR-Regular.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("/public/assets/fonts/NotoSansKR-Bold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+/* 나눔명조 */
+@font-face {
+  font-family: "NanumMyeongjo";
+  src: url("/public/assets/fonts/NanumMyeongjo.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "NanumMyeongjo";
+  src: url("/public/assets/fonts/NanumMyeongjoBold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+/* 나눔고딕 */
+@font-face {
+  font-family: "NanumGothic";
+  src: url("/public/assets/fonts/NanumGothic.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "NanumGothic";
+  src: url("/public/assets/fonts/NanumGothicBold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+/* 나눔바른고딕 */
+@font-face {
+  font-family: "NanumBarunGothic";
+  src: url("/public/assets/fonts/NanumBarunGothic.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "NanumBarunGothic";
+  src: url("/public/assets/fonts/NanumBarunGothicBold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+/* Helvetica */
+@font-face {
+  font-family: "Helvetica";
+  src: url("/public/assets/fonts/Helvetica.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Helvetica";
+  src: url("/public/assets/fonts/HelveticaBold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+/* Georgia */
+@font-face {
+  font-family: "Georgia";
+  src: url("/public/assets/fonts/Georgia.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Georgia";
+  src: url("/public/assets/fonts/GeorgiaBold.woff2") format("woff2");
+  font-weight: 700;
+}

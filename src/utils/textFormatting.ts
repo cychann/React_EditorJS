@@ -21,19 +21,30 @@ export const textFormatting = () => {
     }
   };
 
-  // 스타일 적용 (예: 색상)
-  const applyStyle = (tag: string, style: Record<string, string>) => {
+  const applyStyle = (style: Record<string, string>) => {
     const selectionRange = saveSelection();
 
     if (selectionRange) {
       const selectedText = selectionRange.toString();
-      const newNode = document.createElement(tag);
-      Object.entries(style).forEach(([key, value]) => {
-        newNode.style[key as any] = value;
-      });
-      newNode.textContent = selectedText;
-      selectionRange.deleteContents();
-      selectionRange.insertNode(newNode);
+      const parentElement = selectionRange.startContainer.parentElement;
+
+      console.log("selectedText", selectedText);
+      console.log("parentElement", parentElement);
+      if (parentElement && parentElement.tagName.toLowerCase() === "span") {
+        // 이미 span 태그로 감싸져 있는 경우, 스타일을 덮어씌움
+        Object.entries(style).forEach(([key, value]) => {
+          parentElement.style[key as any] = value;
+        });
+      } else {
+        // span 태그로 감싸지지 않은 경우, 새로운 span 태그 생성
+        const newNode = document.createElement("span");
+        Object.entries(style).forEach(([key, value]) => {
+          newNode.style[key as any] = value;
+        });
+        newNode.textContent = selectedText;
+        selectionRange.deleteContents();
+        selectionRange.insertNode(newNode);
+      }
     }
   };
 

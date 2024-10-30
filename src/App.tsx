@@ -1,5 +1,4 @@
 import EditorSection from "components/Editor/EditorSection/EditorSection";
-import "./App.css";
 import TitleSection from "components/Title/TitleSection/TitleSection";
 
 function App() {
