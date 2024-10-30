@@ -18,7 +18,7 @@ export const useContentEditable = (initialContent: string) => {
 
   useEffect(() => {
     setContent(initialContent);
-  }, [initialContent]);
+  }, []);
 
   return { content, setContent, onInput, $contentEditable };
 };

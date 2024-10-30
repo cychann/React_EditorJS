@@ -4,7 +4,7 @@ export const DropdownWrapper = styled.div`
   position: relative;
   display: inline-block;
   cursor: pointer;
-  width: 118px;
+  width: 140px;
 
   font-size: 14px;
 `;

@@ -6,16 +6,17 @@ import useTitleStore from "store/useTitleStore";
 import InlineTooltip from "components/Common/InlineTooltip/InlineTooltip";
 import FontFamilyTooltip from "components/TextTooltip/FontFamilyTooltip/FontFamilyTooltip";
 import FontColorTooltip from "components/TextTooltip/FontColorTooltip/FontColorTooltip";
+import { FontType } from "types/Font";
 
 export default function TitleTextInput() {
   const setTitleText = useTitleStore((state) => state.setTitleText);
   const titleImage = useTitleStore((state) => state.titleCoverImage);
   const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
-  const titleFont = useTitleStore((state) => state.titleFont);
   const titleColor = useTitleStore((state) => state.titleColor);
 
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+  const [titleFont, setTitleFont] = useState<FontType>("NotoSans");
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -98,7 +99,10 @@ export default function TitleTextInput() {
         visible={isTooltipVisible}
         position={tooltipPosition}
       >
-        <FontFamilyTooltip />
+        <FontFamilyTooltip
+          selectedFont={titleFont}
+          onFontSelect={setTitleFont}
+        />
         {!titleImage && !titleCoverColor && <FontColorTooltip />}
       </InlineTooltip>
     </S.TitleTextInputContainer>
