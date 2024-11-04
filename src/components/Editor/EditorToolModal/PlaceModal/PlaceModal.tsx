@@ -3,13 +3,17 @@ import * as S from "./PlaceModal.style";
 import useEditorStore from "store/useEditorStore";
 import { fetchPlaceData } from "utils/fetchPlaceData";
 
-export default function PlaceModal() {
+interface PlaceIconProps {
+  addBlock: (type: string, data: object) => void;
+}
+
+const PlaceModal: React.FC<PlaceIconProps> = ({ addBlock }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [results, setResults] = useState<
     { name: string; id: string; address: string; url: string }[]
   >([]);
 
-  const { addBlock, setActiveModal } = useEditorStore();
+  const { setActiveModal } = useEditorStore();
 
   const handleSearch = async (query: string) => {
     const placeData = await fetchPlaceData(query);
@@ -84,4 +88,6 @@ export default function PlaceModal() {
       )}
     </S.PlaceModalWrapper>
   );
-}
+};
+
+export default PlaceModal;

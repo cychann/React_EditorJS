@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "./EditorSection.style";
 import EditorToolbar from "components/Editor/EditorToolbar/EditorToolbar";
-import EditorContent from "components/Editor/EditorContent/EditorContent";
 import EditorJS from "@editorjs/editorjs";
-import { EDITOR_JS_TOOLS } from "../EditorContent/Tools";
 import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
+import { EDITOR_JS_TOOLS } from "constants/eidtorTools";
 
 export default function EditorSection() {
   const editorSectionRef = useRef<HTMLDivElement>(null);

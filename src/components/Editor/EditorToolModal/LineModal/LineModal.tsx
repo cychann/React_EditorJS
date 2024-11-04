@@ -3,15 +3,19 @@ import * as S from "./LineModal.style";
 import useEditorStore from "store/useEditorStore";
 import { LineData, Line } from "./LineData";
 
-export default function LineModal() {
-  const { addBlock, setActiveModal } = useEditorStore();
+interface LineIconProps {
+  addBlock: (type: string, data: object) => void;
+}
+
+const LineModal: React.FC<LineIconProps> = ({ addBlock }) => {
+  const { setActiveModal } = useEditorStore();
 
   const handleLineClick = (line: Line) => {
     const lineData = {
       url: line.inBlockImageURL,
       imagePosition: line.inBlockImagePosition,
     };
-    addBlock("line", lineData);
+    addBlock("delimiter", lineData);
     setActiveModal(null);
   };
 
@@ -26,4 +30,6 @@ export default function LineModal() {
       ))}
     </S.LineModalWrapper>
   );
-}
+};
+
+export default LineModal;

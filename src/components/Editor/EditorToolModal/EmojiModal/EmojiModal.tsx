@@ -14,12 +14,16 @@ type Emoji = {
   skin_tones?: boolean;
 };
 
-export default function EmojiModal() {
+interface EmojiIconProps {
+  addBlock: (type: string, data: object) => void;
+}
+
+const EmojiModal: React.FC<EmojiIconProps> = ({ addBlock }) => {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
   const [page, setPage] = useState(0);
   const ITEMS_PER_PAGE = 150;
 
-  const { addBlock, setActiveModal } = useEditorStore();
+  const { setActiveModal } = useEditorStore();
 
   const handleEmojiClick = (emojiData: Emoji) => {
     addBlock("emoji", {
@@ -63,4 +67,6 @@ export default function EmojiModal() {
       </S.PaginationWrapper>
     </S.EmojiModalWrapper>
   );
-}
+};
+
+export default EmojiModal;
