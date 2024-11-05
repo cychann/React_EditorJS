@@ -42,4 +42,8 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
+  .ce-toolbar__plus {
+    display: none;
+  }
+
 `;

@@ -1,0 +1,12 @@
+.ce-video {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.ce-video video {
+  max-width: 100%;
+  height: auto;
+}

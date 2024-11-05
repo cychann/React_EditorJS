@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import * as S from "./VideoIcon.style";
-import useEditorStore from "store/useEditorStore";
 
-export default function VideoIcon() {
-  const { addBlock } = useEditorStore();
+interface VideoIconProps {
+  addBlock: (type: string, data: object) => void;
+}
+
+const VideoIcon: React.FC<VideoIconProps> = ({ addBlock }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,4 +38,6 @@ export default function VideoIcon() {
       />
     </S.VideoIconWrapper>
   );
-}
+};
+
+export default VideoIcon;

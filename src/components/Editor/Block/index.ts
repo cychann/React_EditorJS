@@ -1,9 +1,0 @@
-export { default as Align } from "./Align/Align";
-export { default as Emoji } from "./Emoji/Emoji";
-export { default as File } from "./File/File";
-export { default as GroupImage } from "./GroupImage/GroupImage";
-export { default as Image } from "./Image/Image";
-export { default as Line } from "./Line/Line";
-export { default as Place } from "./Place/Place";
-export { default as Text } from "./Text/Text";
-export { default as Video } from "./Video/Video";

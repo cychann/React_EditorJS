@@ -1,0 +1,45 @@
+.ce-file {
+  width: 100%;
+  display: flex;
+}
+
+.file-wrapper {
+  width: 100%;
+  display: flex;
+}
+
+.file-container {
+  border: 1px solid #ccc;
+  border-radius: 18px;
+  width: 290px;
+  height: 36px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.file-icon {
+  width: 14px;
+  height: 14px;
+  background: url("https://t1.daumcdn.net/brunch/static/img/help/pc/bg_editor_attach_1.png")
+    no-repeat;
+}
+
+.file-name {
+  width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.align-left {
+  justify-content: flex-start;
+}
+
+.align-center {
+  justify-content: center;
+}

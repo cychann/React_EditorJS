@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import * as S from "./ImageIcon.style";
-import useEditorStore from "store/useEditorStore";
 
-const ImageIcon = () => {
-  const { addBlock } = useEditorStore();
+interface ImageIconProps {
+  addBlock: (type: string, data: object) => void;
+}
+
+const ImageIcon: React.FC<ImageIconProps> = ({ addBlock }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

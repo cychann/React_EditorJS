@@ -1,9 +1,7 @@
 import React, { useRef } from "react";
 import * as S from "./GroupImageIcon.style";
-import useEditorStore from "store/useEditorStore";
 
 export default function GroupImageIcon() {
-  const { addBlock } = useEditorStore();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +17,7 @@ export default function GroupImageIcon() {
         };
       });
 
-      addBlock("groupImage", { images: imagesData });
+      // addBlock("groupImage", { images: imagesData });
     }
   };
 

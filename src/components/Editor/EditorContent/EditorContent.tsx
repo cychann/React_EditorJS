@@ -1,114 +1,43 @@
-import React, { useRef } from "react";
-import * as S from "./EditorContent.style";
+import React, { useEffect } from "react";
+import EditorJS from "@editorjs/editorjs";
+import DragDrop from "editorjs-drag-drop";
+import Undo from "editorjs-undo";
+import { EDITOR_JS_TOOLS } from "constants/editorTools";
 
-import {
-  Align,
-  Emoji,
-  File,
-  GroupImage,
-  Image,
-  Line,
-  Place,
-  Text,
-  Video,
-} from "components/Editor/Block/index";
-import { EditorBlockType } from "types/Editor";
-import useEditorStore from "store/useEditorStore";
+interface EditorContentProps {
+  editorRef: React.MutableRefObject<EditorJS | undefined>;
+}
 
-const elementComponents: Record<
-  EditorBlockType,
-  React.FC<{ data: any; id: any; active: boolean }>
-> = {
-  text: Text,
-  image: Image,
-  groupImage: GroupImage,
-  video: Video,
-  file: File,
-  place: Place,
-  emoji: Emoji,
-  line: Line,
-  align: Align,
-};
+export default function EditorContent({ editorRef }: EditorContentProps) {
+  useEffect(() => {
+    if (!editorRef.current) {
+      const editor = new EditorJS({
+        holder: "editorjs",
+        autofocus: true,
+        tools: EDITOR_JS_TOOLS,
+        onReady: () => {
+          new Undo({ editor });
+          new DragDrop(editor);
+        },
+      });
 
-export default function EditorContent() {
-  const { blokcs, activeBlockId, setActiveBlock, deleteBlock } =
-    useEditorStore();
-  const containerRef = useRef<HTMLDivElement | null>(null);
+      const saveBtn = document.querySelector("#save-btn");
+      saveBtn?.addEventListener("click", () => {
+        editor
+          .save()
+          .then((outputData) => console.log("Article data: ", outputData))
+          .catch((error) => console.log("Saving failed: ", error));
+      });
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    const container = containerRef.current;
-    if (container) {
-      const { top, bottom, left, right } = container.getBoundingClientRect();
-      const paddingTop = top + 0;
-      const paddingBottom = bottom - 120;
-      const paddingLeft = left + 0;
-      const paddingRight = right;
-
-      const clickedInsideContent =
-        event.clientY >= paddingTop &&
-        event.clientY <= paddingBottom &&
-        event.clientX >= paddingLeft &&
-        event.clientX <= paddingRight;
-
-      if (!clickedInsideContent) {
-        const editableElements = container.querySelectorAll(
-          "[contenteditable='true']"
-        );
-        const lastEditable = editableElements[
-          editableElements.length - 1
-        ] as HTMLElement | null;
-
-        if (lastEditable) {
-          lastEditable.focus();
-
-          const range = document.createRange();
-          const selection = window.getSelection();
-
-          range.selectNodeContents(lastEditable);
-          range.collapse(false);
-          selection?.removeAllRanges();
-          selection?.addRange(range);
-        }
-      }
+      editorRef.current = editor;
     }
-  };
 
-  const handleBlockClick = (id: string) => {
-    setActiveBlock(id);
-  };
-
-  const handleBlockKeydown = (
-    e: React.KeyboardEvent,
-    id: string,
-    type: EditorBlockType
-  ) => {
-    if (e.key === "Backspace" && type !== "text") {
-      if (activeBlockId === id) {
-        console.log("will be deleted", id);
-        deleteBlock(id);
+    return () => {
+      if (editorRef.current && editorRef.current.destroy) {
+        editorRef.current.destroy();
       }
-    }
-  };
+    };
+  }, [editorRef]);
 
-  return (
-    <S.EditorContentContainer ref={containerRef} onClick={handleClick}>
-      {blokcs.map((block) => {
-        const Component = elementComponents[block.type];
-        return Component ? (
-          <S.EditorBlockContainer
-            key={block.id}
-            tabIndex={0}
-            onKeyDown={(e) => handleBlockKeydown(e, block.id, block.type)}
-            onClick={() => handleBlockClick(block.id)}
-          >
-            <Component
-              data={block.data}
-              id={block.id}
-              active={block.id === activeBlockId}
-            />
-          </S.EditorBlockContainer>
-        ) : null;
-      })}
-    </S.EditorContentContainer>
-  );
+  return <div id="editorjs" />;
 }

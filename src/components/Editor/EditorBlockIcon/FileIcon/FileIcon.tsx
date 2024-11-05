@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import * as S from "./FileIcon.style";
-import useEditorStore from "store/useEditorStore";
 
-export default function FileIcon() {
-  const { addBlock } = useEditorStore();
+interface FileIconProps {
+  addBlock: (type: string, data: object) => void;
+}
+
+const FileIcon: React.FC<FileIconProps> = ({ addBlock }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,4 +33,6 @@ export default function FileIcon() {
       <S.FileInput type="file" ref={fileInputRef} onChange={handleFileChange} />
     </>
   );
-}
+};
+
+export default FileIcon;

@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "./EditorSection.style";
 import EditorToolbar from "components/Editor/EditorToolbar/EditorToolbar";
-import EditorContent from "components/Editor/EditorContent/EditorContent";
+import EditorJS from "@editorjs/editorjs";
+import EditorContent from "../EditorContent/EditorContent";
 
 export default function EditorSection() {
   const editorSectionRef = useRef<HTMLDivElement>(null);
+  const editorRef = useRef<EditorJS | undefined>();
+
   const [toolbarTop, setToolbarTop] = useState(487);
 
   useEffect(() => {
@@ -28,10 +31,11 @@ export default function EditorSection() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   return (
     <S.EditorSectionContainer ref={editorSectionRef}>
-      <EditorContent />
-      <EditorToolbar toolbarTop={toolbarTop} />
+      <EditorContent editorRef={editorRef} />
+      <EditorToolbar toolbarTop={toolbarTop} editor={editorRef} />
     </S.EditorSectionContainer>
   );
 }
