@@ -2,9 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as S from "./EditorSection.style";
 import EditorToolbar from "components/Editor/EditorToolbar/EditorToolbar";
 import EditorJS from "@editorjs/editorjs";
-import DragDrop from "editorjs-drag-drop";
-import Undo from "editorjs-undo";
-import { EDITOR_JS_TOOLS } from "constants/eidtorTools";
+import EditorContent from "../EditorContent/EditorContent";
 
 export default function EditorSection() {
   const editorSectionRef = useRef<HTMLDivElement>(null);
@@ -34,44 +32,9 @@ export default function EditorSection() {
     };
   }, []);
 
-  useEffect(() => {
-    if (!editorRef.current) {
-      const editor = new EditorJS({
-        holder: "editorjs",
-        autofocus: true,
-        tools: EDITOR_JS_TOOLS,
-        onReady: () => {
-          new Undo({ editor });
-          new DragDrop(editor);
-        },
-      });
-
-      const saveBtn = document.querySelector("#save-btn");
-
-      saveBtn.addEventListener("click", () => {
-        editor
-          .save()
-          .then((outputData) => {
-            console.log("Article data: ", outputData);
-          })
-          .catch((error) => {
-            console.log("Saving failed: ", error);
-          });
-      });
-
-      editorRef.current = editor;
-    }
-
-    return () => {
-      if (editorRef.current && editorRef.current.destroy) {
-        editorRef.current.destroy();
-      }
-    };
-  }, []);
-
   return (
     <S.EditorSectionContainer ref={editorSectionRef}>
-      <div id="editorjs" />
+      <EditorContent editorRef={editorRef} />
       <EditorToolbar toolbarTop={toolbarTop} editor={editorRef} />
     </S.EditorSectionContainer>
   );
