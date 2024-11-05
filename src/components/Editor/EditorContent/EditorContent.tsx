@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import EditorJS from "@editorjs/editorjs";
 import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
-import { EDITOR_JS_TOOLS } from "constants/eidtorTools";
+import { EDITOR_JS_TOOLS } from "constants/editorTools";
 
 interface EditorContentProps {
   editorRef: React.MutableRefObject<EditorJS | undefined>;
