@@ -49,7 +49,11 @@ export default class Place implements BlockTool {
       placeAddress: "place-address",
     };
 
-    this.data = data;
+    this.data = {
+      ...data,
+      align: data.align || "left",
+    };
+
     this._element = this.drawView();
   }
 
@@ -81,7 +85,21 @@ export default class Place implements BlockTool {
       wrapper.appendChild(place);
     }
 
+    this.applyAlignment(place);
+
     return wrapper;
+  }
+
+  applyAlignment(element: HTMLDivElement) {
+    element.classList.remove("align-left", "align-center");
+
+    if (this.data.align === "center") {
+      element.classList.add("align-center");
+    }
+
+    if (this.data.align === "left") {
+      element.classList.add("align-left");
+    }
   }
 
   render(): HTMLDivElement {
@@ -90,7 +108,11 @@ export default class Place implements BlockTool {
 
   save(toolsContent: HTMLElement): BlockToolData {
     return {
-      url: this.data.url, //
+      url: this.data.url,
+      id: this.data.id,
+      address: this.data.address,
+      name: this.data.name,
+      align: this.data.align,
     };
   }
 
@@ -102,7 +124,7 @@ export default class Place implements BlockTool {
   }
 
   static get pasteConfig(): PasteConfig {
-    return { tags: ["INPUT"] };
+    return { tags: ["DIV"] };
   }
 
   onPaste(event: PasteEvent): void {

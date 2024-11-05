@@ -35,3 +35,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.align-left {
+  justify-content: flex-start;
+}
+
+.align-center {
+  justify-content: center;
+}

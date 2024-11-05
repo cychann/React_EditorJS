@@ -2,14 +2,22 @@
 }
 
 .emoji-wrapper {
-  width: 100px;
-  height: 100px;
+  width: 100%;
 
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
 .emoji-icon {
+  width: 100px;
+  height: 100px;
   font-size: 80px;
+}
+
+.align-left {
+  justify-content: flex-start;
+}
+
+.align-center {
+  justify-content: center;
 }

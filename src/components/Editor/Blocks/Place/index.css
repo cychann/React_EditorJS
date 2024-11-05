@@ -47,3 +47,11 @@
   color: #909090;
   font-size: 12px;
 }
+
+.align-left {
+  justify-content: flex-start;
+}
+
+.align-center {
+  justify-content: center;
+}

@@ -10,6 +10,7 @@ import {
 } from "@editorjs/editorjs";
 
 export default class File implements BlockTool {
+  tunes: { align: "left" | "center" | "right" };
   static get isReadOnlySupported(): boolean {
     return true;
   }
@@ -45,7 +46,11 @@ export default class File implements BlockTool {
       fileName: "file-name",
     };
 
-    this.data = data;
+    this.data = {
+      ...data,
+      align: data.align || "left",
+    };
+
     this._element = this.drawView();
   }
 
@@ -70,7 +75,21 @@ export default class File implements BlockTool {
       wrapper.appendChild(file);
     }
 
+    this.applyAlignment(file);
+
     return wrapper;
+  }
+
+  applyAlignment(element: HTMLDivElement) {
+    element.classList.remove("align-left", "align-center");
+
+    if (this.data.align === "center") {
+      element.classList.add("align-center");
+    }
+
+    if (this.data.align === "left") {
+      element.classList.add("align-left");
+    }
   }
 
   render(): HTMLDivElement {
@@ -79,7 +98,11 @@ export default class File implements BlockTool {
 
   save(toolsContent: HTMLElement): BlockToolData {
     return {
-      url: this.data.url, //
+      url: this.data.url,
+      name: this.data.name,
+      type: this.data.type,
+      size: this.data.size,
+      align: this.data.align,
     };
   }
 

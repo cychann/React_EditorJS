@@ -36,12 +36,16 @@ export default class Emoji implements BlockTool {
 
     this._CSS = {
       block: this.api.styles.block,
-      wrapper: "ce-image",
+      wrapper: "ce-emoji",
       emoji: "emoji-wrapper",
       emojiIcon: "emoji-icon",
     };
 
-    this.data = data;
+    this.data = {
+      ...data,
+      align: data.align || "left",
+    };
+
     this._element = this.drawView();
   }
 
@@ -60,7 +64,21 @@ export default class Emoji implements BlockTool {
       wrapper.appendChild(emoji);
     }
 
+    this.applyAlignment(emoji);
+
     return wrapper;
+  }
+
+  applyAlignment(element: HTMLDivElement) {
+    element.classList.remove("align-left", "align-center");
+
+    if (this.data.align === "center") {
+      element.classList.add("align-center");
+    }
+
+    if (this.data.align === "left") {
+      element.classList.add("align-left");
+    }
   }
 
   render(): HTMLDivElement {
@@ -69,7 +87,8 @@ export default class Emoji implements BlockTool {
 
   save(toolsContent: HTMLElement): BlockToolData {
     return {
-      url: this.data.url, //
+      emoji: this.data.emoji,
+      align: this.data.align,
     };
   }
 
@@ -81,7 +100,7 @@ export default class Emoji implements BlockTool {
   }
 
   static get pasteConfig(): PasteConfig {
-    return { tags: ["IMG"] };
+    return { tags: ["EMOJI"] };
   }
 
   onPaste(event: PasteEvent): void {

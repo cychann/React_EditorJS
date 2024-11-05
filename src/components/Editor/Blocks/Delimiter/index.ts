@@ -39,7 +39,11 @@ export default class Delimiter implements BlockTool {
       delimiter: "delimiter",
     };
 
-    this.data = data;
+    this.data = {
+      ...data,
+      align: data.align || "left",
+    };
+
     this._element = this.drawView();
   }
 
@@ -52,11 +56,26 @@ export default class Delimiter implements BlockTool {
 
     if (this.data) {
       delimiter.style.backgroundImage = `url(${this.data.url})`;
-      delimiter.style.backgroundPosition = this.data.imagePosition;
+      delimiter.style.backgroundPosition =
+        this.data.align === "center" ? "50% 50%" : this.data.imagePosition;
       wrapper.appendChild(delimiter);
     }
 
+    this.applyAlignment(delimiter);
+
     return wrapper;
+  }
+
+  applyAlignment(element: HTMLDivElement) {
+    element.classList.remove("align-left", "align-center");
+
+    if (this.data.align === "center") {
+      element.classList.add("align-center");
+    }
+
+    if (this.data.align === "left") {
+      element.classList.add("align-left");
+    }
   }
 
   render(): HTMLDivElement {
@@ -65,7 +84,9 @@ export default class Delimiter implements BlockTool {
 
   save(toolsContent: HTMLElement): BlockToolData {
     return {
-      url: this.data.url, //
+      url: this.data.url,
+      imagePosition: this.data.imagePosition,
+      align: this.data.align,
     };
   }
 

@@ -54,7 +54,7 @@ export default function EditorToolbar({ toolbarTop, editor }: Props) {
         <PlaceIcon />
         <EmojiIcon />
         <LineIcon />
-        <AlignIcon />
+        <AlignIcon editor={editor} />
       </FixedToolbar>
     </>
   );
