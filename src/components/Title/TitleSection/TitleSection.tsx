@@ -24,7 +24,9 @@ export default function TitleSection() {
     >
       <S.TitleTopWrapper>
         <S.TitleMenuWrapper>메뉴바</S.TitleMenuWrapper>
-        <S.TitleSaveWrapper onClick={checkBlock}>저장</S.TitleSaveWrapper>
+        <S.TitleSaveWrapper onClick={checkBlock} id="save-btn">
+          저장
+        </S.TitleSaveWrapper>
       </S.TitleTopWrapper>
       <TitleToolbar />
       <S.TitleBottomWrapper>

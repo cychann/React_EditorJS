@@ -46,6 +46,19 @@ export default function EditorSection() {
         },
       });
 
+      const saveBtn = document.querySelector("#save-btn");
+
+      saveBtn.addEventListener("click", () => {
+        editor
+          .save()
+          .then((outputData) => {
+            console.log("Article data: ", outputData);
+          })
+          .catch((error) => {
+            console.log("Saving failed: ", error);
+          });
+      });
+
       editorRef.current = editor;
     }
 
