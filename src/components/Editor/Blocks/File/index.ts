@@ -34,7 +34,6 @@ export default class File implements BlockTool {
   private _element: HTMLDivElement;
 
   constructor({ data, config, api }: BlockToolConstructorOptions) {
-    console.log(data, config, api);
     this.api = api;
 
     this._CSS = {
