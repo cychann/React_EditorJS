@@ -33,6 +33,7 @@ export default class GroupImage implements BlockTool {
   private _element: HTMLDivElement;
   private dragOverIndex: number | null = null;
   private droppedIndex: number | null = null;
+  private sourceColumn: string | null = null;
 
   constructor({ data, config, api }: BlockToolConstructorOptions) {
     this.api = api;
@@ -66,16 +67,29 @@ export default class GroupImage implements BlockTool {
           0
         );
 
-        imagesArray.forEach((imageData) => {
+        imagesArray.forEach((imageData, index) => {
           const imageWrapper = document.createElement("div");
           const image = document.createElement("img");
-          image.classList.add(this._CSS.imageItem);
 
           imageWrapper.classList.add(this._CSS.groupImage);
           image.classList.add(this._CSS.imageItem);
           image.src = imageData.url;
           image.alt = imageData.name;
           image.draggable = true;
+
+          imageWrapper.addEventListener("dragstart", (e) =>
+            this.onDragStart(e, colKey, index)
+          );
+          imageWrapper.addEventListener("dragover", (e) =>
+            this.onDragOver(e, colKey, index)
+          );
+          imageWrapper.addEventListener("drop", (e) =>
+            this.onDrop(e, colKey, index)
+          );
+          imageWrapper.addEventListener(
+            "dragleave",
+            this.onDragLeave.bind(this)
+          );
 
           const widthPercentage = (imageData.ratio / totalAspectRatio) * 100;
           imageWrapper.style.flexBasis = `${widthPercentage}%`;
@@ -96,7 +110,7 @@ export default class GroupImage implements BlockTool {
   }
 
   save(toolsContent: HTMLElement) {
-    return this.data.images;
+    return this.data;
   }
 
   updateView() {
@@ -105,46 +119,67 @@ export default class GroupImage implements BlockTool {
     this._element = newElement;
   }
 
-  onDragStart(e: DragEvent, index: number): void {
+  onDragStart(e: DragEvent, colKey: string, index: number): void {
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("imgIndex", String(index));
+    e.dataTransfer.setData("sourceColumn", colKey);
+    this.sourceColumn = colKey;
   }
 
-  onDragOver(e: DragEvent, index: number): void {
+  onDragOver(e: DragEvent, targetColumn: string, index: number): void {
     e.preventDefault();
     e.stopPropagation();
     this.dragOverIndex = index;
   }
 
-  onDrop(e: DragEvent, index: number): void {
+  onDrop(e: DragEvent, targetColumn: string, index: number): void {
     e.preventDefault();
 
     const sourceIndex = Number(e.dataTransfer?.getData("imgIndex"));
+    const sourceColumn = e.dataTransfer?.getData("sourceColumn");
 
-    if (sourceIndex === index) return;
+    console.log("sourceIndex", sourceIndex, sourceColumn);
 
-    const updatedImages = [...this.data.images];
-    console.log("updatedImages", updatedImages);
-    const [movedImage] = updatedImages.splice(sourceIndex, 1);
-    updatedImages.splice(index, 0, movedImage);
+    if (sourceColumn === null || sourceIndex === null) return;
 
-    this.data.images = updatedImages;
+    if (sourceColumn === targetColumn && sourceIndex === index) return;
 
+    const targetImages = [...this.data.images[targetColumn]];
+    if (targetImages.length >= 3) {
+      return;
+    }
+
+    // 원본 컬럼과 대상 컬럼이 다를 때 이미지 이동 처리
+    const sourceImages = [...this.data.images[sourceColumn]];
+    const [movedImage] = sourceImages.splice(sourceIndex, 1);
+
+    console.log("sourceImages", sourceImages);
+    console.log("movedImage", movedImage);
+
+    // 대상 컬럼에 이미지 삽입
+    targetImages.splice(index, 0, movedImage);
+
+    console.log("targetImages: ", targetImages);
+
+    // 변경된 컬럼 데이터를 다시 할당
+    this.data.images = {
+      ...this.data.images,
+      [sourceColumn]: sourceImages,
+      [targetColumn]: targetImages,
+    };
+
+    console.log("this.data.images", this.data.images);
+
+    // 상태 초기화 및 뷰 업데이트
     this.dragOverIndex = null;
-    this.droppedIndex = index;
-    setTimeout(() => {
-      this.droppedIndex = null;
-    }, 300);
+    this.droppedIndex = null;
 
-    console.log("this.data", this.data);
     this.updateView();
-    console.log("this.data", this.data);
   }
 
   onDragLeave(): void {
     this.dragOverIndex = null;
   }
-
   static get toolbox(): ToolboxConfig {
     return {
       icon: "🖼️",
