@@ -48,7 +48,7 @@ export default function EditorToolbar({ toolbarTop, editor }: Props) {
       )}
       <FixedToolbar position={{ top: toolbarTop, right: 15 }}>
         <ImageIcon addBlock={addBlock} />
-        <GroupImageIcon />
+        <GroupImageIcon addBlock={addBlock} />
         <VideoIcon addBlock={addBlock} />
         <FileIcon addBlock={addBlock} />
         <PlaceIcon />

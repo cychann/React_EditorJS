@@ -1,7 +1,11 @@
 import React, { useRef } from "react";
 import * as S from "./GroupImageIcon.style";
 
-export default function GroupImageIcon() {
+interface GruopImageIconProps {
+  addBlock: (type: string, data: object) => void;
+}
+
+const GroupImageIcon: React.FC<GruopImageIconProps> = ({ addBlock }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +21,19 @@ export default function GroupImageIcon() {
         };
       });
 
-      // addBlock("groupImage", { images: imagesData });
+      const columnCount = Math.ceil(imagesData.length / 3);
+      const columns: { [key: string]: typeof imagesData } = {};
+
+      for (let i = 1; i <= columnCount; i++) {
+        columns[`col${i}`] = [];
+      }
+
+      imagesData.forEach((imageData, index) => {
+        const colKey = `col${(index % columnCount) + 1}`;
+        columns[colKey].push(imageData);
+      });
+
+      addBlock("groupImage", { images: columns });
     }
   };
 
@@ -40,4 +56,6 @@ export default function GroupImageIcon() {
       />
     </S.GroupImageIconWrapper>
   );
-}
+};
+
+export default GroupImageIcon;

@@ -1,0 +1,37 @@
+.ce-group-image {
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 정렬 */
+
+  gap: 10px;
+}
+
+.group-image-column {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+}
+
+.group-image-item {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  cursor: pointer;
+  transition: border 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.group-image-item.drag-over {
+  border: 2px dashed #4a90e2;
+}
+
+.group-image-item.dropped {
+  animation: scaleUp 0.2s ease-in-out;
+}
