@@ -91,8 +91,18 @@ export default class GroupImage implements BlockTool {
             this.onDragLeave.bind(this)
           );
 
-          const widthPercentage = (imageData.ratio / totalAspectRatio) * 100;
-          imageWrapper.style.flexBasis = `${widthPercentage}%`;
+          if (imagesArray.length === 1) {
+            const widthPercentage =
+              imageData.width < 800 ? `${imageData.width}px` : "100%";
+            imageWrapper.style.width = widthPercentage;
+          }
+
+          if (imagesArray.length > 1) {
+            const widthPercentage = `${
+              (imageData.ratio / totalAspectRatio) * 100
+            }%`;
+            imageWrapper.style.width = widthPercentage;
+          }
 
           imageWrapper.appendChild(image);
           columnWrapper.appendChild(imageWrapper);
@@ -105,18 +115,16 @@ export default class GroupImage implements BlockTool {
     return wrapper;
   }
 
-  render(): HTMLDivElement {
-    return this._element;
-  }
-
-  save(toolsContent: HTMLElement) {
-    return this.data;
-  }
-
-  updateView() {
+  updateView(): void {
     const newElement = this.drawView();
     this._element.replaceWith(newElement);
     this._element = newElement;
+
+    this._element.classList.add("group-image-animate");
+
+    setTimeout(() => {
+      this._element.classList.remove("group-image-animate");
+    }, 500);
   }
 
   onDragStart(e: DragEvent, colKey: string, index: number): void {
@@ -130,6 +138,20 @@ export default class GroupImage implements BlockTool {
     e.preventDefault();
     e.stopPropagation();
     this.dragOverIndex = index;
+
+    this.clearDragOverEffects();
+
+    const targetItem = e.currentTarget as HTMLElement;
+    if (targetItem) {
+      const rect = targetItem.getBoundingClientRect();
+      const mouseX = e.clientX;
+
+      if (mouseX < rect.left + rect.width / 2) {
+        targetItem.classList.add("drag-over-left");
+      } else {
+        targetItem.classList.add("drag-over-right");
+      }
+    }
   }
 
   onDrop(e: DragEvent, targetColumn: string, index: number): void {
@@ -138,48 +160,72 @@ export default class GroupImage implements BlockTool {
     const sourceIndex = Number(e.dataTransfer?.getData("imgIndex"));
     const sourceColumn = e.dataTransfer?.getData("sourceColumn");
 
-    console.log("sourceIndex", sourceIndex, sourceColumn);
-
+    // 기본 유효성 검사
     if (sourceColumn === null || sourceIndex === null) return;
-
     if (sourceColumn === targetColumn && sourceIndex === index) return;
 
-    const targetImages = [...this.data.images[targetColumn]];
-    if (targetImages.length >= 3) {
-      return;
-    }
-
-    // 원본 컬럼과 대상 컬럼이 다를 때 이미지 이동 처리
     const sourceImages = [...this.data.images[sourceColumn]];
+    const targetImages =
+      sourceColumn === targetColumn
+        ? sourceImages
+        : [...this.data.images[targetColumn]];
+
+    // 이동할 이미지를 sourceImages에서 제거
     const [movedImage] = sourceImages.splice(sourceIndex, 1);
 
-    console.log("sourceImages", sourceImages);
-    console.log("movedImage", movedImage);
+    // 드롭 위치에 따라 adjustedIndex 계산
+    const isInsertBefore = (e.currentTarget as HTMLElement).classList.contains(
+      "drag-over-left"
+    );
+    let adjustedIndex = isInsertBefore ? index : index + 1;
 
-    // 대상 컬럼에 이미지 삽입
-    targetImages.splice(index, 0, movedImage);
+    // 같은 컬럼 내에서 이동 시 인덱스 보정
+    if (sourceColumn === targetColumn) {
+      if (adjustedIndex > sourceIndex) {
+        adjustedIndex -= 1; // 이동할 위치가 뒤쪽일 때 보정
+      }
+      sourceImages.splice(adjustedIndex, 0, movedImage);
+    } else {
+      // 다른 컬럼으로 이동 시: 대상 컬럼의 최대 요소 수 체크
+      if (targetImages.length >= 3) {
+        this.clearDragOverEffects();
+        return;
+      }
+      targetImages.splice(adjustedIndex, 0, movedImage);
+    }
 
-    console.log("targetImages: ", targetImages);
-
-    // 변경된 컬럼 데이터를 다시 할당
+    // 데이터 갱신
     this.data.images = {
       ...this.data.images,
       [sourceColumn]: sourceImages,
-      [targetColumn]: targetImages,
+      ...(sourceColumn !== targetColumn && { [targetColumn]: targetImages }),
     };
 
-    console.log("this.data.images", this.data.images);
-
-    // 상태 초기화 및 뷰 업데이트
-    this.dragOverIndex = null;
-    this.droppedIndex = null;
-
+    this.clearDragOverEffects();
     this.updateView();
   }
 
-  onDragLeave(): void {
+  onDragLeave(e: DragEvent): void {
     this.dragOverIndex = null;
+
+    this.clearDragOverEffects();
   }
+
+  clearDragOverEffects(): void {
+    const allItems = this._element.querySelectorAll(`.${this._CSS.groupImage}`);
+    allItems.forEach((el) => {
+      el.classList.remove("drag-over-left", "drag-over-right");
+    });
+  }
+
+  render(): HTMLDivElement {
+    return this._element;
+  }
+
+  save(toolsContent: HTMLElement) {
+    return this.data;
+  }
+
   static get toolbox(): ToolboxConfig {
     return {
       icon: "🖼️",

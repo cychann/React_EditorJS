@@ -23,7 +23,9 @@ const GroupImageIcon: React.FC<GruopImageIconProps> = ({ addBlock }) => {
             size: file.size,
             name: file.name,
             type: file.type,
-            ratio: width / height,
+            width,
+            height,
+            ratio: width / height, // 비율 계산
           };
         })
       );

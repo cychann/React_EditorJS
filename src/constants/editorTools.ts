@@ -13,7 +13,9 @@ export const EDITOR_JS_TOOLS = {
     inlineToolbar: true,
   },
   image: Image,
-  groupImage: GroupImage,
+  groupImage: {
+    class: GroupImage,
+  },
   video: Video,
   file: File,
   place: Place,

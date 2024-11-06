@@ -15,22 +15,30 @@
   height: auto;
   object-fit: cover;
   cursor: pointer;
-  transition: border 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
-@keyframes scaleUp {
-  0% {
+.drag-over-left {
+  border-left: 2px solid #00b8b2;
+}
+
+.drag-over-right {
+  border-right: 2px solid #00b8b2;
+}
+
+.dropped {
+  animation: scaleUp 0.2s ease-in-out;
+  border: 2px solid #00b8b2;
+}
+
+@keyframes fadeInScale {
+  from {
     transform: scale(0.8);
   }
-  100% {
+  to {
     transform: scale(1);
   }
 }
 
-.group-image-item.drag-over {
-  border: 2px dashed #4a90e2;
-}
-
-.group-image-item.dropped {
-  animation: scaleUp 0.2s ease-in-out;
+.group-image-animate {
+  animation: fadeInScale 0.5s ease forwards;
 }
