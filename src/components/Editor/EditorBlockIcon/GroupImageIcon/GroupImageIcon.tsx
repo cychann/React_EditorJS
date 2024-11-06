@@ -8,18 +8,25 @@ interface GruopImageIconProps {
 const GroupImageIcon: React.FC<GruopImageIconProps> = ({ addBlock }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const files = event.target.files;
     if (files) {
-      const imagesData = Array.from(files).map((file) => {
-        const imageUrl = URL.createObjectURL(file);
-        return {
-          url: imageUrl,
-          size: file.size,
-          name: file.name,
-          type: file.type,
-        };
-      });
+      const imagesData = await Promise.all(
+        Array.from(files).map(async (file) => {
+          const imageUrl = URL.createObjectURL(file);
+          const { width, height } = await getImageDimensions(imageUrl);
+
+          return {
+            url: imageUrl,
+            size: file.size,
+            name: file.name,
+            type: file.type,
+            ratio: width / height,
+          };
+        })
+      );
 
       const columnCount = Math.ceil(imagesData.length / 3);
       const columns: { [key: string]: typeof imagesData } = {};
@@ -35,6 +42,16 @@ const GroupImageIcon: React.FC<GruopImageIconProps> = ({ addBlock }) => {
 
       addBlock("groupImage", { images: columns });
     }
+  };
+
+  const getImageDimensions = (
+    url: string
+  ): Promise<{ width: number; height: number }> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve({ width: img.width, height: img.height });
+      img.src = url;
+    });
   };
 
   const handleIconClick = () => {

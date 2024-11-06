@@ -23,6 +23,7 @@ export default class GroupImage implements BlockTool {
   private _CSS: {
     block: string;
     wrapper: string;
+    columnWrapper: string;
     groupImage: string;
     imageItem: string;
     caption: string;
@@ -39,6 +40,7 @@ export default class GroupImage implements BlockTool {
     this._CSS = {
       block: this.api.styles.block,
       wrapper: "ce-group-image",
+      columnWrapper: "group-image-column",
       groupImage: "group-image-wrapper",
       imageItem: "group-image-item",
       caption: "group-image-caption",
@@ -55,21 +57,33 @@ export default class GroupImage implements BlockTool {
 
     Object.keys(this.data.images).forEach((colKey) => {
       const columnWrapper = document.createElement("div");
-      columnWrapper.classList.add("group-image-column");
+      columnWrapper.classList.add(this._CSS.columnWrapper);
 
-      this.data.images[colKey].forEach((imageData) => {
-        const imageWrapper = document.createElement("div");
-        const image = document.createElement("img");
+      const imagesArray = this.data.images[colKey];
+      if (Array.isArray(imagesArray)) {
+        const totalAspectRatio = imagesArray.reduce(
+          (sum, img) => sum + img.ratio,
+          0
+        );
 
-        imageWrapper.classList.add(this._CSS.groupImage);
-        image.classList.add(this._CSS.imageItem);
-        image.src = imageData.url;
-        image.alt = imageData.name;
-        image.draggable = true;
+        imagesArray.forEach((imageData) => {
+          const imageWrapper = document.createElement("div");
+          const image = document.createElement("img");
+          image.classList.add(this._CSS.imageItem);
 
-        imageWrapper.appendChild(image);
-        columnWrapper.appendChild(imageWrapper);
-      });
+          imageWrapper.classList.add(this._CSS.groupImage);
+          image.classList.add(this._CSS.imageItem);
+          image.src = imageData.url;
+          image.alt = imageData.name;
+          image.draggable = true;
+
+          const widthPercentage = (imageData.ratio / totalAspectRatio) * 100;
+          imageWrapper.style.flexBasis = `${widthPercentage}%`;
+
+          imageWrapper.appendChild(image);
+          columnWrapper.appendChild(imageWrapper);
+        });
+      }
 
       wrapper.appendChild(columnWrapper);
     });

@@ -1,7 +1,6 @@
 .ce-group-image {
   display: flex;
-  flex-direction: column; /* 세로 방향으로 정렬 */
-
+  flex-direction: column;
   gap: 10px;
 }
 
