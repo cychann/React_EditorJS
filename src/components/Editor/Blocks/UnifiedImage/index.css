@@ -1,0 +1,63 @@
+/* 공통 Wrapper 스타일 */
+.ce-unified-image {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+}
+
+/* 단일 이미지와 그룹 이미지 공통 스타일 */
+.unified-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.unified-image-wrapper:hover {
+  transform: scale(1.02);
+}
+
+/* 단일 이미지: 전체 너비 사용 */
+.unified-image-item {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.unified-image-single .unified-image-item {
+  width: 100%; /* 단일 이미지일 때는 전체 너비 */
+}
+
+/* 그룹 이미지: 비율에 따라 너비 조정 */
+.unified-image-group .unified-image-item {
+  height: auto;
+}
+
+/* 드래그 앤 드롭 관련 스타일 */
+.drag-over-left {
+  border-left: 2px solid #00b8b2;
+}
+
+.drag-over-right {
+  border-right: 2px solid #00b8b2;
+}
+
+.dropped {
+  animation: scaleUp 0.2s ease-in-out;
+  border: 2px solid #00b8b2;
+}
+
+/* 애니메이션 효과 */
+@keyframes fadeInScale {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.unified-image-animate {
+  animation: fadeInScale 0.5s ease forwards;
+}
