@@ -25,24 +25,25 @@ const GroupImageIcon: React.FC<GruopImageIconProps> = ({ addBlock }) => {
             type: file.type,
             width,
             height,
-            ratio: width / height, // 비율 계산
+            ratio: width / height,
           };
         })
       );
 
       const columnCount = Math.ceil(imagesData.length / 3);
-      const columns: { [key: string]: typeof imagesData } = {};
-
-      for (let i = 1; i <= columnCount; i++) {
-        columns[`col${i}`] = [];
-      }
+      const columns: Array<typeof imagesData> = Array.from(
+        { length: columnCount },
+        () => []
+      );
 
       imagesData.forEach((imageData, index) => {
-        const colKey = `col${(index % columnCount) + 1}`;
-        columns[colKey].push(imageData);
+        const colIndex = index % columnCount;
+        columns[colIndex].push(imageData);
       });
 
-      addBlock("groupImage", { images: columns });
+      columns.forEach((columnImages) => {
+        addBlock("unifiedImage", { images: columnImages });
+      });
     }
   };
 
