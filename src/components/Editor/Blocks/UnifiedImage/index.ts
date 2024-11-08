@@ -46,7 +46,6 @@ export default class UnifiedImage implements BlockTool {
   };
   private data: BlockToolData;
   private _element: HTMLDivElement;
-  private dragOverIndex: number | null = null;
 
   constructor({ data, config, api }: BlockToolConstructorOptions) {
     this.api = api;
@@ -160,7 +159,6 @@ export default class UnifiedImage implements BlockTool {
   onDragOver(e: DragEvent, index: number): void {
     e.preventDefault();
     e.stopPropagation();
-    this.dragOverIndex = index;
 
     this.clearDragOverEffects();
 
@@ -228,7 +226,6 @@ export default class UnifiedImage implements BlockTool {
     }
   }
 
-  // onDrop 함수
   async onDrop(e: DragEvent, targetIndex: number): Promise<void> {
     e.preventDefault();
     if (!e.dataTransfer) return;
@@ -255,12 +252,14 @@ export default class UnifiedImage implements BlockTool {
       | "bottom"
       | "left"
       | "right";
+    const droppedBlockIndex =
+      dropType === "bottom"
+        ? this.api.blocks.getCurrentBlockIndex() + 1
+        : this.api.blocks.getCurrentBlockIndex();
 
     if (dropType === "top" || dropType === "bottom") {
-      // 위나 아래에 드롭된 경우, 새로운 블록을 생성
-      await this.onDropNewBlock(dropType);
+      this.onDropNewBlock(dropType, blockIndex, droppedBlockIndex);
     } else {
-      // 왼쪽/오른쪽으로 드롭된 경우 블록 내 이미지 순서 변경 처리
       const dropPosition = this.getDropPosition(e, targetItem);
 
       if (UnifiedImage.sourceInstance === this) {
@@ -278,9 +277,17 @@ export default class UnifiedImage implements BlockTool {
     UnifiedImage.sourceIndex = null;
   }
 
-  private async onDropNewBlock(position: "top" | "bottom"): Promise<void> {
+  private onDropNewBlock(
+    position: "top" | "bottom",
+    blockIndex: number,
+    droppedBlockIndex: number
+  ): void {
+    // Step 1: 이미지 이동 여부 및 필수 데이터 체크
+    if (blockIndex === droppedBlockIndex) return;
+    if (position === "top" && blockIndex === droppedBlockIndex - 1) return;
     if (!UnifiedImage.draggedImage || !UnifiedImage.sourceInstance) return;
 
+    // Step 2: 드래그된 이미지를 새로운 데이터로 준비
     const draggedImageData = {
       url: UnifiedImage.draggedImage.url,
       name: UnifiedImage.draggedImage.name,
@@ -288,29 +295,35 @@ export default class UnifiedImage implements BlockTool {
       width: UnifiedImage.draggedImage.width,
     };
 
+    // Step 3: 원본 블록에서 이미지 제거 (불변성 유지)
+    const updatedImages = [...UnifiedImage.sourceInstance.data.images];
+    updatedImages.splice(UnifiedImage.sourceIndex!, 1);
+    UnifiedImage.sourceInstance.data.images = updatedImages;
+
+    // Step 4: 새로운 블록 생성 및 삽입
     const newBlockData = { images: [draggedImageData] };
-
-    const currentIndex = this.api.blocks.getCurrentBlockIndex();
-    const newBlockIndex = position === "top" ? currentIndex : currentIndex + 1;
-
-    const sourceImages = [...UnifiedImage.sourceInstance.data.images];
-    sourceImages.splice(UnifiedImage.sourceIndex!, 1);
-    UnifiedImage.sourceInstance.data.images = sourceImages;
-
-    if (sourceImages.length === 0) {
-      const sourceBlockIndex = this.api.blocks.getCurrentBlockIndex();
-      await this.api.blocks.delete(sourceBlockIndex);
-    } else {
-      UnifiedImage.sourceInstance.updateView();
-    }
-
     this.api.blocks.insert(
       "unifiedImage",
       newBlockData,
       {},
-      newBlockIndex,
+      droppedBlockIndex,
       true
     );
+
+    // Step 5: 원본 블록이 비었으면 삭제, 비어있지 않으면 업데이트
+    if (updatedImages.length === 0) {
+      const blockToDeleteIndex =
+        position === "top" ? blockIndex + 1 : blockIndex;
+      this.api.blocks.delete(blockToDeleteIndex);
+    } else if (UnifiedImage.sourceInstance) {
+      // 원본 블록이 남아 있는 경우 업데이트
+      UnifiedImage.sourceInstance.updateView();
+    }
+
+    // Step 6: 드래그 관련 상태 초기화 (가장 마지막에 수행)
+    UnifiedImage.draggedImage = null;
+    UnifiedImage.sourceInstance = null;
+    UnifiedImage.sourceIndex = null;
   }
 
   private getDropPosition(e: DragEvent, element: HTMLElement): number {
@@ -360,7 +373,6 @@ export default class UnifiedImage implements BlockTool {
   }
 
   onDragLeave(e: DragEvent): void {
-    this.dragOverIndex = null;
     this.clearDragOverEffects();
   }
 
