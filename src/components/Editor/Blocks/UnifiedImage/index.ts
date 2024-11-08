@@ -49,7 +49,6 @@ export default class UnifiedImage implements BlockTool {
   private dragOverIndex: number | null = null;
 
   constructor({ data, config, api }: BlockToolConstructorOptions) {
-    console.log("constructor data", data);
     this.api = api;
     this.data = data || { images: [] };
     this._CSS = this.initializeCSS();
@@ -168,20 +167,45 @@ export default class UnifiedImage implements BlockTool {
     const targetItem = e.currentTarget as HTMLElement;
     if (!targetItem) return;
 
-    // 현재 블록 인덱스와 드래그된 블록 인덱스를 비교하여 같은 블록인지 확인
-    const currentBlockIndex = this.api.blocks.getCurrentBlockIndex();
     if (
       UnifiedImage.sourceInstance &&
       UnifiedImage.sourceInstance === this &&
       UnifiedImage.sourceIndex === index
     ) {
-      // 같은 블록 내에서의 드래그 앤 드롭이므로 효과를 무시
-      console.log(
-        "Dragging within the same block, ignoring drag-over effects."
-      );
       return;
     }
 
+    const dropType = this.getDropType(e, targetItem);
+    let targetElement: HTMLElement | null = targetItem;
+
+    if (dropType === "top" || dropType === "bottom") {
+      targetElement = targetItem.parentElement || targetItem;
+    }
+
+    if (!targetElement) return;
+
+    switch (dropType) {
+      case "top":
+        targetElement.classList.add("drag-over-top");
+        break;
+      case "bottom":
+        targetElement.classList.add("drag-over-bottom");
+        break;
+      case "left":
+        targetElement.classList.add("drag-over-left");
+        break;
+      case "right":
+        targetElement.classList.add("drag-over-right");
+        break;
+    }
+
+    targetItem.dataset.dropType = dropType;
+  }
+
+  private getDropType(
+    e: DragEvent,
+    targetItem: HTMLElement
+  ): "top" | "bottom" | "left" | "right" | null {
     const rect = targetItem.getBoundingClientRect();
     const mouseX = e.clientX;
     const mouseY = e.clientY;
@@ -190,35 +214,18 @@ export default class UnifiedImage implements BlockTool {
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
-    // X축과 Y축 거리를 계산하여 어느 방향이 더 가까운지를 결정합니다.
+    // X축과 Y축 거리 계산
     const deltaX = mouseX - centerX;
     const deltaY = mouseY - centerY;
 
-    // 절대값을 사용하여 더 가까운 방향을 판단합니다.
-    let dropType: "top" | "bottom" | "left" | "right" | null = null;
-
+    // 절대값으로 더 가까운 방향을 판단
     if (Math.abs(deltaY) > Math.abs(deltaX)) {
       // 위쪽 또는 아래쪽이 더 가까운 경우
-      if (deltaY < 0) {
-        targetItem.classList.add("drag-over-top");
-        dropType = "top";
-      } else {
-        targetItem.classList.add("drag-over-bottom");
-        dropType = "bottom";
-      }
+      return deltaY < 0 ? "top" : "bottom";
     } else {
       // 왼쪽 또는 오른쪽이 더 가까운 경우
-      if (deltaX < 0) {
-        targetItem.classList.add("drag-over-left");
-        dropType = "left";
-      } else {
-        targetItem.classList.add("drag-over-right");
-        dropType = "right";
-      }
+      return deltaX < 0 ? "left" : "right";
     }
-
-    // 드롭 타입을 해당 아이템의 dataset에 저장합니다.
-    targetItem.dataset.dropType = dropType;
   }
 
   // onDrop 함수
@@ -239,7 +246,6 @@ export default class UnifiedImage implements BlockTool {
       UnifiedImage.sourceInstance === this &&
       sourceIndex === targetIndex
     ) {
-      console.log("Image dropped at the same position, operation ignored.");
       return;
     }
 
@@ -275,7 +281,6 @@ export default class UnifiedImage implements BlockTool {
   private async onDropNewBlock(position: "top" | "bottom"): Promise<void> {
     if (!UnifiedImage.draggedImage || !UnifiedImage.sourceInstance) return;
 
-    console.log("UnifiedImage", UnifiedImage.draggedImage);
     const draggedImageData = {
       url: UnifiedImage.draggedImage.url,
       name: UnifiedImage.draggedImage.name,
@@ -284,21 +289,17 @@ export default class UnifiedImage implements BlockTool {
     };
 
     const newBlockData = { images: [draggedImageData] };
-    console.log("newBlockData: ", newBlockData);
 
     const currentIndex = this.api.blocks.getCurrentBlockIndex();
     const newBlockIndex = position === "top" ? currentIndex : currentIndex + 1;
 
     const sourceImages = [...UnifiedImage.sourceInstance.data.images];
-    console.log("sourceImages: ", sourceImages);
     sourceImages.splice(UnifiedImage.sourceIndex!, 1);
-    console.log("sourceImages after removal: ", sourceImages);
     UnifiedImage.sourceInstance.data.images = sourceImages;
 
     if (sourceImages.length === 0) {
       const sourceBlockIndex = this.api.blocks.getCurrentBlockIndex();
       await this.api.blocks.delete(sourceBlockIndex);
-      console.log("Source block deleted as it became empty");
     } else {
       UnifiedImage.sourceInstance.updateView();
     }
@@ -310,8 +311,6 @@ export default class UnifiedImage implements BlockTool {
       newBlockIndex,
       true
     );
-
-    console.log("New block inserted at index: ", newBlockIndex);
   }
 
   private getDropPosition(e: DragEvent, element: HTMLElement): number {
@@ -366,7 +365,11 @@ export default class UnifiedImage implements BlockTool {
   }
 
   clearDragOverEffects(): void {
-    const allItems = this._element.querySelectorAll(`.${this._CSS.groupImage}`);
+    // 모든 drag-over-* 클래스를 가진 요소 선택
+    const allItems = document.querySelectorAll(
+      ".drag-over-left, .drag-over-right, .drag-over-top, .drag-over-bottom"
+    );
+
     allItems.forEach((el) => {
       el.classList.remove(
         "drag-over-left",
@@ -382,7 +385,6 @@ export default class UnifiedImage implements BlockTool {
 
     // 만약 드래그된 이미지가 현재 블록에 드롭되려고 한다면, 동작을 무시합니다.
     if (UnifiedImage.sourceInstance && UnifiedImage.sourceInstance === this) {
-      console.log("Dragging over the same block, ignoring drag-over effects.");
       return;
     }
 
@@ -410,7 +412,6 @@ export default class UnifiedImage implements BlockTool {
 
     // 드래그된 이미지가 동일한 블록에 드롭되려고 한다면 작업을 무시합니다.
     if (UnifiedImage.sourceInstance && UnifiedImage.sourceInstance === this) {
-      console.log("Dropped on the same block, operation ignored.");
       return;
     }
 
