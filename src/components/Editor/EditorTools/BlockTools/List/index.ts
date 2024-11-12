@@ -262,32 +262,64 @@ export default class List {
   getOutofList(event: KeyboardEvent) {
     const items = this._elements.wrapper!.querySelectorAll("." + this.CSS.item);
 
-    if (items.length < 2) {
-      return;
+    if (items.length === 1) {
+      const currentItem = this.currentItem;
+
+      if (!currentItem || !currentItem.textContent?.trim().length) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.api.blocks.delete(this.api.blocks.getCurrentBlockIndex());
+        this.api.blocks.insert("paragraph", { text: "" });
+        this.api.caret.setToBlock(this.api.blocks.getCurrentBlockIndex());
+
+        return;
+      }
     }
 
-    const lastItem = items[items.length - 1];
-    const currentItem = this.currentItem;
+    if (items.length > 1) {
+      const lastItem = items[items.length - 1];
+      const currentItem = this.currentItem;
 
-    if (currentItem === lastItem && !lastItem.textContent?.trim().length) {
-      currentItem.parentElement!.removeChild(currentItem);
-      this.api.blocks.insert();
-      this.api.caret.setToBlock(this.api.blocks.getCurrentBlockIndex());
-      event.preventDefault();
-      event.stopPropagation();
+      if (currentItem === lastItem && !lastItem.textContent?.trim().length) {
+        currentItem.parentElement!.removeChild(currentItem);
+        this.api.blocks.insert();
+        this.api.caret.setToBlock(this.api.blocks.getCurrentBlockIndex());
+        event.preventDefault();
+        event.stopPropagation();
+      }
     }
   }
 
   backspace(event: KeyboardEvent) {
-    const items = this._elements.wrapper!.querySelectorAll("." + this.CSS.item),
-      firstItem = items[0];
+    const items = this._elements.wrapper!.querySelectorAll("." + this.CSS.item);
 
-    if (!firstItem) {
+    if (items.length === 0) {
       return;
     }
 
-    if (items.length < 2 && !firstItem.innerHTML.replace("<br>", " ").trim()) {
-      event.preventDefault();
+    const currentItem = this.currentItem;
+
+    if (!currentItem) {
+      return;
+    }
+
+    if (!currentItem.textContent?.trim().length) {
+      const target = currentItem;
+
+      if (items.length === 1) {
+        event.preventDefault();
+
+        this.api.blocks.delete(this.api.blocks.getCurrentBlockIndex());
+        this.api.blocks.insert("paragraph", { text: "" });
+        this.api.caret.setToBlock(this.api.blocks.getCurrentBlockIndex());
+
+        return;
+      }
+
+      window.requestIdleCallback(() => {
+        target.parentElement!.removeChild(target);
+      });
     }
   }
 
