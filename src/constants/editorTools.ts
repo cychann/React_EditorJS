@@ -5,6 +5,7 @@ import CustomParagraph from "components/Editor/EditorTools/BlockTools/Paragraph"
 import Place from "components/Editor/EditorTools/BlockTools/Place";
 import UnifiedImage from "components/Editor/EditorTools/BlockTools/UnifiedImage";
 import Video from "components/Editor/EditorTools/BlockTools/Video";
+import Strikethrough from "components/Editor/EditorTools/InlineTools/StrikeThrough";
 import Underline from "components/Editor/EditorTools/InlineTools/Underline";
 
 export const EDITOR_JS_TOOLS = {
@@ -22,4 +23,5 @@ export const EDITOR_JS_TOOLS = {
 
   /* Inline Tool */
   underline: Underline,
+  strikethrough: Strikethrough,
 };
