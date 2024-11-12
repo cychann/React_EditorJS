@@ -227,7 +227,9 @@ export default class UnifiedImage implements BlockTool {
   }
 
   async onDrop(e: DragEvent, targetIndex: number): Promise<void> {
+    console.log("onDrop");
     e.preventDefault();
+    e.stopPropagation();
     if (!e.dataTransfer) return;
 
     const transferData = e.dataTransfer.getData("application/json");
@@ -258,14 +260,16 @@ export default class UnifiedImage implements BlockTool {
         : this.api.blocks.getCurrentBlockIndex();
 
     if (dropType === "top" || dropType === "bottom") {
-      this.onDropNewBlock(dropType, blockIndex, droppedBlockIndex);
+      this.onDropNewBlock(dropType, blockIndex, targetIndex, droppedBlockIndex);
     } else {
       const dropPosition = this.getDropPosition(e, targetItem);
+
+      console.log("onDrop Position", dropPosition, UnifiedImage.sourceInstance);
 
       if (UnifiedImage.sourceInstance === this) {
         this.handleInternalDrop(sourceIndex, dropPosition);
       } else if (UnifiedImage.sourceInstance && UnifiedImage.draggedImage) {
-        await this.handleExternalDrop(sourceBlock, dropPosition);
+        await this.handleExternalDrop(sourceBlock, blockIndex, dropPosition);
       }
     }
 
@@ -280,12 +284,37 @@ export default class UnifiedImage implements BlockTool {
   private onDropNewBlock(
     position: "top" | "bottom",
     blockIndex: number,
+    droppedTargetIndex: number,
     droppedBlockIndex: number
   ): void {
+    console.log("position", position);
+    console.log("block index", blockIndex, droppedBlockIndex);
+    console.log("source index", UnifiedImage.sourceIndex, droppedTargetIndex);
+    console.log("UnifiedImage", UnifiedImage.sourceInstance);
+
     // Step 1: 이미지 이동 여부 및 필수 데이터 체크
-    if (blockIndex === droppedBlockIndex) return;
-    if (position === "top" && blockIndex === droppedBlockIndex - 1) return;
+
+    // 1-1: 기존 드래그 요소가 있는지 확인
     if (!UnifiedImage.draggedImage || !UnifiedImage.sourceInstance) return;
+    // 1-2: 같은 이미지에 드래그 앤 드롭을 했을 때
+    if (
+      blockIndex === droppedBlockIndex &&
+      UnifiedImage.sourceIndex === droppedTargetIndex
+    )
+      return;
+    // 1-3: 한줄에 이미지 한개인 요소를, 위 혹은 아래로 드래그 했는데, 위치 변동이 없어야할 때
+    if (
+      UnifiedImage.sourceInstance.data.images.length === 1 &&
+      position === "top" &&
+      blockIndex === droppedBlockIndex - 1
+    )
+      return;
+    if (
+      UnifiedImage.sourceInstance.data.images.length === 1 &&
+      position === "bottom" &&
+      blockIndex === droppedBlockIndex + 1
+    )
+      return;
 
     // Step 2: 드래그된 이미지를 새로운 데이터로 준비
     const draggedImageData = {
@@ -310,10 +339,13 @@ export default class UnifiedImage implements BlockTool {
       true
     );
 
+    console.log("updatedImages", updatedImages);
+    console.log("index", blockIndex, droppedBlockIndex);
+
     // Step 5: 원본 블록이 비었으면 삭제, 비어있지 않으면 업데이트
     if (updatedImages.length === 0) {
       const blockToDeleteIndex =
-        position === "top" ? blockIndex + 1 : blockIndex;
+        blockIndex > droppedBlockIndex ? blockIndex + 1 : blockIndex;
       this.api.blocks.delete(blockToDeleteIndex);
     } else if (UnifiedImage.sourceInstance) {
       // 원본 블록이 남아 있는 경우 업데이트
@@ -324,6 +356,8 @@ export default class UnifiedImage implements BlockTool {
     UnifiedImage.draggedImage = null;
     UnifiedImage.sourceInstance = null;
     UnifiedImage.sourceIndex = null;
+
+    this.updateView();
   }
 
   private getDropPosition(e: DragEvent, element: HTMLElement): number {
@@ -340,16 +374,22 @@ export default class UnifiedImage implements BlockTool {
   }
 
   private handleInternalDrop(sourceIndex: number, dropPosition: number): void {
+    console.log("handleInternalDrop");
     const images = [...this.data.images];
     const [movedImage] = images.splice(sourceIndex, 1);
     images.splice(dropPosition, 0, movedImage);
     this.data.images = images;
+
+    this.updateView();
   }
 
   private async handleExternalDrop(
     sourceBlock: any,
+    blockIndex: number,
     dropPosition: number
   ): Promise<void> {
+    console.log("handleExternalDrop");
+    console.log("UnifiedImage", UnifiedImage.sourceInstance.data.images);
     const sourceImages = [...UnifiedImage.sourceInstance.data.images];
     const targetImages = [...this.data.images];
 
@@ -368,11 +408,17 @@ export default class UnifiedImage implements BlockTool {
       );
       await this.api.blocks.update(currentBlock.id, this.data);
 
-      UnifiedImage.sourceInstance.updateView();
+      if (sourceImages.length === 0) {
+        this.api.blocks.delete(blockIndex);
+      }
     }
+
+    this.updateView();
   }
 
   onDragLeave(e: DragEvent): void {
+    e.preventDefault();
+    e.stopPropagation();
     this.clearDragOverEffects();
   }
 
@@ -394,6 +440,7 @@ export default class UnifiedImage implements BlockTool {
 
   onDragOverBlock(e: DragEvent): void {
     e.preventDefault();
+    e.stopPropagation();
 
     // 만약 드래그된 이미지가 현재 블록에 드롭되려고 한다면, 동작을 무시합니다.
     if (UnifiedImage.sourceInstance && UnifiedImage.sourceInstance === this) {
@@ -417,10 +464,13 @@ export default class UnifiedImage implements BlockTool {
         lastItem.classList.add("drag-over-right");
       }
     }
+
+    this.updateView();
   }
 
   onDropBlock(e: DragEvent): void {
     e.preventDefault();
+    e.stopPropagation();
 
     // 드래그된 이미지가 동일한 블록에 드롭되려고 한다면 작업을 무시합니다.
     if (UnifiedImage.sourceInstance && UnifiedImage.sourceInstance === this) {
@@ -438,6 +488,7 @@ export default class UnifiedImage implements BlockTool {
     UnifiedImage.draggedImage = null;
     UnifiedImage.sourceInstance = null;
     UnifiedImage.sourceIndex = null;
+    this.updateView();
   }
 
   private handleBlockDrop(e: DragEvent): void {
