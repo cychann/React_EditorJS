@@ -1,6 +1,7 @@
 import Delimiter from "components/Editor/EditorTools/BlockTools/Delimiter";
 import Emoji from "components/Editor/EditorTools/BlockTools/Emoji";
 import File from "components/Editor/EditorTools/BlockTools/File";
+import Header from "components/Editor/EditorTools/BlockTools/Header";
 import CustomParagraph from "components/Editor/EditorTools/BlockTools/Paragraph";
 import Place from "components/Editor/EditorTools/BlockTools/Place";
 import UnifiedImage from "components/Editor/EditorTools/BlockTools/UnifiedImage";
@@ -13,6 +14,14 @@ export const EDITOR_JS_TOOLS = {
   paragraph: {
     class: CustomParagraph,
     inlineToolbar: true,
+  },
+  header: {
+    class: Header,
+    inlineToolbar: true,
+    config: {
+      levels: [1, 2, 3],
+      defaultLevel: 1,
+    },
   },
   unifiedImage: UnifiedImage,
   video: Video,
