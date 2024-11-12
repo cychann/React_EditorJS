@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@codexteam/icons": "^0.3.2",
     "@editorjs/delimiter": "^1.4.2",
     "@editorjs/editorjs": "^2.30.6",
     "@editorjs/header": "^2.8.8",
