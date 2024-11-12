@@ -71,7 +71,7 @@ export default class Image implements BlockTool {
 
   save(toolsContent: HTMLElement): BlockToolData {
     return {
-      url: this.data.url, //
+      url: this.data,
     };
   }
 
@@ -83,7 +83,7 @@ export default class Image implements BlockTool {
   }
 
   static get pasteConfig(): PasteConfig {
-    return { tags: ["IMG"] };
+    return { tags: [] };
   }
 
   onPaste(event: PasteEvent): void {

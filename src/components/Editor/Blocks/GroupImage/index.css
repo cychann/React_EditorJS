@@ -1,0 +1,44 @@
+.ce-group-image {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.group-image-column {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+}
+
+.group-image-item {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.drag-over-left {
+  border-left: 2px solid #00b8b2;
+}
+
+.drag-over-right {
+  border-right: 2px solid #00b8b2;
+}
+
+.dropped {
+  animation: scaleUp 0.2s ease-in-out;
+  border: 2px solid #00b8b2;
+}
+
+@keyframes fadeInScale {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.group-image-animate {
+  animation: fadeInScale 0.5s ease forwards;
+}
