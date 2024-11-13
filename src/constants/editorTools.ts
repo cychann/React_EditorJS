@@ -9,17 +9,19 @@ import Quote from "components/Editor/EditorTools/BlockTools/Quote";
 import UnifiedImage from "components/Editor/EditorTools/BlockTools/UnifiedImage";
 import Video from "components/Editor/EditorTools/BlockTools/Video";
 import Strikethrough from "components/Editor/EditorTools/InlineTools/StrikeThrough";
+import ColorPicker from "components/Editor/EditorTools/InlineTools/TextColor";
 import Underline from "components/Editor/EditorTools/InlineTools/Underline";
 
 export const EDITOR_JS_TOOLS = {
   /* Block Tool */
   paragraph: {
     class: CustomParagraph,
-    inlineToolbar: ["bold", "underline", "strikethrough", "link"],
+    inlineToolbar: ["bold", "underline", "strikethrough", "link", "color"],
   },
   header: {
     class: Header,
-    inlineToolbar: ["bold", "underline", "strikethrough", "link"],
+    inlineToolbar: ["bold", "underline", "strikethrough", "link", "color"],
+
     config: {
       levels: [1, 2, 3],
       defaultLevel: 1,
@@ -27,11 +29,11 @@ export const EDITOR_JS_TOOLS = {
   },
   quote: {
     class: Quote,
-    inlineToolbar: ["bold", "underline", "strikethrough", "link"],
+    inlineToolbar: ["bold", "underline", "strikethrough", "link", "color"],
   },
   list: {
     class: List,
-    inlineToolbar: ["bold", "underline", "strikethrough", "link"],
+    inlineToolbar: ["bold", "underline", "strikethrough", "link", "color"],
   },
   unifiedImage: UnifiedImage,
   video: Video,
@@ -43,4 +45,21 @@ export const EDITOR_JS_TOOLS = {
   /* Inline Tool */
   underline: Underline,
   strikethrough: Strikethrough,
+  color: {
+    class: ColorPicker,
+    config: {
+      colorCollections: [
+        "#EC7878",
+        "#9C27B0",
+        "#673AB7",
+        "#3F51B5",
+        "#0070FF",
+        "#03A9F4",
+        "#00BCD4",
+        "#4CAF50",
+        "#8BC34A",
+        "#CDDC39",
+      ],
+    },
+  },
 };
