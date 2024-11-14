@@ -104,17 +104,17 @@ export default class ColorPicker implements InlineTool {
 
     if (color) {
       span.style.color = color;
-      this.currentColor = color; // 현재 색상을 저장합니다.
+      this.currentColor = color;
     }
 
     if (this.range) {
       const content = this.range.extractContents();
+      console.log("extract content", content);
 
-      // 중첩된 span 요소를 제거하고 일반 텍스트로 변환
       this.flattenSpans(content);
 
       span.appendChild(content);
-      this.range.deleteContents(); // 기존 내용을 삭제하고 새 내용을 삽입
+      this.range.deleteContents();
       this.range.insertNode(span);
 
       this.api.selection.expandToTag(span);
@@ -123,8 +123,7 @@ export default class ColorPicker implements InlineTool {
 
   // 중첩된 <span> 요소를 텍스트 노드로 변환하는 메서드
   private flattenSpans(node: Node) {
-    // `node`가 `Element`일 때만 `querySelectorAll`을 호출합니다.
-    if (node instanceof Element) {
+    if (node instanceof DocumentFragment || node instanceof Element) {
       const spans = node.querySelectorAll("span.cdx-color-picker");
       spans.forEach((span) => {
         if (span.parentNode) {
@@ -189,7 +188,7 @@ export default class ColorPicker implements InlineTool {
 
   public get toolboxIcon(): string {
     // 기본 아이콘 (여기서 필요한 경우 이모지나 SVG로 변경 가능)
-    return "🎨";
+    return "A";
   }
 
   public static get sanitize(): SanitizerConfig {

@@ -1,0 +1,18 @@
+.color-picker-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  background-color: #ffffff;
+  z-index: 9999;
+}
+
+.color-box {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
