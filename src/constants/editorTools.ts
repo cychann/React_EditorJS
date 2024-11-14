@@ -9,6 +9,7 @@ import Quote from "components/Editor/EditorTools/BlockTools/Quote";
 import UnifiedImage from "components/Editor/EditorTools/BlockTools/UnifiedImage";
 import Video from "components/Editor/EditorTools/BlockTools/Video";
 import Strikethrough from "components/Editor/EditorTools/InlineTools/StrikeThrough";
+import BackgroundColorPicker from "components/Editor/EditorTools/InlineTools/TextBackgroundColor";
 import ColorPicker from "components/Editor/EditorTools/InlineTools/TextColor";
 import Underline from "components/Editor/EditorTools/InlineTools/Underline";
 
@@ -16,11 +17,25 @@ export const EDITOR_JS_TOOLS = {
   /* Block Tool */
   paragraph: {
     class: CustomParagraph,
-    inlineToolbar: ["bold", "underline", "strikethrough", "link", "color"],
+    inlineToolbar: [
+      "bold",
+      "underline",
+      "strikethrough",
+      "link",
+      "color",
+      "backgroundColor",
+    ],
   },
   header: {
     class: Header,
-    inlineToolbar: ["bold", "underline", "strikethrough", "link", "color"],
+    inlineToolbar: [
+      "bold",
+      "underline",
+      "strikethrough",
+      "link",
+      "color",
+      "backgroundColor",
+    ],
 
     config: {
       levels: [1, 2, 3],
@@ -29,11 +44,25 @@ export const EDITOR_JS_TOOLS = {
   },
   quote: {
     class: Quote,
-    inlineToolbar: ["bold", "underline", "strikethrough", "link", "color"],
+    inlineToolbar: [
+      "bold",
+      "underline",
+      "strikethrough",
+      "link",
+      "color",
+      "backgroundColor",
+    ],
   },
   list: {
     class: List,
-    inlineToolbar: ["bold", "underline", "strikethrough", "link", "color"],
+    inlineToolbar: [
+      "bold",
+      "underline",
+      "strikethrough",
+      "link",
+      "color",
+      "backgroundColor",
+    ],
   },
   unifiedImage: UnifiedImage,
   video: Video,
@@ -49,16 +78,33 @@ export const EDITOR_JS_TOOLS = {
     class: ColorPicker,
     config: {
       colorCollections: [
-        "#EC7878",
-        "#9C27B0",
-        "#673AB7",
-        "#3F51B5",
-        "#0070FF",
-        "#03A9F4",
-        "#00BCD4",
-        "#4CAF50",
-        "#8BC34A",
-        "#CDDC39",
+        "#ffffff",
+        "#000000",
+        "#16b06d",
+        "#00c6be",
+        "#2e84b6",
+        "#959595",
+        "#f4c016",
+        "#f6655b",
+        "#ec4c69",
+        "#5c5cb2",
+      ],
+    },
+  },
+  backgroundColor: {
+    class: BackgroundColorPicker,
+    config: {
+      colorCollections: [
+        "#ffffff",
+        "#000000",
+        "#16b06d",
+        "#00c6be",
+        "#2e84b6",
+        "#959595",
+        "#f4c016",
+        "#f6655b",
+        "#ec4c69",
+        "#5c5cb2",
       ],
     },
   },
