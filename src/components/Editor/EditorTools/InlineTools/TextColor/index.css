@@ -9,6 +9,14 @@
   z-index: 9999;
 }
 
+.background-color-picker-btn {
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
 .color-box {
   width: 22px;
   height: 22px;

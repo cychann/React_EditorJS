@@ -40,8 +40,12 @@ export default class BackgroundColorPicker implements InlineTool {
   public render(): HTMLElement {
     this.button = document.createElement("button");
     this.button.type = "button";
-    this.button.classList.add(this.iconClasses.base);
-    this.updateToolboxIcon();
+    this.button.classList.add(
+      this.iconClasses.base,
+      "background-color-picker-btn"
+    );
+
+    this.button.appendChild(document.createTextNode(this.toolboxIcon));
 
     return this.button;
   }
@@ -57,7 +61,7 @@ export default class BackgroundColorPicker implements InlineTool {
 
       colorBox.addEventListener("click", () => {
         this.customSurround(color);
-        this.updateToolboxIcon(); // 색상이 변경될 때 아이콘 업데이트
+        this.updateToolboxIcon();
       });
 
       colorPickerContainer.appendChild(colorBox);
@@ -84,21 +88,16 @@ export default class BackgroundColorPicker implements InlineTool {
       BackgroundColorPicker.CSS
     );
 
-    console.log("termWrapper", termWrapper);
-    console.log("this.termWrapper", this.termWrapper);
-
     if (termWrapper) {
       this.unwrap(termWrapper);
     } else {
       this.wrap(color);
     }
 
-    // 현재 색상 업데이트
     this.currentColor = color;
   }
 
   public wrap(color?: string) {
-    console.log("wrap range", this.range);
     const span = document.createElement(this.tag);
     span.classList.add(BackgroundColorPicker.CSS);
 
@@ -109,7 +108,6 @@ export default class BackgroundColorPicker implements InlineTool {
 
     if (this.range) {
       const content = this.range.extractContents();
-      console.log("extract content", content);
 
       this.flattenSpans(content);
 
@@ -156,38 +154,37 @@ export default class BackgroundColorPicker implements InlineTool {
   }
 
   public checkState(): boolean {
-    // const termTag = this.api.selection.findParentTag(this.tag, ColorPicker.CSS);
-    // this.button?.classList.toggle(this.iconClasses.active, !!termTag);
+    const termTag = this.api.selection.findParentTag(
+      this.tag,
+      BackgroundColorPicker.CSS
+    );
 
-    // if (termTag) {
-    //   this.currentColor = termTag.style.color; // 현재 선택된 요소의 색상을 저장
-    //   this.updateToolboxIcon(); // 색상에 맞게 아이콘 업데이트
-    // } else {
-    //   this.currentColor = null; // 선택된 색상이 없을 때
-    //   this.updateToolboxIcon(); // 기본 상태로 아이콘 업데이트
-    // }
+    if (!termTag) {
+      this.currentColor = "transparent";
+      this.updateToolboxIcon();
+    }
 
-    // return !!termTag;
+    if (termTag) {
+      const color = termTag.style.backgroundColor;
+      this.currentColor = color;
+      this.updateToolboxIcon();
+    }
 
     return false;
   }
 
   private updateToolboxIcon() {
     if (this.button) {
-      // 배경 색상을 사용하여 아이콘의 현재 색상을 나타냅니다.
-      if (this.currentColor) {
-        this.button.style.backgroundColor = this.currentColor;
-      } else {
-        // 기본 상태로 설정 (색상 없음)
-        this.button.style.backgroundColor = "transparent";
-      }
+      this.button.style.backgroundColor = this.currentColor;
 
-      this.button.innerHTML = this.toolboxIcon; // 기본 아이콘을 유지
+      if (this.currentColor !== "transparent" || !this.currentColor) {
+        this.button.style.color = "#ffffff";
+        this.button.style.border = "none";
+      }
     }
   }
 
   public get toolboxIcon(): string {
-    // 기본 아이콘 (여기서 필요한 경우 이모지나 SVG로 변경 가능)
     return "A";
   }
 
