@@ -8,6 +8,7 @@ import Place from "components/Editor/EditorTools/BlockTools/Place";
 import Quote from "components/Editor/EditorTools/BlockTools/Quote";
 import UnifiedImage from "components/Editor/EditorTools/BlockTools/UnifiedImage";
 import Video from "components/Editor/EditorTools/BlockTools/Video";
+import FontPicker from "components/Editor/EditorTools/InlineTools/FontPicker";
 import Strikethrough from "components/Editor/EditorTools/InlineTools/StrikeThrough";
 import BackgroundColorPicker from "components/Editor/EditorTools/InlineTools/TextBackgroundColor";
 import ColorPicker from "components/Editor/EditorTools/InlineTools/TextColor";
@@ -18,6 +19,7 @@ export const EDITOR_JS_TOOLS = {
   paragraph: {
     class: CustomParagraph,
     inlineToolbar: [
+      "font",
       "bold",
       "underline",
       "strikethrough",
@@ -29,6 +31,7 @@ export const EDITOR_JS_TOOLS = {
   header: {
     class: Header,
     inlineToolbar: [
+      "font",
       "bold",
       "underline",
       "strikethrough",
@@ -45,6 +48,7 @@ export const EDITOR_JS_TOOLS = {
   quote: {
     class: Quote,
     inlineToolbar: [
+      "font",
       "bold",
       "underline",
       "strikethrough",
@@ -56,6 +60,7 @@ export const EDITOR_JS_TOOLS = {
   list: {
     class: List,
     inlineToolbar: [
+      "font",
       "bold",
       "underline",
       "strikethrough",
@@ -72,6 +77,7 @@ export const EDITOR_JS_TOOLS = {
   delimiter: Delimiter,
 
   /* Inline Tool */
+  font: FontPicker,
   underline: Underline,
   strikethrough: Strikethrough,
   color: {
