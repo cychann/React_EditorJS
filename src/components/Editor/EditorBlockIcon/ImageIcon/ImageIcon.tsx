@@ -3,9 +3,13 @@ import * as S from "./ImageIcon.style";
 
 interface ImageIconProps {
   addBlock: (type: string, data: object) => void;
+  handleBlockIndex: () => void;
 }
 
-const ImageIcon: React.FC<ImageIconProps> = ({ addBlock }) => {
+const ImageIcon: React.FC<ImageIconProps> = ({
+  handleBlockIndex,
+  addBlock,
+}) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = async (
@@ -41,6 +45,7 @@ const ImageIcon: React.FC<ImageIconProps> = ({ addBlock }) => {
   };
 
   const handleIconClick = () => {
+    handleBlockIndex();
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }

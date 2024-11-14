@@ -2,10 +2,15 @@ import React from "react";
 import * as S from "./EmojiIcon.style";
 import useEditorStore from "store/useEditorStore";
 
-export default function EmojiIcon() {
+interface EmojiIconProps {
+  handleBlockIndex: () => void;
+}
+
+export default function EmojiIcon({ handleBlockIndex }: EmojiIconProps) {
   const { setActiveModal } = useEditorStore();
 
   const handleIconClick = () => {
+    handleBlockIndex();
     setActiveModal("emoji");
   };
   return <S.EmojiIcon onClick={handleIconClick} />;

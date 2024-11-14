@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AlignIcon,
   EmojiIcon,
@@ -27,12 +27,47 @@ interface Props {
 }
 
 export default function EditorToolbar({ toolbarTop, editor }: Props) {
-  const { isModalOpen, activeModal } = useEditorStore();
+  const { isModalOpen, activeModal, currentBlockIndex, setCurrentBlockIndex } =
+    useEditorStore();
+
+  const handleBlockIndex = () => {
+    if (editor.current) {
+      const blockIndex = editor.current.blocks.getCurrentBlockIndex();
+
+      console.log("edtior current block", blockIndex);
+
+      if (blockIndex === -1) {
+        const index = editor.current.blocks.getBlocksCount();
+        setCurrentBlockIndex(index);
+      }
+
+      if (blockIndex > -1) {
+        setCurrentBlockIndex(blockIndex);
+      }
+    }
+  };
 
   const addBlock = (type: string, data: object) => {
     if (editor.current) {
-      const index = editor.current.blocks.getBlocksCount() + 1;
-      editor.current.blocks.insert(type, data, undefined, index);
+      const blockIndex = editor.current.blocks.getCurrentBlockIndex();
+
+      console.log("edtior current block", blockIndex);
+
+      if (blockIndex === -1) {
+        const index = editor.current.blocks.getBlocksCount();
+        setCurrentBlockIndex(index);
+      }
+
+      if (blockIndex > -1) {
+        setCurrentBlockIndex(blockIndex);
+      }
+
+      editor.current.blocks.insert(
+        type,
+        data,
+        undefined,
+        currentBlockIndex + 1
+      );
       editor.current.caret.setToLastBlock("start", 0);
     }
   };
@@ -47,13 +82,16 @@ export default function EditorToolbar({ toolbarTop, editor }: Props) {
         </EditorToolModal>
       )}
       <FixedToolbar position={{ top: toolbarTop, right: 15 }}>
-        <ImageIcon addBlock={addBlock} />
-        <GroupImageIcon addBlock={addBlock} />
-        <VideoIcon addBlock={addBlock} />
-        <FileIcon addBlock={addBlock} />
-        <PlaceIcon />
-        <EmojiIcon />
-        <LineIcon />
+        <ImageIcon handleBlockIndex={handleBlockIndex} addBlock={addBlock} />
+        <GroupImageIcon
+          handleBlockIndex={handleBlockIndex}
+          addBlock={addBlock}
+        />
+        <VideoIcon handleBlockIndex={handleBlockIndex} addBlock={addBlock} />
+        <FileIcon handleBlockIndex={handleBlockIndex} addBlock={addBlock} />
+        <PlaceIcon handleBlockIndex={handleBlockIndex} />
+        <EmojiIcon handleBlockIndex={handleBlockIndex} />
+        <LineIcon handleBlockIndex={handleBlockIndex} />
         <AlignIcon editor={editor} />
       </FixedToolbar>
     </>

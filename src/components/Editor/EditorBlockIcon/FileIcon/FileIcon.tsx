@@ -3,9 +3,10 @@ import * as S from "./FileIcon.style";
 
 interface FileIconProps {
   addBlock: (type: string, data: object) => void;
+  handleBlockIndex: () => void;
 }
 
-const FileIcon: React.FC<FileIconProps> = ({ addBlock }) => {
+const FileIcon: React.FC<FileIconProps> = ({ handleBlockIndex, addBlock }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,6 +23,7 @@ const FileIcon: React.FC<FileIconProps> = ({ addBlock }) => {
   };
 
   const handleIconClick = () => {
+    handleBlockIndex();
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }

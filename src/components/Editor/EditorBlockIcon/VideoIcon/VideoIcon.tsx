@@ -3,9 +3,13 @@ import * as S from "./VideoIcon.style";
 
 interface VideoIconProps {
   addBlock: (type: string, data: object) => void;
+  handleBlockIndex: () => void;
 }
 
-const VideoIcon: React.FC<VideoIconProps> = ({ addBlock }) => {
+const VideoIcon: React.FC<VideoIconProps> = ({
+  handleBlockIndex,
+  addBlock,
+}) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +25,7 @@ const VideoIcon: React.FC<VideoIconProps> = ({ addBlock }) => {
   };
 
   const handleIconClick = () => {
+    handleBlockIndex();
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }

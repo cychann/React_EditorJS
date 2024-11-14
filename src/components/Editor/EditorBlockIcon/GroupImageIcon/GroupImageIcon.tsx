@@ -3,9 +3,13 @@ import * as S from "./GroupImageIcon.style";
 
 interface GruopImageIconProps {
   addBlock: (type: string, data: object) => void;
+  handleBlockIndex: () => void;
 }
 
-const GroupImageIcon: React.FC<GruopImageIconProps> = ({ addBlock }) => {
+const GroupImageIcon: React.FC<GruopImageIconProps> = ({
+  handleBlockIndex,
+  addBlock,
+}) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = async (
@@ -58,6 +62,7 @@ const GroupImageIcon: React.FC<GruopImageIconProps> = ({ addBlock }) => {
   };
 
   const handleIconClick = () => {
+    handleBlockIndex();
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }

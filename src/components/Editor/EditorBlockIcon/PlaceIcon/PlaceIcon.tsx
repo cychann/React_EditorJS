@@ -2,10 +2,15 @@ import React from "react";
 import * as S from "./PlaceIcon.style";
 import useEditorStore from "store/useEditorStore";
 
-export default function PlaceIcon() {
+interface PlaceIconProps {
+  handleBlockIndex: () => void;
+}
+
+export default function PlaceIcon({ handleBlockIndex }) {
   const { setActiveModal } = useEditorStore();
 
   const handleIconClick = () => {
+    handleBlockIndex();
     setActiveModal("place");
   };
 
