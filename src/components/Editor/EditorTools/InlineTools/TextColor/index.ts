@@ -45,7 +45,10 @@ export default class ColorPicker implements InlineTool {
     this.colorPreview = document.createElement("span");
     this.colorPreview.classList.add("color-preview");
 
-    this.button.appendChild(document.createTextNode(this.toolboxIcon));
+    const textIcon = document.createElement("span");
+    textIcon.classList.add("text-icon");
+    textIcon.textContent = this.toolboxIcon;
+    this.button.appendChild(textIcon);
     this.button.appendChild(this.colorPreview);
 
     return this.button;

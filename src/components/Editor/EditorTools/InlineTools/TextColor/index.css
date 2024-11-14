@@ -1,3 +1,5 @@
+/* TextColor */
+
 .color-picker-container {
   display: flex;
   flex-wrap: wrap;
@@ -7,14 +9,6 @@
   width: 100%;
   background-color: #ffffff;
   z-index: 9999;
-}
-
-.background-color-picker-btn {
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  text-align: center;
 }
 
 .color-box {
@@ -33,4 +27,8 @@
   border-radius: 100% 0% 60% 40% / 60% 0% 100% 40%;
   border: 1px solid #ddd;
   transform: rotate(-45deg);
+}
+
+.text-icon {
+  font-weight: 700;
 }

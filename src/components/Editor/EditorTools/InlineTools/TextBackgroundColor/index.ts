@@ -20,7 +20,6 @@ export default class BackgroundColorPicker implements InlineTool {
   private colors: string[] = [];
   private range: Range | null = null;
   private currentColor: string | null = null;
-  private termWrapper: HTMLElement | null = null;
 
   public constructor(options: InlineToolConstructorOptions) {
     this.api = options.api;
@@ -45,7 +44,10 @@ export default class BackgroundColorPicker implements InlineTool {
       "background-color-picker-btn"
     );
 
-    this.button.appendChild(document.createTextNode(this.toolboxIcon));
+    const textIcon = document.createElement("span");
+    textIcon.classList.add("text-icon");
+    textIcon.textContent = this.toolboxIcon;
+    this.button.appendChild(textIcon);
 
     return this.button;
   }
@@ -76,10 +78,6 @@ export default class BackgroundColorPicker implements InlineTool {
     }
 
     this.range = range;
-    this.termWrapper = this.api.selection.findParentTag(
-      this.tag,
-      BackgroundColorPicker.CSS
-    );
   }
 
   private customSurround(color: string) {
@@ -176,10 +174,19 @@ export default class BackgroundColorPicker implements InlineTool {
   private updateToolboxIcon() {
     if (this.button) {
       this.button.style.backgroundColor = this.currentColor;
+      console.log(this.currentColor);
 
       if (this.currentColor !== "transparent" || !this.currentColor) {
         this.button.style.color = "#ffffff";
         this.button.style.border = "none";
+      }
+
+      if (
+        this.currentColor === "#ffffff" ||
+        this.currentColor === "rgb(255, 255, 255)"
+      ) {
+        this.button.style.color = "#000000";
+        this.button.style.border = "1px solid #ccc";
       }
     }
   }
