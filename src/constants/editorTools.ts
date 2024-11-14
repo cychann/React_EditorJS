@@ -30,15 +30,7 @@ export const EDITOR_JS_TOOLS = {
   },
   header: {
     class: Header,
-    inlineToolbar: [
-      "font",
-      "bold",
-      "underline",
-      "strikethrough",
-      "link",
-      "color",
-      "backgroundColor",
-    ],
+    inlineToolbar: [],
 
     config: {
       levels: [1, 2, 3],
@@ -47,27 +39,11 @@ export const EDITOR_JS_TOOLS = {
   },
   quote: {
     class: Quote,
-    inlineToolbar: [
-      "font",
-      "bold",
-      "underline",
-      "strikethrough",
-      "link",
-      "color",
-      "backgroundColor",
-    ],
+    inlineToolbar: [],
   },
   list: {
     class: List,
-    inlineToolbar: [
-      "font",
-      "bold",
-      "underline",
-      "strikethrough",
-      "link",
-      "color",
-      "backgroundColor",
-    ],
+    inlineToolbar: [],
   },
   unifiedImage: UnifiedImage,
   video: Video,
