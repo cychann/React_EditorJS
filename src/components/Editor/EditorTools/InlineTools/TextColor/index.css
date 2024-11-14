@@ -16,3 +16,13 @@
   border-radius: 50%;
   border: 1px solid #ccc;
 }
+
+.color-preview {
+  align-self: flex-start;
+  width: 8px;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: 100% 0% 60% 40% / 60% 0% 100% 40%;
+  border: 1px solid #ddd;
+  transform: rotate(-45deg);
+}
