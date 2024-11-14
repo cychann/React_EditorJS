@@ -16,9 +16,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
   
-  ul, ol, li {
-    list-style: none;
-  }
+
 
   input {
     border: none;
@@ -44,6 +42,10 @@ export const GlobalStyle = createGlobalStyle`
 
   .ce-toolbar__plus {
     display: none;
+  }
+
+  .ce-block a {
+    color: #00c6be;
   }
 
 `;

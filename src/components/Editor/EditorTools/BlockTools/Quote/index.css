@@ -1,0 +1,48 @@
+.cdx-quote-icon svg {
+  transform: rotate(180deg);
+}
+
+.cdx-quote {
+  margin: 0;
+}
+
+.blockquote_type1 {
+  background: url(//t1.daumcdn.net/brunch/static/img/help/pc/img_blockquote_type1_small.png)
+    no-repeat 50% 0;
+  color: #333;
+  font-size: 15pt;
+  line-height: 23pt;
+  padding: 25px 0 0;
+  text-align: center;
+  border: none;
+  box-shadow: none;
+}
+
+.blockquote_type2 {
+  border: solid #acacac;
+  border-width: 0 0 0 3px;
+  box-shadow: none;
+  color: #666;
+  line-height: 18pt;
+  padding: 1px 0 0 12px;
+  text-align: left;
+}
+
+.blockquote_type3 {
+  border: 1px solid #d7d7d7;
+  color: #666;
+  line-height: 18pt;
+  padding: 21px 25px 20px;
+  text-align: left;
+}
+
+.cdx-quote__text {
+}
+
+.cdx-quote-settings {
+  display: flex;
+}
+
+.cdx-quote-settings .cdx-settings-button {
+  width: 33%;
+}

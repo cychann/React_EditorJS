@@ -214,7 +214,7 @@ export default class Paragraph {
   static get toolbox(): ToolboxConfig {
     return {
       icon: IconText,
-      title: "Text",
+      title: "본문",
     };
   }
 }
