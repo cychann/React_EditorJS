@@ -13,7 +13,7 @@ export const TitleInputWrapper = styled.div<TitleInputDivProps>`
   position: absolute;
   left: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 100;
 
   ${({ $align, $hasBackground }) =>
     $align === "left" &&
