@@ -7,11 +7,11 @@ interface LineIconProps {
 }
 
 export default function LineIcon({ handleBlockIndex }) {
-  const { setActiveModal } = useEditorStore();
+  const { toggleModal } = useEditorStore();
 
   const handleIconClick = () => {
     handleBlockIndex();
-    setActiveModal("line");
+    toggleModal("line");
   };
 
   return <S.LineIcon onClick={handleIconClick} />;

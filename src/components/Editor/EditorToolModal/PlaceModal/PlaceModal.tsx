@@ -13,7 +13,7 @@ const PlaceModal: React.FC<PlaceIconProps> = ({ addBlock }) => {
     { name: string; id: string; address: string; url: string }[]
   >([]);
 
-  const { setActiveModal } = useEditorStore();
+  const { closeModal } = useEditorStore();
 
   const handleSearch = async (query: string) => {
     const placeData = await fetchPlaceData(query);
@@ -43,7 +43,7 @@ const PlaceModal: React.FC<PlaceIconProps> = ({ addBlock }) => {
     url: string;
   }) => {
     addBlock("place", item);
-    setActiveModal(null);
+    closeModal();
   };
 
   useEffect(() => {

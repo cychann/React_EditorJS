@@ -9,10 +9,10 @@ interface Props {
 }
 
 export default function EditorToolModal({ top, children }: Props) {
-  const { setActiveModal } = useEditorStore();
+  const { activeModal, closeModal } = useEditorStore();
 
   const { $ref } = useClickOutside<HTMLDivElement>(() => {
-    setActiveModal(null);
+    closeModal();
   });
 
   return (

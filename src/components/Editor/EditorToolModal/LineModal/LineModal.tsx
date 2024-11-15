@@ -8,7 +8,7 @@ interface LineIconProps {
 }
 
 const LineModal: React.FC<LineIconProps> = ({ addBlock }) => {
-  const { setActiveModal } = useEditorStore();
+  const { closeModal } = useEditorStore();
 
   const handleLineClick = (line: Line) => {
     const lineData = {
@@ -16,7 +16,7 @@ const LineModal: React.FC<LineIconProps> = ({ addBlock }) => {
       imagePosition: line.inBlockImagePosition,
     };
     addBlock("delimiter", lineData);
-    setActiveModal(null);
+    closeModal();
   };
 
   return (

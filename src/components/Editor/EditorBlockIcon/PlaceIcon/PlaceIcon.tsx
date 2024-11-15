@@ -7,11 +7,13 @@ interface PlaceIconProps {
 }
 
 export default function PlaceIcon({ handleBlockIndex }) {
-  const { setActiveModal } = useEditorStore();
+  const { activeModal, toggleModal } = useEditorStore();
 
   const handleIconClick = () => {
     handleBlockIndex();
-    setActiveModal("place");
+    if (activeModal !== "place") {
+      toggleModal("place");
+    }
   };
 
   return <S.PlaceIcon onClick={handleIconClick} />;

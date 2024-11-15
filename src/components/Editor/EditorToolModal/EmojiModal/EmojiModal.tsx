@@ -23,13 +23,13 @@ const EmojiModal: React.FC<EmojiIconProps> = ({ addBlock }) => {
   const [page, setPage] = useState(0);
   const ITEMS_PER_PAGE = 150;
 
-  const { setActiveModal } = useEditorStore();
+  const { closeModal } = useEditorStore();
 
   const handleEmojiClick = (emojiData: Emoji) => {
     addBlock("emoji", {
       emoji: emojiData.emoji,
     });
-    setActiveModal(null);
+    closeModal();
   };
 
   useEffect(() => {

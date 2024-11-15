@@ -1,27 +1,29 @@
 import { create } from "zustand";
 
 interface StoreProps {
-  isModalOpen: boolean;
   activeModal: "place" | "emoji" | "line" | null;
   align: "left" | "center";
   currentBlockIndex: number;
 
-  setActiveModal: (modalType: "place" | "emoji" | "line" | null) => void;
+  // setActiveModal: (modalType: "place" | "emoji" | "line" | null) => void;
+  toggleModal: (modalType: "place" | "emoji" | "line") => void;
+  closeModal: () => void;
   toggleAlign: () => void;
   setCurrentBlockIndex: (index: number) => void;
 }
 
 const useEditorStore = create<StoreProps>((set) => ({
-  isModalOpen: false,
   activeModal: null,
   align: "left",
   currentBlockIndex: -1,
 
-  setActiveModal: (modalType) => {
+  toggleModal: (modalType) => {
     set((state) => ({
-      isModalOpen: state.activeModal !== modalType,
       activeModal: state.activeModal === modalType ? null : modalType,
     }));
+  },
+  closeModal: () => {
+    set({ activeModal: null });
   },
   toggleAlign: () =>
     set((state) => ({

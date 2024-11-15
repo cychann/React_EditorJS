@@ -21,6 +21,7 @@ export const EmojiListWrapper = styled.ul`
 
 export const EmojiItem = styled.li`
   cursor: pointer;
+  list-style: none;
 `;
 
 export const PaginationWrapper = styled.div`

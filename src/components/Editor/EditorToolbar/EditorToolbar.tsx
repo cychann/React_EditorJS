@@ -27,7 +27,7 @@ interface Props {
 }
 
 export default function EditorToolbar({ toolbarTop, editor }: Props) {
-  const { isModalOpen, activeModal, currentBlockIndex, setCurrentBlockIndex } =
+  const { activeModal, currentBlockIndex, setCurrentBlockIndex } =
     useEditorStore();
 
   const handleBlockIndex = () => {
@@ -74,7 +74,7 @@ export default function EditorToolbar({ toolbarTop, editor }: Props) {
 
   return (
     <>
-      {isModalOpen && (
+      {activeModal && (
         <EditorToolModal top={toolbarTop}>
           {activeModal === "place" && <PlaceModal addBlock={addBlock} />}
           {activeModal === "emoji" && <EmojiModal addBlock={addBlock} />}

@@ -7,11 +7,11 @@ interface EmojiIconProps {
 }
 
 export default function EmojiIcon({ handleBlockIndex }: EmojiIconProps) {
-  const { setActiveModal } = useEditorStore();
+  const { toggleModal } = useEditorStore();
 
   const handleIconClick = () => {
     handleBlockIndex();
-    setActiveModal("emoji");
+    toggleModal("emoji");
   };
   return <S.EmojiIcon onClick={handleIconClick} />;
 }
