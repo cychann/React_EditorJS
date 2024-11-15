@@ -14,16 +14,19 @@ const FONT_OPTIONS: { value: FontType; label: string }[] = [
 interface FontFamilyTooltipProps {
   selectedFont: FontType;
   onFontSelect: (font: FontType) => void;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 export default function FontFamilyTooltip({
   selectedFont,
   onFontSelect,
+  isOpen,
+  onToggle,
 }: FontFamilyTooltipProps) {
   const [activeFont, setActiveFont] = useState(
     FONT_OPTIONS.find((option) => option.value === selectedFont)?.label
   );
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleFontSelect = (font: FontType) => {
     onFontSelect(font);
@@ -31,19 +34,16 @@ export default function FontFamilyTooltip({
       FONT_OPTIONS.find((option) => option.value === font)?.label ||
         FONT_OPTIONS[0].label
     );
-    setDropdownOpen(false);
+    onToggle();
   };
 
   return (
     <S.DropdownWrapper>
-      <S.DropdownHeader
-        onClick={() => setDropdownOpen(!isDropdownOpen)}
-        $isDropdownOpen={isDropdownOpen}
-      >
+      <S.DropdownHeader onClick={onToggle} $isDropdownOpen={isOpen}>
         {activeFont}
-        <S.DropdownIcon $isDropdownOpen={isDropdownOpen} />
+        <S.DropdownIcon $isDropdownOpen={isOpen} />
       </S.DropdownHeader>
-      {isDropdownOpen && (
+      {isOpen && (
         <S.DropdownList>
           {FONT_OPTIONS.map((font) => (
             <S.DropdownItem

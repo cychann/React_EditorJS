@@ -18,6 +18,9 @@ export default function TitleTextInput() {
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   const [titleFont, setTitleFont] = useState<FontType>("NotoSans");
 
+  const [isFontFamilyOpen, setFontFamilyOpen] = useState(false);
+  const [isFontColorOpen, setFontColorOpen] = useState(false);
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
@@ -52,11 +55,28 @@ export default function TitleTextInput() {
       return;
     } else {
       setTooltipVisible(false);
+      resetFontTooltipActive();
     }
   };
 
   const handleBlur = (e: React.FocusEvent) => {
     setTooltipVisible(false);
+    resetFontTooltipActive();
+  };
+
+  const toggleFontFamilyTooltip = () => {
+    setFontFamilyOpen((prev) => !prev);
+    setFontColorOpen(false);
+  };
+
+  const toggleFontColorTooltip = () => {
+    setFontColorOpen((prev) => !prev);
+    setFontFamilyOpen(false);
+  };
+
+  const resetFontTooltipActive = () => {
+    setFontColorOpen(false);
+    setFontFamilyOpen(false);
   };
 
   return (
@@ -102,8 +122,15 @@ export default function TitleTextInput() {
         <FontFamilyTooltip
           selectedFont={titleFont}
           onFontSelect={setTitleFont}
+          isOpen={isFontFamilyOpen}
+          onToggle={toggleFontFamilyTooltip}
         />
-        {!titleImage && !titleCoverColor && <FontColorTooltip />}
+        {!titleImage && !titleCoverColor && (
+          <FontColorTooltip
+            isOpen={isFontColorOpen}
+            onToggle={toggleFontColorTooltip}
+          />
+        )}
       </InlineTooltip>
     </S.TitleTextInputContainer>
   );
