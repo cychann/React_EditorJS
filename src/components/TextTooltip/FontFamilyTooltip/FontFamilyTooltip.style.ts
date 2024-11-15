@@ -43,7 +43,6 @@ export const DropdownList = styled.div`
   width: calc(100% + 2px);
   border: 1px solid ${COMMON_THEME.gray_primary};
   background-color: ${COMMON_THEME.white_primary};
-  z-index: 10;
   max-height: 200px;
   overflow-y: auto;
   display: flex;
@@ -53,9 +52,10 @@ export const DropdownList = styled.div`
 
 export const DropdownItem = styled.div<{
   fontFamily: string;
+  $isSelected: boolean;
 }>`
   font-family: ${({ fontFamily }) => fontFamily};
-
+  color: ${({ $isSelected }) => $isSelected && `${COMMON_THEME.primary}`};
   cursor: pointer;
   background-color: ${COMMON_THEME.white_primary};
 

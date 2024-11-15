@@ -50,6 +50,7 @@ export default function FontFamilyTooltip({
               key={font.value}
               onClick={() => handleFontSelect(font.value)}
               fontFamily={font.value}
+              $isSelected={font.label === activeFont} // 선택된 항목인지 확인
             >
               {font.label}
             </S.DropdownItem>
