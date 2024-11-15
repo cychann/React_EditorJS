@@ -11,9 +11,15 @@ interface Props {
 export default function EditorToolModal({ top, children }: Props) {
   const { activeModal, closeModal } = useEditorStore();
 
-  const { $ref } = useClickOutside<HTMLDivElement>(() => {
-    closeModal();
-  });
+  const { $ref } = useClickOutside<HTMLDivElement>(
+    () => {
+      closeModal();
+    },
+    (element) => {
+      console.log(element);
+      return activeModal && element.classList.contains("modal-active-icon");
+    }
+  );
 
   return (
     <S.EditorToolModalContainer $top={top} ref={$ref}>

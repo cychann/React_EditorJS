@@ -14,5 +14,5 @@ export default function LineIcon({ handleBlockIndex }) {
     toggleModal("line");
   };
 
-  return <S.LineIcon onClick={handleIconClick} />;
+  return <S.LineIcon className="modal-active-icon" onClick={handleIconClick} />;
 }

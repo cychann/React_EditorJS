@@ -11,10 +11,10 @@ export default function PlaceIcon({ handleBlockIndex }) {
 
   const handleIconClick = () => {
     handleBlockIndex();
-    if (activeModal !== "place") {
-      toggleModal("place");
-    }
+    toggleModal("place");
   };
 
-  return <S.PlaceIcon onClick={handleIconClick} />;
+  return (
+    <S.PlaceIcon className="modal-active-icon" onClick={handleIconClick} />
+  );
 }

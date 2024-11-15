@@ -5,7 +5,6 @@ interface StoreProps {
   align: "left" | "center";
   currentBlockIndex: number;
 
-  // setActiveModal: (modalType: "place" | "emoji" | "line" | null) => void;
   toggleModal: (modalType: "place" | "emoji" | "line") => void;
   closeModal: () => void;
   toggleAlign: () => void;

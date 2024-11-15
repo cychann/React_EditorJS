@@ -13,5 +13,7 @@ export default function EmojiIcon({ handleBlockIndex }: EmojiIconProps) {
     handleBlockIndex();
     toggleModal("emoji");
   };
-  return <S.EmojiIcon onClick={handleIconClick} />;
+  return (
+    <S.EmojiIcon className="modal-active-icon" onClick={handleIconClick} />
+  );
 }
