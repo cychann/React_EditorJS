@@ -1,3 +1,4 @@
+import useEditorStore from "store/useEditorStore";
 import "./index.css";
 import {
   API,
@@ -46,9 +47,10 @@ export default class File implements BlockTool {
       fileName: "file-name",
     };
 
+    const { align } = useEditorStore.getState();
     this.data = {
       ...data,
-      align: data.align || "left",
+      align: align,
     };
 
     this._element = this.drawView();

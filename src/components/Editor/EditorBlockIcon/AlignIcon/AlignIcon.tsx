@@ -22,30 +22,14 @@ export default function AlignIcon({ editor }: Props) {
               block.type
             )
           ) {
-            const currentAlignment = block.data?.align || "left";
-            let newAlignment;
-
-            switch (currentAlignment) {
-              case "left":
-                newAlignment = "center";
-                break;
-              case "center":
-                newAlignment = "left";
-                break;
-              default:
-                newAlignment = "left";
-                break;
-            }
-
             return {
               ...block,
               data: {
                 ...block.data,
-                align: newAlignment,
+                align: align === "left" ? "center" : "left", // Toggle alignment
               },
             };
           }
-
           return block;
         });
 
