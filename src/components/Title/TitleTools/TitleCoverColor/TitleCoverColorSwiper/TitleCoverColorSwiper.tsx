@@ -29,12 +29,15 @@ const TitleCoverColorSwiper = () => {
       <S.PrevButton onClick={prevSlide} />
       <S.ColorSelectContainer>
         {colorKeys.map((colorKey) => (
-          <S.ColorCircle
+          <S.ColorCircleContainer
             key={colorKey}
-            $isSelected={TITLE_COVER_COLORS[colorKey] === currentColor}
             onClick={() => setTitleCoverColor(TITLE_COVER_COLORS[colorKey])}
-            color={TITLE_COVER_COLORS[colorKey]}
-          />
+          >
+            <S.ColorCircle
+              $isSelected={TITLE_COVER_COLORS[colorKey] === currentColor}
+              color={TITLE_COVER_COLORS[colorKey]}
+            />
+          </S.ColorCircleContainer>
         ))}
       </S.ColorSelectContainer>
       <S.NextButton onClick={nextSlide} />

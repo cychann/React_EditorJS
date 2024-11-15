@@ -31,7 +31,10 @@ export const NextButton = styled.button`
 export const ColorSelectContainer = styled.div`
   display: flex;
   gap: 10px;
+  cursor: pointer;
 `;
+
+export const ColorCircleContainer = styled.div``;
 
 export const ColorCircle = styled.div<{ $isSelected: boolean }>`
   width: 10px;
@@ -43,5 +46,9 @@ export const ColorCircle = styled.div<{ $isSelected: boolean }>`
   transition: border 0.3s ease, transform 0.3s ease;
   border: ${({ $isSelected }) => ($isSelected ? "1px solid white" : "none")};
   transform: ${({ $isSelected }) => ($isSelected ? "scale(1.4)" : "scale(1)")};
-  cursor: pointer;
+
+  &:hover {
+    transform: ${({ $isSelected }) =>
+      !$isSelected && "scale(1.2) translateY(-10px)"};
+  }
 `;
