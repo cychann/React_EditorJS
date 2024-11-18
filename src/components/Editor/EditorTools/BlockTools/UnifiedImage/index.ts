@@ -14,6 +14,7 @@ export default class UnifiedImage implements BlockTool {
   static draggedImage: any = null;
   static sourceInstance: UnifiedImage | null = null;
   static sourceIndex: number | null = null;
+  static activeImageBlock: UnifiedImage | null = null;
 
   // Static Getters
   static get isReadOnlySupported(): boolean {
@@ -39,6 +40,7 @@ export default class UnifiedImage implements BlockTool {
   private api: API;
   private _CSS: {
     block: string;
+    imageWrapper: string;
     wrapper: string;
     groupImage: string;
     imageItem: string;
@@ -46,17 +48,20 @@ export default class UnifiedImage implements BlockTool {
   };
   private data: BlockToolData;
   private _element: HTMLDivElement;
+  private activateCaption: boolean;
 
   constructor({ data, config, api }: BlockToolConstructorOptions) {
     this.api = api;
-    this.data = data || { images: [] };
+    this.data = data || { images: [], caption: "" };
     this._CSS = this.initializeCSS();
     this._element = this.drawView();
+    this.activateCaption = !!this.data.caption;
   }
 
   private initializeCSS() {
     return {
       block: this.api.styles.block,
+      imageWrapper: "ce-unified-image-wrapper",
       wrapper: "ce-unified-image",
       groupImage: "unified-image-wrapper",
       imageItem: "unified-image-item",
@@ -67,11 +72,78 @@ export default class UnifiedImage implements BlockTool {
   drawView(): HTMLDivElement {
     const wrapper = document.createElement("div");
     wrapper.classList.add(this._CSS.wrapper, this._CSS.block);
-    this.renderImages(wrapper);
+
     wrapper.addEventListener("dragover", this.onDragOverBlock.bind(this));
     wrapper.addEventListener("drop", this.onDropBlock.bind(this));
 
+    const blockWrapper = document.createElement("div");
+    blockWrapper.classList.add(this._CSS.imageWrapper);
+    this.renderImages(blockWrapper);
+
+    const caption = document.createElement("input");
+    caption.classList.add(this._CSS.caption);
+    caption.placeholder = "이미지를 설명해보세요";
+    caption.value = this.data.caption || "";
+
+    caption.addEventListener("input", (e: Event) => {
+      const input = e.target as HTMLInputElement;
+      this.data.caption = input.value;
+    });
+
+    this.updateCaptionVisibility(caption);
+
+    blockWrapper.addEventListener("click", () => {
+      this.handleBlockClick(caption);
+    });
+
+    wrapper.appendChild(blockWrapper);
+    wrapper.appendChild(caption);
+
     return wrapper;
+  }
+
+  private updateCaptionVisibility(caption: HTMLInputElement) {
+    const shouldShowCaption =
+      this.data.caption ||
+      (UnifiedImage.activeImageBlock === this && this.activateCaption);
+
+    if (shouldShowCaption) {
+      this.showCaption(caption);
+    } else {
+      this.hideCaption(caption);
+    }
+  }
+
+  private handleBlockClick(caption: HTMLInputElement) {
+    if (
+      UnifiedImage.activeImageBlock &&
+      UnifiedImage.activeImageBlock !== this
+    ) {
+      UnifiedImage.activeImageBlock.deactivate();
+    }
+
+    UnifiedImage.activeImageBlock = this;
+    this.activateCaption = true;
+    this._element.classList.add("active");
+    this.updateCaptionVisibility(caption);
+  }
+
+  private deactivate() {
+    this.activateCaption = false;
+    if (this._element) {
+      this._element.classList.remove("active");
+    }
+    this.updateView();
+  }
+
+  private showCaption(caption: HTMLElement): void {
+    this.activateCaption = true;
+    caption.style.display = "block";
+  }
+
+  private hideCaption(caption: HTMLElement): void {
+    this.activateCaption = false;
+    caption.style.display = "none";
   }
 
   private renderImages(wrapper: HTMLDivElement): void {
@@ -227,7 +299,6 @@ export default class UnifiedImage implements BlockTool {
   }
 
   async onDrop(e: DragEvent, targetIndex: number): Promise<void> {
-    console.log("onDrop");
     e.preventDefault();
     e.stopPropagation();
     if (!e.dataTransfer) return;
@@ -264,8 +335,6 @@ export default class UnifiedImage implements BlockTool {
     } else {
       const dropPosition = this.getDropPosition(e, targetItem);
 
-      console.log("onDrop Position", dropPosition, UnifiedImage.sourceInstance);
-
       if (UnifiedImage.sourceInstance === this) {
         this.handleInternalDrop(sourceIndex, dropPosition);
       } else if (UnifiedImage.sourceInstance && UnifiedImage.draggedImage) {
@@ -287,11 +356,6 @@ export default class UnifiedImage implements BlockTool {
     droppedTargetIndex: number,
     droppedBlockIndex: number
   ): void {
-    console.log("position", position);
-    console.log("block index", blockIndex, droppedBlockIndex);
-    console.log("source index", UnifiedImage.sourceIndex, droppedTargetIndex);
-    console.log("UnifiedImage", UnifiedImage.sourceInstance);
-
     // Step 1: 이미지 이동 여부 및 필수 데이터 체크
 
     // 1-1: 기존 드래그 요소가 있는지 확인
@@ -339,9 +403,6 @@ export default class UnifiedImage implements BlockTool {
       true
     );
 
-    console.log("updatedImages", updatedImages);
-    console.log("index", blockIndex, droppedBlockIndex);
-
     // Step 5: 원본 블록이 비었으면 삭제, 비어있지 않으면 업데이트
     if (updatedImages.length === 0) {
       const blockToDeleteIndex =
@@ -374,7 +435,6 @@ export default class UnifiedImage implements BlockTool {
   }
 
   private handleInternalDrop(sourceIndex: number, dropPosition: number): void {
-    console.log("handleInternalDrop");
     const images = [...this.data.images];
     const [movedImage] = images.splice(sourceIndex, 1);
     images.splice(dropPosition, 0, movedImage);
@@ -388,8 +448,6 @@ export default class UnifiedImage implements BlockTool {
     blockIndex: number,
     dropPosition: number
   ): Promise<void> {
-    console.log("handleExternalDrop");
-    console.log("UnifiedImage", UnifiedImage.sourceInstance.data.images);
     const sourceImages = [...UnifiedImage.sourceInstance.data.images];
     const targetImages = [...this.data.images];
 

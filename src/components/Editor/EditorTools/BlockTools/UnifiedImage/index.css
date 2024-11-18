@@ -1,8 +1,31 @@
 /* 공통 Wrapper 스타일 */
 .ce-unified-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.ce-unified-image.active {
+  border: 2px solid #00b8b2;
+}
+
+.ce-unified-image-wrapper {
+  width: 100%;
   flex: 1;
   display: flex;
   gap: 10px;
+  justify-content: center;
+}
+
+.unified-image-caption {
+  outline: none;
+  border: none;
+  color: #909090;
+  display: block;
+  font-size: 10pt;
+  line-height: 15.5pt;
+  text-align: center;
 }
 
 /* 단일 이미지와 그룹 이미지 공통 스타일 */
@@ -12,10 +35,6 @@
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s ease;
-}
-
-.unified-image-wrapper:hover {
-  transform: scale(1.02);
 }
 
 /* 단일 이미지: 전체 너비 사용 */
