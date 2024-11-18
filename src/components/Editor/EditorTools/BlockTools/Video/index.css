@@ -4,9 +4,14 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .ce-video video {
   max-width: 100%;
   height: auto;
+}
+
+.ce-video--active {
+  border: 2px solid #00b8b2;
 }

@@ -96,6 +96,17 @@ export default class UnifiedImage implements BlockTool {
       this.handleBlockClick(caption);
     });
 
+    document.addEventListener(
+      "click",
+      (e: Event) => {
+        if (!this._element.contains(e.target as Node)) {
+          wrapper.classList.remove("active");
+          this.hideCaption(caption);
+        }
+      },
+      true
+    );
+
     wrapper.appendChild(blockWrapper);
     wrapper.appendChild(caption);
 
