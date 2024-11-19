@@ -8,20 +8,20 @@ export default function TitleAlignTool() {
   const titleAlign = useTitleStore((state) => state.alignment);
   const setTitleAlign = useTitleStore((state) => state.setAlignment);
 
-  const handleTitleAlign = (alignType: "left" | "center") => {
+  const handleTitleAlign = (alignType: "bottom" | "center") => {
     setTitleAlign(alignType);
   };
   return (
     <>
-      {titleAlign === "left" && (
-        <S.AlignLeftIcon
+      {titleAlign === "bottom" && (
+        <S.AlignBottomIcon
           onClick={() => handleTitleAlign("center")}
           $hasCoverBg={!!titleCoverImage || !!titleCoverColor}
         />
       )}
       {titleAlign === "center" && (
         <S.AlignCenterIcon
-          onClick={() => handleTitleAlign("left")}
+          onClick={() => handleTitleAlign("bottom")}
           $hasCoverBg={!!titleCoverImage || !!titleCoverColor}
         />
       )}

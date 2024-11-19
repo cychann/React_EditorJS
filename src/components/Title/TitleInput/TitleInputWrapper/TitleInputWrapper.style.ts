@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface TitleInputDivProps extends React.HTMLAttributes<HTMLDivElement> {
-  $align: "left" | "center";
+  $align: "bottom" | "center";
   $hasBackground: boolean;
 }
 
@@ -16,7 +16,7 @@ export const TitleInputWrapper = styled.div<TitleInputDivProps>`
   z-index: 100;
 
   ${({ $align, $hasBackground }) =>
-    $align === "left" &&
+    $align === "bottom" &&
     !$hasBackground &&
     `
     bottom: 50px;
@@ -24,7 +24,7 @@ export const TitleInputWrapper = styled.div<TitleInputDivProps>`
   `}
 
   ${({ $align, $hasBackground }) =>
-    $align === "left" &&
+    $align === "bottom" &&
     $hasBackground &&
     `
     bottom: 70px;

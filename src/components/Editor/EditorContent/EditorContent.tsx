@@ -20,14 +20,6 @@ export default function EditorContent() {
         },
       });
 
-      const saveBtn = document.querySelector("#save-btn");
-      saveBtn?.addEventListener("click", () => {
-        editorInstance
-          .save()
-          .then((outputData) => console.log("Article data: ", outputData))
-          .catch((error) => console.log("Saving failed: ", error));
-      });
-
       setEditor(editorInstance);
     }
 

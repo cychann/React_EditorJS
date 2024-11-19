@@ -6,7 +6,7 @@ interface StoreProps {
   titleCoverImage: string | null;
   titleCoverColor: string | null;
   isExpanded: boolean;
-  alignment: "left" | "center";
+  alignment: "bottom" | "center";
   titleFont:
     | "Noto Sans"
     | "Nanum Myeongjo"
@@ -21,7 +21,7 @@ interface StoreProps {
   setTitleCoverImage: (image: string | null) => void;
   setTitleCoverColor: (color: string | null) => void;
   setIsExpanded: (expanded: boolean) => void;
-  setAlignment: (alignment: "left" | "center") => void;
+  setAlignment: (alignment: "bottom" | "center") => void;
   setTitleFont: (
     font:
       | "Noto Sans"
@@ -40,7 +40,7 @@ const useTitleStore = create<StoreProps>((set) => ({
   titleCoverImage: null,
   titleCoverColor: null,
   isExpanded: false,
-  alignment: "left",
+  alignment: "bottom",
   titleFont: "Noto Sans",
   titleColor: null,
   setTitleText: (text) =>
@@ -49,7 +49,7 @@ const useTitleStore = create<StoreProps>((set) => ({
     }),
   setSubtitleText: (text) =>
     set({
-      titleText: text,
+      subtitleText: text,
     }),
   setTitleCoverImage: (image) =>
     set({

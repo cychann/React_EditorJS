@@ -54,6 +54,7 @@ export const TitleSaveWrapper = styled.button`
   font-size: 12px;
   color: ${COMMON_THEME.dark_gray};
   background-color: ${COMMON_THEME.white_primary};
+  z-index: 100;
 `;
 
 export const TitleBottomWrapper = styled.div`
