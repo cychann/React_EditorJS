@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
-interface AlignIcon extends React.HTMLAttributes<HTMLDivElement> {
+export const AlignBottomIcon = styled.div<{
   $hasCoverBg: boolean;
-}
-
-export const AlignBottomIcon = styled.div<AlignIcon>`
+}>`
   width: 25px;
   height: 25px;
   background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);
@@ -19,7 +17,9 @@ export const AlignBottomIcon = styled.div<AlignIcon>`
   }
 `;
 
-export const AlignCenterIcon = styled.div<AlignIcon>`
+export const AlignCenterIcon = styled.div<{
+  $hasCoverBg: boolean;
+}>`
   width: 25px;
   height: 25px;
   background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);

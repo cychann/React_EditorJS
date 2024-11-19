@@ -23,7 +23,7 @@ interface EmojiIconProps {
  * 페이지네이션이 적용된 이모지 목록을 제공하고 선택한 이모지를 에디터에 추가
  */
 
-const EmojiModal: React.FC<EmojiIconProps> = ({ addBlock }) => {
+export default function EmojiModal({ addBlock }: EmojiIconProps) {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
   const [page, setPage] = useState(0);
   const ITEMS_PER_PAGE = 150;
@@ -72,6 +72,4 @@ const EmojiModal: React.FC<EmojiIconProps> = ({ addBlock }) => {
       </S.PaginationWrapper>
     </S.EmojiModalWrapper>
   );
-};
-
-export default EmojiModal;
+}

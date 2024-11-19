@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-interface ExpandIconProps extends React.HTMLAttributes<HTMLDivElement> {
-  $expanded?: boolean | null;
-}
-
 export const IconWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,7 +7,9 @@ export const IconWrapper = styled.div`
   gap: 16px;
 `;
 
-export const ExpandIcon = styled.div<ExpandIconProps>`
+export const ExpandIcon = styled.div<{
+  $expanded?: boolean | null;
+}>`
   width: 25px;
   height: 25px;
   background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);

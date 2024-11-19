@@ -6,7 +6,6 @@ import {
   BlockToolData,
   ToolboxConfig,
   PasteConfig,
-  PasteEvent,
 } from "@editorjs/editorjs";
 
 export default class Video implements BlockTool {
@@ -32,7 +31,7 @@ export default class Video implements BlockTool {
 
   private _element: HTMLDivElement;
 
-  constructor({ data, config, api }: BlockToolConstructorOptions) {
+  constructor({ data, api }: BlockToolConstructorOptions) {
     this.api = api;
 
     this._CSS = {
@@ -111,7 +110,7 @@ export default class Video implements BlockTool {
     return this._element;
   }
 
-  save(toolsContent: HTMLElement): BlockToolData {
+  save(): BlockToolData {
     return this.data;
   }
 
@@ -126,7 +125,7 @@ export default class Video implements BlockTool {
     return { tags: ["VIDEO"] };
   }
 
-  onPaste(event: PasteEvent): void {
+  onPaste(): void {
     this.data = {};
   }
 }

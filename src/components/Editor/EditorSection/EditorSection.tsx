@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as S from "./EditorSection.style";
 import EditorToolbar from "components/Editor/EditorToolbar/EditorToolbar";
-import EditorJS from "@editorjs/editorjs";
 import EditorContent from "../EditorContent/EditorContent";
 
 /**

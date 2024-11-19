@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import React from "react";
+import { HTMLAttributes } from "react";
 
-interface EditableDivProps extends React.HTMLAttributes<HTMLDivElement> {
+interface EditableDivProps extends HTMLAttributes<HTMLDivElement> {
   placeholder?: string;
   $fontFamily?: string;
   $fontSize: number;

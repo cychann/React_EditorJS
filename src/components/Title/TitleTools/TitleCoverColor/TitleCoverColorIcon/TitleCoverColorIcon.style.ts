@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
-interface ImageColorIconProps extends React.HTMLAttributes<HTMLDivElement> {
+export const ImageColorIcon = styled.div<{
   $hasCoverBg: boolean;
-}
-
-export const ImageColorIcon = styled.div<ImageColorIconProps>`
+}>`
   width: 25px;
   height: 25px;
   background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);

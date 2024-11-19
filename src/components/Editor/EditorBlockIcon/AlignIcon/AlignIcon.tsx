@@ -1,6 +1,4 @@
-import React from "react";
 import * as S from "./AlignIcon.style";
-import EditorJS from "@editorjs/editorjs";
 import useEditorStore from "store/useEditorStore";
 
 /**

@@ -1,12 +1,9 @@
-import React from "react";
 import styled from "styled-components";
 
-interface TitleInputDivProps extends React.HTMLAttributes<HTMLDivElement> {
+export const TitleInputWrapper = styled.div<{
   $align: "bottom" | "center";
   $hasBackground: boolean;
-}
-
-export const TitleInputWrapper = styled.div<TitleInputDivProps>`
+}>`
   display: flex;
   flex-direction: column;
   gap: 16px;

@@ -1,8 +1,8 @@
-import React from "react";
+import { ReactNode } from "react";
 import * as S from "./NotificationBar.style";
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
   isVisible: boolean;
 }
 

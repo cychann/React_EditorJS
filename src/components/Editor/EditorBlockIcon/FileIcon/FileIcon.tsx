@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import * as S from "./FileIcon.style";
 
 interface FileIconProps {
@@ -10,7 +10,10 @@ interface FileIconProps {
  * 파일 업로드를 위한 아이콘 컴포넌트
  * 클릭 시 파일 선택 다이얼로그를 열고, 선택된 파일을 에디터에 블록으로 추가
  */
-const FileIcon: React.FC<FileIconProps> = ({ handleBlockIndex, addBlock }) => {
+export default function FileIcon({
+  handleBlockIndex,
+  addBlock,
+}: FileIconProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   /**
@@ -19,7 +22,7 @@ const FileIcon: React.FC<FileIconProps> = ({ handleBlockIndex, addBlock }) => {
    *
    * TODO: 백엔드 연동 시, 실제 파일 요청 보내고 받은 url로 데이터를 넘겨주도록 처리
    */
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const fileInfo = {
@@ -45,6 +48,4 @@ const FileIcon: React.FC<FileIconProps> = ({ handleBlockIndex, addBlock }) => {
       <S.FileInput type="file" ref={fileInputRef} onChange={handleFileChange} />
     </>
   );
-};
-
-export default FileIcon;
+}

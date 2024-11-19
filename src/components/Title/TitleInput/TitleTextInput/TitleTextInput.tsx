@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { MouseEvent, useRef, useState } from "react";
 import * as S from "./TitleTextInput.style";
 import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import { COMMON_THEME } from "styles/Theme";
@@ -32,7 +32,7 @@ export default function TitleTextInput() {
    * 마우스 업 이벤트 핸들러
    * 텍스트 선택 시 툴팁 표시 위치 계산 및 표시
    */
-  const handleMouseUp = (e: React.MouseEvent) => {
+  const handleMouseUp = (e: MouseEvent) => {
     e.preventDefault();
     if (tooltipRef?.current?.contains(e.target as Node)) {
       return;
@@ -56,7 +56,7 @@ export default function TitleTextInput() {
     }
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleMouseDown = (e: MouseEvent) => {
     if (tooltipRef?.current?.contains(e.target as Node)) {
       e.preventDefault();
 
@@ -67,7 +67,7 @@ export default function TitleTextInput() {
     }
   };
 
-  const handleBlur = (e: React.FocusEvent) => {
+  const handleBlur = () => {
     setTooltipVisible(false);
     resetFontTooltipActive();
   };

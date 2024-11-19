@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import * as S from "./ImageIcon.style";
 
 interface ImageIconProps {
@@ -11,10 +11,10 @@ interface ImageIconProps {
  * 클릭 시 파일 선택 다이얼로그를 열고, 선택된 이미지를 에디터에 블록으로 추가
  */
 
-const ImageIcon: React.FC<ImageIconProps> = ({
+export default function ImageIcon({
   handleBlockIndex,
   addBlock,
-}) => {
+}: ImageIconProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   /**
@@ -23,9 +23,7 @@ const ImageIcon: React.FC<ImageIconProps> = ({
    *
    * TODO: 백엔드 연동 시, 실제 이미지 요청 보내고 받은 url로 데이터를 넘겨주도록 처리
    */
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
@@ -78,6 +76,4 @@ const ImageIcon: React.FC<ImageIconProps> = ({
       />
     </S.ImageIconWrapper>
   );
-};
-
-export default ImageIcon;
+}

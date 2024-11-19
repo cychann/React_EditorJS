@@ -1,4 +1,3 @@
-import React from "react";
 import * as S from "./LineModal.style";
 import useEditorStore from "store/useEditorStore";
 import { LineData, Line } from "./LineData";
@@ -11,7 +10,7 @@ interface LineIconProps {
  * 구분선 선택을 위한 모달 컴포넌트
  * 다양한 스타일의 구분선을 제공하고 선택한 구분선을 에디터에 추가
  */
-const LineModal: React.FC<LineIconProps> = ({ addBlock }) => {
+export default function LineModal({ addBlock }: LineIconProps) {
   const { closeModal } = useEditorStore();
 
   const handleLineClick = (line: Line) => {
@@ -34,6 +33,4 @@ const LineModal: React.FC<LineIconProps> = ({ addBlock }) => {
       ))}
     </S.LineModalWrapper>
   );
-};
-
-export default LineModal;
+}

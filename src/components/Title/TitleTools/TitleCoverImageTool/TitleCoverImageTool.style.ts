@@ -1,9 +1,4 @@
-import React from "react";
 import styled from "styled-components";
-
-interface ImageInputIconProps extends React.HTMLAttributes<HTMLDivElement> {
-  $hasCoverBg: boolean;
-}
 
 export const ImageInputWrapper = styled.div`
   z-index: 1;
@@ -13,7 +8,9 @@ export const ImageFileInput = styled.input`
   display: none;
 `;
 
-export const ImageInputIcon = styled.div<ImageInputIconProps>`
+export const ImageInputIcon = styled.div<{
+  $hasCoverBg: boolean;
+}>`
   width: 25px;
   height: 25px;
   background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);

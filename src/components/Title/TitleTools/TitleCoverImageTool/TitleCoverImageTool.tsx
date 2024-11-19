@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import * as S from "./TitleCoverImageTool.style";
 import useTitleStore from "store/useTitleStore";
 
@@ -18,7 +18,7 @@ export default function TitleCoverImageTool() {
    * 선택된 이미지를 URL로 변환하여 커버 이미지로 설정
    * 이미지 설정 시 커버 컬러는 제거됨
    */
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);

@@ -1,4 +1,3 @@
-import React from "react";
 import * as S from "./TitleCoverImageActive.style";
 import useTitleStore from "store/useTitleStore";
 
