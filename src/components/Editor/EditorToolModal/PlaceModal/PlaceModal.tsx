@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import * as S from "./PlaceModal.style";
 import useEditorStore from "store/useEditorStore";
 import { fetchPlaceData } from "utils/fetchPlaceData";
@@ -12,7 +12,7 @@ interface PlaceIconProps {
  * 장소를 검색하고 결과를 표시하며, 선택한 장소를 에디터에 블록으로 추가
  */
 
-const PlaceModal: React.FC<PlaceIconProps> = ({ addBlock }) => {
+export default function PlaceModal({ addBlock }: PlaceIconProps) {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [results, setResults] = useState<
     { name: string; id: string; address: string; url: string }[]
@@ -101,6 +101,4 @@ const PlaceModal: React.FC<PlaceIconProps> = ({ addBlock }) => {
       )}
     </S.PlaceModalWrapper>
   );
-};
-
-export default PlaceModal;
+}

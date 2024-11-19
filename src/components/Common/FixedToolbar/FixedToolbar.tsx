@@ -1,9 +1,9 @@
-import React from "react";
+import { ReactNode } from "react";
 import * as S from "./FixedToolbar.style";
 
 interface Props {
   position: { top: number; right: number };
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 /**

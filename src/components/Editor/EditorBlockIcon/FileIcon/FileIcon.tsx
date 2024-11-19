@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import * as S from "./FileIcon.style";
 
 interface FileIconProps {
@@ -22,7 +22,7 @@ export default function FileIcon({
    *
    * TODO: 백엔드 연동 시, 실제 파일 요청 보내고 받은 url로 데이터를 넘겨주도록 처리
    */
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const fileInfo = {

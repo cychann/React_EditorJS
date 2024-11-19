@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef, ReactNode } from "react";
 import * as S from "./InlineTooltip.style";
 
 /**
@@ -9,7 +9,7 @@ const InlineTooltip = forwardRef<
   HTMLDivElement,
   {
     visible: boolean;
-    children: React.ReactNode;
+    children: ReactNode;
     position: { left: number; top: number };
   }
 >(({ visible, children, position = { left: 0, top: 50 } }, ref) => {

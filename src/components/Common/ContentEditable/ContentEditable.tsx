@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import * as S from "./ContentEditable.style";
 import { COMMON_THEME } from "styles/Theme";
 import NotificationBar from "components/Common/NotificationBar/NotificationBar";
@@ -52,7 +52,7 @@ export default function ContentEditable({
    * 텍스트 입력 핸들러
    * 최대 길이 제한 및 커서 위치 보존 로직 포함
    */
-  const handleText = (e: React.ChangeEvent<HTMLDivElement>) => {
+  const handleText = (e: ChangeEvent<HTMLDivElement>) => {
     const inputText = e.target.innerText || "";
 
     if (inputText.length > maxLength && contentEditable.current) {

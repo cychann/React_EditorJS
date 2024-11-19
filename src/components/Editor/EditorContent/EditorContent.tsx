@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
 import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
@@ -9,7 +9,7 @@ import useEditorStore from "store/useEditorStore";
  * Editor.js를 초기화하고 관리하는 컴포넌트
  * 드래그&드롭, 실행취소 기능을 포함한 에디터 인스턴스를 생성
  */
-const EditorContent = React.memo(() => {
+const EditorContent = memo(() => {
   const { setEditor } = useEditorStore();
   const editorInstanceRef = useRef<EditorJS | null>(null);
 
