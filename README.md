@@ -1,6 +1,7 @@
 # Custom Editor Project
 
-Editor.js 기반의 커스텀 에디터 프로젝트입니다. 제목 섹션과 본문 에디터를 통해 다양한 스타일링과 블록 편집 기능을 제공합니다.
+Editor.js 기반의 커스텀 에디터 프로젝트입니다.
+제목 섹션과 본문 에디터를 통해 다양한 스타일링과 블록 편집 기능을 제공합니다.
 
 ## 🚀 주요 기능
 
@@ -48,4 +49,19 @@ src/
 ├── styles/             # 스타일 관련 파일
 ├── hooks/              # 커스텀 훅
 └── utils/              # 유틸리티 함수
+```
+
+## 🔧 TODO
+- 이미지 및 파일 업로드
+- 작성 중인 데이터 자동 저장
+- 다크 모드
+
+## 📜사용법
+### install
+```bash
+npm install
+```
+### To start the development server, run
+```bash
+npm run start
 ```
