@@ -6,8 +6,6 @@ import EditorContent from "../EditorContent/EditorContent";
 
 export default function EditorSection() {
   const editorSectionRef = useRef<HTMLDivElement>(null);
-  const editorRef = useRef<EditorJS | undefined>();
-
   const [toolbarTop, setToolbarTop] = useState(487);
 
   useEffect(() => {
@@ -34,8 +32,8 @@ export default function EditorSection() {
 
   return (
     <S.EditorSectionContainer ref={editorSectionRef}>
-      <EditorContent editorRef={editorRef} />
-      <EditorToolbar toolbarTop={toolbarTop} editor={editorRef} />
+      <EditorContent />
+      <EditorToolbar toolbarTop={toolbarTop} />
     </S.EditorSectionContainer>
   );
 }

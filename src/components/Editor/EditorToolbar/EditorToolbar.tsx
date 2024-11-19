@@ -19,25 +19,21 @@ import {
 
 import FixedToolbar from "components/Common/FixedToolbar/FixedToolbar";
 import useEditorStore from "store/useEditorStore";
-import EditorJS from "@editorjs/editorjs";
 
 interface Props {
   toolbarTop: number;
-  editor: React.MutableRefObject<EditorJS | null | undefined>;
 }
 
-export default function EditorToolbar({ toolbarTop, editor }: Props) {
-  const { activeModal, currentBlockIndex, setCurrentBlockIndex } =
+export default function EditorToolbar({ toolbarTop }: Props) {
+  const { editor, activeModal, currentBlockIndex, setCurrentBlockIndex } =
     useEditorStore();
 
   const handleBlockIndex = () => {
-    if (editor.current) {
-      const blockIndex = editor.current.blocks.getCurrentBlockIndex();
-
-      console.log("edtior current block", blockIndex);
+    if (editor) {
+      const blockIndex = editor.blocks.getCurrentBlockIndex();
 
       if (blockIndex === -1) {
-        const index = editor.current.blocks.getBlocksCount();
+        const index = editor.blocks.getBlocksCount();
         setCurrentBlockIndex(index);
       }
 
@@ -48,13 +44,11 @@ export default function EditorToolbar({ toolbarTop, editor }: Props) {
   };
 
   const addBlock = (type: string, data: object) => {
-    if (editor.current) {
-      const blockIndex = editor.current.blocks.getCurrentBlockIndex();
-
-      console.log("edtior current block", blockIndex);
+    if (editor) {
+      const blockIndex = editor.blocks.getCurrentBlockIndex();
 
       if (blockIndex === -1) {
-        const index = editor.current.blocks.getBlocksCount();
+        const index = editor.blocks.getBlocksCount();
         setCurrentBlockIndex(index);
       }
 
@@ -62,13 +56,8 @@ export default function EditorToolbar({ toolbarTop, editor }: Props) {
         setCurrentBlockIndex(blockIndex);
       }
 
-      editor.current.blocks.insert(
-        type,
-        data,
-        undefined,
-        currentBlockIndex + 1
-      );
-      editor.current.caret.setToLastBlock("start", 0);
+      editor.blocks.insert(type, data, undefined, currentBlockIndex + 1);
+      editor.caret.setToLastBlock("start", 0);
     }
   };
 
@@ -92,7 +81,7 @@ export default function EditorToolbar({ toolbarTop, editor }: Props) {
         <PlaceIcon handleBlockIndex={handleBlockIndex} />
         <EmojiIcon handleBlockIndex={handleBlockIndex} />
         <LineIcon handleBlockIndex={handleBlockIndex} />
-        <AlignIcon editor={editor} />
+        <AlignIcon />
       </FixedToolbar>
     </>
   );

@@ -3,18 +3,14 @@ import * as S from "./AlignIcon.style";
 import EditorJS from "@editorjs/editorjs";
 import useEditorStore from "store/useEditorStore";
 
-interface Props {
-  editor: React.MutableRefObject<EditorJS | null | undefined>;
-}
-
-export default function AlignIcon({ editor }: Props) {
-  const { align, toggleAlign } = useEditorStore();
+export default function AlignIcon() {
+  const { editor, align, toggleAlign } = useEditorStore();
 
   const handleToggleAlign = async () => {
     toggleAlign();
-    if (editor.current) {
+    if (editor) {
       try {
-        const savedData = await editor.current.save();
+        const savedData = await editor.save();
 
         const updatedBlocks = savedData.blocks.map((block) => {
           if (
@@ -33,7 +29,7 @@ export default function AlignIcon({ editor }: Props) {
           return block;
         });
 
-        await editor.current.render({ blocks: updatedBlocks });
+        await editor.render({ blocks: updatedBlocks });
       } catch (error) {
         console.error("Error while updating alignment:", error);
       }

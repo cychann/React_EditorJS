@@ -3,41 +3,41 @@ import EditorJS from "@editorjs/editorjs";
 import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
 import { EDITOR_JS_TOOLS } from "constants/editorTools";
+import useEditorStore from "store/useEditorStore";
 
-interface EditorContentProps {
-  editorRef: React.MutableRefObject<EditorJS | undefined>;
-}
+export default function EditorContent() {
+  const { editor, setEditor } = useEditorStore();
 
-export default function EditorContent({ editorRef }: EditorContentProps) {
   useEffect(() => {
-    if (!editorRef.current) {
-      const editor = new EditorJS({
+    if (!editor) {
+      const editorInstance = new EditorJS({
         holder: "editorjs",
         autofocus: true,
         tools: EDITOR_JS_TOOLS,
         onReady: () => {
-          new Undo({ editor });
-          new DragDrop(editor);
+          new Undo({ editor: editorInstance });
+          new DragDrop(editorInstance);
         },
       });
 
       const saveBtn = document.querySelector("#save-btn");
       saveBtn?.addEventListener("click", () => {
-        editor
+        editorInstance
           .save()
           .then((outputData) => console.log("Article data: ", outputData))
           .catch((error) => console.log("Saving failed: ", error));
       });
 
-      editorRef.current = editor;
+      setEditor(editorInstance);
     }
 
     return () => {
-      if (editorRef.current && editorRef.current.destroy) {
-        editorRef.current.destroy();
+      if (editor?.destroy) {
+        editor.destroy();
+        setEditor(null);
       }
     };
-  }, [editorRef]);
+  }, [editor, setEditor]);
 
   return <div id="editorjs" />;
 }
