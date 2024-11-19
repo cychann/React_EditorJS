@@ -19,11 +19,11 @@ export const EDITOR_JS_TOOLS = {
   paragraph: {
     class: CustomParagraph,
     inlineToolbar: [
-      "font",
+      "link",
       "bold",
       "underline",
       "strikethrough",
-      "link",
+      "font",
       "color",
       "backgroundColor",
     ],
