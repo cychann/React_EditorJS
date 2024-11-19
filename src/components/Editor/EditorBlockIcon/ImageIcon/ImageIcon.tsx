@@ -3,11 +3,26 @@ import * as S from "./ImageIcon.style";
 
 interface ImageIconProps {
   addBlock: (type: string, data: object) => void;
+  handleBlockIndex: () => void;
 }
 
-const ImageIcon: React.FC<ImageIconProps> = ({ addBlock }) => {
+/**
+ * 이미지 업로드를 위한 아이콘 컴포넌트
+ * 클릭 시 파일 선택 다이얼로그를 열고, 선택된 이미지를 에디터에 블록으로 추가
+ */
+
+const ImageIcon: React.FC<ImageIconProps> = ({
+  handleBlockIndex,
+  addBlock,
+}) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  /**
+   * 파일 선택 시 실행되는 핸들러
+   * 선택된 이미지의 정보를 추출하여 블록으로 추가
+   *
+   * TODO: 백엔드 연동 시, 실제 이미지 요청 보내고 받은 url로 데이터를 넘겨주도록 처리
+   */
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -30,6 +45,10 @@ const ImageIcon: React.FC<ImageIconProps> = ({ addBlock }) => {
     }
   };
 
+  /**
+   * 이미지 크기를 가져오는 유틸리티 함수
+   * 이미지 로드 완료 후 width와 height 반환
+   */
   const getImageDimensions = (
     url: string
   ): Promise<{ width: number; height: number }> => {
@@ -41,6 +60,7 @@ const ImageIcon: React.FC<ImageIconProps> = ({ addBlock }) => {
   };
 
   const handleIconClick = () => {
+    handleBlockIndex();
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }

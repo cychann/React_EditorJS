@@ -124,14 +124,14 @@ export default class Paragraph {
   }
 
   applyAlignment(element: HTMLDivElement) {
-    element.classList.remove("align-left", "align-center");
+    element.classList.remove("text-align-left", "text-align-center");
 
     if (this._data.align === "center") {
-      element.classList.add("align-center");
+      element.classList.add("text-align-center");
     }
 
     if (this._data.align === "left") {
-      element.classList.add("align-left");
+      element.classList.add("text-align-left");
     }
   }
 

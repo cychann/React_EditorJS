@@ -3,11 +3,25 @@ import * as S from "./GroupImageIcon.style";
 
 interface GruopImageIconProps {
   addBlock: (type: string, data: object) => void;
+  handleBlockIndex: () => void;
 }
 
-const GroupImageIcon: React.FC<GruopImageIconProps> = ({ addBlock }) => {
+/**
+ * 다중 이미지 업로드를 위한 아이콘 컴포넌트
+ * 여러 이미지를 선택하여 컬럼 형태로 에디터에 추가
+ */
+const GroupImageIcon: React.FC<GruopImageIconProps> = ({
+  handleBlockIndex,
+  addBlock,
+}) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  /**
+   * 파일 선택 시 실행되는 핸들러
+   * 선택된 이미지의 정보를 추출하여 블록으로 추가
+   *
+   * TODO: 백엔드 연동 시, 실제 이미지 요청 보내고 받은 url로 데이터를 넘겨주도록 처리
+   */
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -47,6 +61,10 @@ const GroupImageIcon: React.FC<GruopImageIconProps> = ({ addBlock }) => {
     }
   };
 
+  /**
+   * 이미지 크기를 가져오는 유틸리티 함수
+   * 이미지 로드 완료 후 width와 height 반환
+   */
   const getImageDimensions = (
     url: string
   ): Promise<{ width: number; height: number }> => {
@@ -58,6 +76,7 @@ const GroupImageIcon: React.FC<GruopImageIconProps> = ({ addBlock }) => {
   };
 
   const handleIconClick = () => {
+    handleBlockIndex();
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }

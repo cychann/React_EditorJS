@@ -25,6 +25,7 @@ export default class Video implements BlockTool {
     wrapper: string;
     video: string;
     caption: string;
+    active: string;
   };
 
   private data: BlockToolData;
@@ -39,9 +40,10 @@ export default class Video implements BlockTool {
       wrapper: "ce-video",
       video: "video-wrapper",
       caption: "video-caption",
+      active: "ce-video--active",
     };
 
-    this.data = data;
+    this.data = data || { url: "", caption: "" };
     this._element = this.drawView();
   }
 
@@ -54,10 +56,40 @@ export default class Video implements BlockTool {
     video.classList.add(this._CSS.video);
     caption.classList.add(this._CSS.caption);
 
+    video.addEventListener("click", (e: Event) => {
+      e.stopPropagation();
+      wrapper.classList.add(this._CSS.active);
+      this.showCaption(caption);
+    });
+
+    document.addEventListener(
+      "click",
+      (e: Event) => {
+        if (!this._element.contains(e.target as Node)) {
+          wrapper.classList.remove(this._CSS.active);
+          this.hideCaption(caption);
+        }
+      },
+      true
+    );
+
+    caption.addEventListener("input", (e: Event) => {
+      const input = e.target as HTMLInputElement;
+      this.data.caption = input.value;
+    });
+
     if (this.data && this.data.url) {
       video.src = this.data.url;
       video.controls = true;
       caption.placeholder = "비디오를 설명해보세요";
+
+      if (this.data.caption) {
+        caption.value = this.data.caption;
+        caption.style.display = "block";
+      } else {
+        caption.style.display = "none";
+      }
+
       wrapper.appendChild(video);
       wrapper.appendChild(caption);
     }
@@ -65,14 +97,22 @@ export default class Video implements BlockTool {
     return wrapper;
   }
 
+  private showCaption(caption: HTMLInputElement): void {
+    caption.style.display = "block";
+  }
+
+  private hideCaption(caption: HTMLInputElement): void {
+    if (!this.data.caption) {
+      caption.style.display = "none";
+    }
+  }
+
   render(): HTMLDivElement {
     return this._element;
   }
 
   save(toolsContent: HTMLElement): BlockToolData {
-    return {
-      url: this.data.url, //
-    };
+    return this.data;
   }
 
   static get toolbox(): ToolboxConfig {

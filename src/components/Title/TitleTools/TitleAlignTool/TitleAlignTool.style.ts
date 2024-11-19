@@ -4,7 +4,7 @@ interface AlignIcon extends React.HTMLAttributes<HTMLDivElement> {
   $hasCoverBg: boolean;
 }
 
-export const AlignLeftIcon = styled.div<AlignIcon>`
+export const AlignBottomIcon = styled.div<AlignIcon>`
   width: 25px;
   height: 25px;
   background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/editor/btn_cover.png);

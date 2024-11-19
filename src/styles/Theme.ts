@@ -1,7 +1,7 @@
-export const DEVICE = {
-  tablet: `(max-width: 768px)`,
-  laptop: `(max-width: 1024px)`,
-};
+/**
+ * 프로젝트의 테마 상수 정의
+ * 반응형 디바이스 크기, 공통 색상, 제목 커버 색상, 제목 텍스트 색상 등을 포함
+ */
 
 export const COMMON_THEME = {
   primary: "#00c6be",

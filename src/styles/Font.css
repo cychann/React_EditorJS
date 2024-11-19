@@ -1,3 +1,9 @@
+/**
+ * 프로젝트에서 사용되는 웹 폰트 정의
+ * 각 폰트마다 Regular(400)와 Bold(700) 두 가지 weight를 지원
+ * 최적화된 로딩을 위해 woff2 포맷 사용
+ */
+
 /* 본고딕 */
 @font-face {
   font-family: "NotoSans";

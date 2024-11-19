@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AlignIcon,
   EmojiIcon,
@@ -19,27 +19,63 @@ import {
 
 import FixedToolbar from "components/Common/FixedToolbar/FixedToolbar";
 import useEditorStore from "store/useEditorStore";
-import EditorJS from "@editorjs/editorjs";
 
 interface Props {
   toolbarTop: number;
-  editor: React.MutableRefObject<EditorJS | null | undefined>;
 }
 
-export default function EditorToolbar({ toolbarTop, editor }: Props) {
-  const { isModalOpen, activeModal } = useEditorStore();
+/**
+ * 에디터의 툴바 컴포넌트
+ * 블록을 추가할 수 있는 도구들을 제공
+ */
+export default function EditorToolbar({ toolbarTop }: Props) {
+  const { editor, activeModal, currentBlockIndex, setCurrentBlockIndex } =
+    useEditorStore();
 
+  /**
+   * 현재 블록의 인덱스를 처리하는 함수
+   * 블록이 없거나 선택된 블록이 있을 때 인덱스를 업데이트
+   */
+  const handleBlockIndex = () => {
+    if (editor) {
+      const blockIndex = editor.blocks.getCurrentBlockIndex();
+
+      if (blockIndex === -1) {
+        const index = editor.blocks.getBlocksCount();
+        setCurrentBlockIndex(index);
+      }
+
+      if (blockIndex > -1) {
+        setCurrentBlockIndex(blockIndex);
+      }
+    }
+  };
+
+  /**
+   * 새로운 블록을 추가하는 함수
+   * 현재 블록 다음 위치에 새 블록을 삽입하고 캐럿을 이동
+   */
   const addBlock = (type: string, data: object) => {
-    if (editor.current) {
-      const index = editor.current.blocks.getBlocksCount() + 1;
-      editor.current.blocks.insert(type, data, undefined, index);
-      editor.current.caret.setToLastBlock("start", 0);
+    if (editor) {
+      const blockIndex = editor.blocks.getCurrentBlockIndex();
+
+      if (blockIndex === -1) {
+        const index = editor.blocks.getBlocksCount();
+        setCurrentBlockIndex(index);
+      }
+
+      if (blockIndex > -1) {
+        setCurrentBlockIndex(blockIndex);
+      }
+
+      editor.blocks.insert(type, data, undefined, currentBlockIndex + 1);
+      editor.caret.setToLastBlock("start", 0);
     }
   };
 
   return (
     <>
-      {isModalOpen && (
+      {activeModal && (
         <EditorToolModal top={toolbarTop}>
           {activeModal === "place" && <PlaceModal addBlock={addBlock} />}
           {activeModal === "emoji" && <EmojiModal addBlock={addBlock} />}
@@ -47,14 +83,17 @@ export default function EditorToolbar({ toolbarTop, editor }: Props) {
         </EditorToolModal>
       )}
       <FixedToolbar position={{ top: toolbarTop, right: 15 }}>
-        <ImageIcon addBlock={addBlock} />
-        <GroupImageIcon addBlock={addBlock} />
-        <VideoIcon addBlock={addBlock} />
-        <FileIcon addBlock={addBlock} />
-        <PlaceIcon />
-        <EmojiIcon />
-        <LineIcon />
-        <AlignIcon editor={editor} />
+        <ImageIcon handleBlockIndex={handleBlockIndex} addBlock={addBlock} />
+        <GroupImageIcon
+          handleBlockIndex={handleBlockIndex}
+          addBlock={addBlock}
+        />
+        <VideoIcon handleBlockIndex={handleBlockIndex} addBlock={addBlock} />
+        <FileIcon handleBlockIndex={handleBlockIndex} addBlock={addBlock} />
+        <PlaceIcon handleBlockIndex={handleBlockIndex} />
+        <EmojiIcon handleBlockIndex={handleBlockIndex} />
+        <LineIcon handleBlockIndex={handleBlockIndex} />
+        <AlignIcon />
       </FixedToolbar>
     </>
   );

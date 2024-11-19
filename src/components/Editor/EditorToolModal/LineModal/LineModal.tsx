@@ -7,8 +7,12 @@ interface LineIconProps {
   addBlock: (type: string, data: object) => void;
 }
 
+/**
+ * 구분선 선택을 위한 모달 컴포넌트
+ * 다양한 스타일의 구분선을 제공하고 선택한 구분선을 에디터에 추가
+ */
 const LineModal: React.FC<LineIconProps> = ({ addBlock }) => {
-  const { setActiveModal } = useEditorStore();
+  const { closeModal } = useEditorStore();
 
   const handleLineClick = (line: Line) => {
     const lineData = {
@@ -16,7 +20,7 @@ const LineModal: React.FC<LineIconProps> = ({ addBlock }) => {
       imagePosition: line.inBlockImagePosition,
     };
     addBlock("delimiter", lineData);
-    setActiveModal(null);
+    closeModal();
   };
 
   return (

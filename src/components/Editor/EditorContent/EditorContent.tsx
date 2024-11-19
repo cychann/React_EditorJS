@@ -1,43 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
 import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
 import { EDITOR_JS_TOOLS } from "constants/editorTools";
+import useEditorStore from "store/useEditorStore";
 
-interface EditorContentProps {
-  editorRef: React.MutableRefObject<EditorJS | undefined>;
-}
+/**
+ * Editor.js를 초기화하고 관리하는 컴포넌트
+ * 드래그&드롭, 실행취소 기능을 포함한 에디터 인스턴스를 생성
+ */
+const EditorContent = React.memo(() => {
+  const { setEditor } = useEditorStore();
+  const editorInstanceRef = useRef<EditorJS | null>(null);
 
-export default function EditorContent({ editorRef }: EditorContentProps) {
   useEffect(() => {
-    if (!editorRef.current) {
-      const editor = new EditorJS({
+    if (!editorInstanceRef.current) {
+      // Editor.js 인스턴스 생성
+      const editorInstance = new EditorJS({
         holder: "editorjs",
         autofocus: true,
         tools: EDITOR_JS_TOOLS,
         onReady: () => {
-          new Undo({ editor });
-          new DragDrop(editor);
+          new Undo({ editor: editorInstance });
+          new DragDrop(editorInstance);
+          setEditor(editorInstance);
         },
       });
 
-      const saveBtn = document.querySelector("#save-btn");
-      saveBtn?.addEventListener("click", () => {
-        editor
-          .save()
-          .then((outputData) => console.log("Article data: ", outputData))
-          .catch((error) => console.log("Saving failed: ", error));
-      });
-
-      editorRef.current = editor;
+      editorInstanceRef.current = editorInstance;
     }
-
-    return () => {
-      if (editorRef.current && editorRef.current.destroy) {
-        editorRef.current.destroy();
-      }
-    };
-  }, [editorRef]);
+  }, []);
 
   return <div id="editorjs" />;
-}
+});
+
+export default EditorContent;

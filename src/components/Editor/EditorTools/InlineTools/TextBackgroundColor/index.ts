@@ -174,7 +174,6 @@ export default class BackgroundColorPicker implements InlineTool {
   private updateToolboxIcon() {
     if (this.button) {
       this.button.style.backgroundColor = this.currentColor;
-      console.log(this.currentColor);
 
       if (this.currentColor !== "transparent" || !this.currentColor) {
         this.button.style.color = "#ffffff";

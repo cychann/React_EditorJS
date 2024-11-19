@@ -8,6 +8,7 @@ export const FontColorTooltipWrapper = styled.div`
   position: relative;
   padding: 9px 11px;
   cursor: pointer;
+  z-index: 1000;
 `;
 
 export const ColorIcon = styled.div<{
@@ -24,17 +25,17 @@ export const ColorIcon = styled.div<{
 
 export const TitleColorList = styled.div`
   position: absolute;
-  top: calc(100% + 1px);
+  top: calc(100% + 2px);
   right: -1px;
   padding: 16px;
   border: 1px solid ${COMMON_THEME.gray_primary};
   background-color: ${COMMON_THEME.white_primary};
-  z-index: 10;
   max-height: 200px;
   overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  z-index: 1000;
 `;
 
 export const TitleColorItem = styled.div<{
@@ -53,4 +54,5 @@ export const TitleColorItem = styled.div<{
   background-color: ${({ $colorItemColor }) => $colorItemColor};
   border-radius: 50%;
   cursor: pointer;
+  z-index: 1000;
 `;

@@ -14,16 +14,21 @@ import BackgroundColorPicker from "components/Editor/EditorTools/InlineTools/Tex
 import ColorPicker from "components/Editor/EditorTools/InlineTools/TextColor";
 import Underline from "components/Editor/EditorTools/InlineTools/Underline";
 
+/**
+ * Editor.js에서 사용되는 도구들의 설정 객체
+ * Block Tools: 문단, 헤더, 인용구 등의 블록 레벨 도구들
+ * Inline Tools: 폰트, 밑줄, 색상 등의 인라인 스타일 도구들
+ */
 export const EDITOR_JS_TOOLS = {
   /* Block Tool */
   paragraph: {
     class: CustomParagraph,
     inlineToolbar: [
-      "font",
+      "link",
       "bold",
       "underline",
       "strikethrough",
-      "link",
+      "font",
       "color",
       "backgroundColor",
     ],

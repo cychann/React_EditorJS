@@ -18,18 +18,23 @@ interface EmojiIconProps {
   addBlock: (type: string, data: object) => void;
 }
 
+/**
+ * 이모지 선택을 위한 모달 컴포넌트
+ * 페이지네이션이 적용된 이모지 목록을 제공하고 선택한 이모지를 에디터에 추가
+ */
+
 const EmojiModal: React.FC<EmojiIconProps> = ({ addBlock }) => {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
   const [page, setPage] = useState(0);
   const ITEMS_PER_PAGE = 150;
 
-  const { setActiveModal } = useEditorStore();
+  const { closeModal } = useEditorStore();
 
   const handleEmojiClick = (emojiData: Emoji) => {
     addBlock("emoji", {
       emoji: emojiData.emoji,
     });
-    setActiveModal(null);
+    closeModal();
   };
 
   useEffect(() => {

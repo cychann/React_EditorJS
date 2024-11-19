@@ -169,15 +169,12 @@ export default class FontPicker implements InlineTool {
 
     if (!termTag) {
       this.currentFont = "Malgun Gothic";
-      this.updateToolboxIcon();
-    }
-
-    if (termTag) {
+    } else {
       const font = termTag.style.fontFamily;
       this.currentFont = font;
-      this.updateToolboxIcon();
     }
 
+    this.updateToolboxIcon();
     return false;
   }
 
