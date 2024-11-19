@@ -5,12 +5,17 @@ import Undo from "editorjs-undo";
 import { EDITOR_JS_TOOLS } from "constants/editorTools";
 import useEditorStore from "store/useEditorStore";
 
+/**
+ * Editor.js를 초기화하고 관리하는 컴포넌트
+ * 드래그&드롭, 실행취소 기능을 포함한 에디터 인스턴스를 생성
+ */
 const EditorContent = React.memo(() => {
   const { setEditor } = useEditorStore();
   const editorInstanceRef = useRef<EditorJS | null>(null);
 
   useEffect(() => {
     if (!editorInstanceRef.current) {
+      // Editor.js 인스턴스 생성
       const editorInstance = new EditorJS({
         holder: "editorjs",
         autofocus: true,

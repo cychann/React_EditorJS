@@ -3,6 +3,10 @@ import * as S from "./TitleCoverColorSwiper.style";
 import useTitleStore from "store/useTitleStore";
 import { TITLE_COVER_COLORS } from "styles/Theme";
 
+/**
+ * 제목 섹션의 배경 색상을 선택할 수 있는 스와이퍼 컴포넌트
+ * 색상 원형 버튼들을 나열하고 좌우 버튼으로 색상 변경 가능
+ */
 const TitleCoverColorSwiper = () => {
   const currentColor = useTitleStore((state) => state.titleCoverColor);
   const setTitleCoverColor = useTitleStore((state) => state.setTitleCoverColor);

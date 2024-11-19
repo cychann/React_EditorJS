@@ -8,6 +8,10 @@ import FontFamilyTooltip from "components/TextTooltip/FontFamilyTooltip/FontFami
 import FontColorTooltip from "components/TextTooltip/FontColorTooltip/FontColorTooltip";
 import { FontType } from "types/Font";
 
+/**
+ * 제목 텍스트 입력 컴포넌트
+ * 텍스트 입력과 함께 폰트 패밀리, 폰트 컬러 변경 기능 제공
+ */
 export default function TitleTextInput() {
   const setTitleText = useTitleStore((state) => state.setTitleText);
   const titleImage = useTitleStore((state) => state.titleCoverImage);
@@ -24,6 +28,10 @@ export default function TitleTextInput() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
+  /**
+   * 마우스 업 이벤트 핸들러
+   * 텍스트 선택 시 툴팁 표시 위치 계산 및 표시
+   */
   const handleMouseUp = (e: React.MouseEvent) => {
     e.preventDefault();
     if (tooltipRef?.current?.contains(e.target as Node)) {

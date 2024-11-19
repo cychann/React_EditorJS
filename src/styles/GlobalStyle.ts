@@ -1,5 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
+/**
+ * 전역 스타일 정의
+ * 기본 스타일 초기화 및 공통 스타일 설정
+ */
 export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;

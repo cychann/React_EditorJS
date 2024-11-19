@@ -4,6 +4,10 @@ import { COMMON_THEME } from "styles/Theme";
 import NotificationBar from "components/Common/NotificationBar/NotificationBar";
 import { useNotification } from "hooks/useNotification";
 
+/**
+ * ContentEditable 컴포넌트의 Props 인터페이스
+ */
+
 interface ContentEditableProps {
   initialText?: string;
   placeholder?: string;
@@ -20,6 +24,11 @@ interface ContentEditableProps {
   onChange?: (text: string) => void;
 }
 
+/**
+ * 커스텀 ContentEditable 컴포넌트
+ * div를 기반으로 한 편집 가능한 텍스트 영역을 제공
+ * 최대 길이 제한, 스타일링, 커서 위치 보존 등의 기능 포함
+ */
 export default function ContentEditable({
   initialText = "",
   placeholder = "",
@@ -39,26 +48,24 @@ export default function ContentEditable({
 
   const { isVisible, showNotification } = useNotification(2000);
 
+  /**
+   * 텍스트 입력 핸들러
+   * 최대 길이 제한 및 커서 위치 보존 로직 포함
+   */
   const handleText = (e: React.ChangeEvent<HTMLDivElement>) => {
     const inputText = e.target.innerText || "";
 
-    // 입력된 텍스트가 maxLength를 초과하면
     if (inputText.length > maxLength && contentEditable.current) {
-      // 커서 위치를 저장합니다.
       const selection = window.getSelection();
       const range = selection?.getRangeAt(0);
       const cursorPosition = range?.startOffset;
 
-      // 텍스트를 잘라내고 업데이트합니다.
       const trimmedText = inputText.slice(0, maxLength);
       contentEditable.current.textContent = trimmedText;
 
-      // 잘린 후 커서를 원래 위치로 복원합니다.
       if (selection && range && cursorPosition) {
-        // 커서 위치를 현재 텍스트 길이에 맞춰 조정합니다.
         const newCursorPosition = Math.min(cursorPosition, trimmedText.length);
 
-        // 새로운 range를 설정하여 커서를 원래 위치로 이동합니다.
         const newRange = document.createRange();
         newRange.setStart(
           contentEditable.current.childNodes[0],
@@ -69,6 +76,7 @@ export default function ContentEditable({
         selection.addRange(newRange);
       }
 
+      // 길이 초과 알림 표시
       showNotification();
     } else {
       if (onChange) {

@@ -24,10 +24,18 @@ interface Props {
   toolbarTop: number;
 }
 
+/**
+ * 에디터의 툴바 컴포넌트
+ * 블록을 추가할 수 있는 도구들을 제공
+ */
 export default function EditorToolbar({ toolbarTop }: Props) {
   const { editor, activeModal, currentBlockIndex, setCurrentBlockIndex } =
     useEditorStore();
 
+  /**
+   * 현재 블록의 인덱스를 처리하는 함수
+   * 블록이 없거나 선택된 블록이 있을 때 인덱스를 업데이트
+   */
   const handleBlockIndex = () => {
     if (editor) {
       const blockIndex = editor.blocks.getCurrentBlockIndex();
@@ -43,6 +51,10 @@ export default function EditorToolbar({ toolbarTop }: Props) {
     }
   };
 
+  /**
+   * 새로운 블록을 추가하는 함수
+   * 현재 블록 다음 위치에 새 블록을 삽입하고 캐럿을 이동
+   */
   const addBlock = (type: string, data: object) => {
     if (editor) {
       const blockIndex = editor.blocks.getCurrentBlockIndex();

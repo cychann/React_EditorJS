@@ -7,6 +7,11 @@ interface PlaceIconProps {
   addBlock: (type: string, data: object) => void;
 }
 
+/**
+ * 장소 검색 및 선택을 위한 모달 컴포넌트
+ * 장소를 검색하고 결과를 표시하며, 선택한 장소를 에디터에 블록으로 추가
+ */
+
 const PlaceModal: React.FC<PlaceIconProps> = ({ addBlock }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [results, setResults] = useState<
@@ -15,6 +20,10 @@ const PlaceModal: React.FC<PlaceIconProps> = ({ addBlock }) => {
 
   const { closeModal } = useEditorStore();
 
+  /**
+   * 장소 검색 처리 함수
+   * API를 통해 장소 데이터를 가져와 결과 업데이트
+   */
   const handleSearch = async (query: string) => {
     const placeData = await fetchPlaceData(query);
     setResults(placeData);
@@ -24,6 +33,10 @@ const PlaceModal: React.FC<PlaceIconProps> = ({ addBlock }) => {
     setSearchTerm("");
   };
 
+  /**
+   * 검색어와 일치하는 텍스트 하이라이트 처리 함수
+   * 검색어와 일치하는 부분을 강조 표시
+   */
   const highlightMatch = (text: string) => {
     if (!searchTerm) return text;
 
