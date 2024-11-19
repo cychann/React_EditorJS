@@ -24,15 +24,7 @@ const EditorContent = React.memo(() => {
 
       editorInstanceRef.current = editorInstance;
     }
-
-    return () => {
-      if (editorInstanceRef.current?.destroy) {
-        editorInstanceRef.current.destroy();
-        setEditor(null);
-        editorInstanceRef.current = null;
-      }
-    };
-  }, []); // 마운트/언마운트 시에만 실행
+  }, []);
 
   return <div id="editorjs" />;
 });
