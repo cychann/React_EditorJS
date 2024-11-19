@@ -1,46 +1,51 @@
-# Getting Started with Create React App
+# Custom Editor Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Editor.js 기반의 커스텀 에디터 프로젝트입니다. 제목 섹션과 본문 에디터를 통해 다양한 스타일링과 블록 편집 기능을 제공합니다.
 
-## Available Scripts
+## 🚀 주요 기능
 
-In the project directory, you can run:
+### 제목 섹션
+- 제목/소제목 편집
+- 제목 폰트 및 색상 설정
+- 커버 이미지 설정 및 관리
+- 텍스트 정렬 기능
+- 커버 색상 커스터마이징
 
-### `npm start`
+### 본문 에디터
+- **Block Tool**
+  - 텍스트 블록 (본문, 제목, 인용구)
+  - 미디어 (이미지, 비디오)
+  - 파일 업로드
+  - 이모지
+  - 구분선
+  - 장소
+  - 정렬
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Inline Tool**
+  - 텍스트 블록 간의 전환 (본문, 제목, 인용구)
+  - 링크
+  - 다양한 폰트 지원
+  - 텍스트 서식(굵게, 밑줄, 취소선)
+  - 텍스트 색상 및 배경색 설정
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🛠 기술 스택
 
-### `npm test`
+- React
+- TypeScript
+- Styled-components
+- Zustand (상태 관리)
+- Editor.js 라이브러리
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📁 프로젝트 구조
+```
+src/
+├── components/
+│   ├── Common/         # 공통 컴포넌트
+│   ├── Editor/         # 에디터 관련 컴포넌트
+│   ├── TextTooltip/    # 텍스트 툴팁 컴포넌트
+│   └── Title/          # 제목 섹션 컴포넌트
+├── store/              # 상태 관리
+├── styles/             # 스타일 관련 파일
+├── hooks/              # 커스텀 훅
+└── utils/              # 유틸리티 함수
+```
