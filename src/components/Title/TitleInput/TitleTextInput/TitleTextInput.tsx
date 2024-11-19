@@ -67,7 +67,7 @@ export default function TitleTextInput() {
     }
   };
 
-  const handleBlur = (e: React.FocusEvent) => {
+  const handleBlur = () => {
     setTooltipVisible(false);
     resetFontTooltipActive();
   };

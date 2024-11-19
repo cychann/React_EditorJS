@@ -11,10 +11,10 @@ interface ImageIconProps {
  * 클릭 시 파일 선택 다이얼로그를 열고, 선택된 이미지를 에디터에 블록으로 추가
  */
 
-const ImageIcon: React.FC<ImageIconProps> = ({
+export default function ImageIcon({
   handleBlockIndex,
   addBlock,
-}) => {
+}: ImageIconProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   /**
@@ -78,6 +78,4 @@ const ImageIcon: React.FC<ImageIconProps> = ({
       />
     </S.ImageIconWrapper>
   );
-};
-
-export default ImageIcon;
+}

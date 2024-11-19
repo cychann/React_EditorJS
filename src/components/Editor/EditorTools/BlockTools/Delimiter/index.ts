@@ -6,7 +6,6 @@ import {
   BlockToolData,
   ToolboxConfig,
   PasteConfig,
-  PasteEvent,
 } from "@editorjs/editorjs";
 
 export default class Delimiter implements BlockTool {
@@ -30,7 +29,7 @@ export default class Delimiter implements BlockTool {
 
   private _element: HTMLDivElement;
 
-  constructor({ data, config, api }: BlockToolConstructorOptions) {
+  constructor({ data, api }: BlockToolConstructorOptions) {
     this.api = api;
 
     this._CSS = {
@@ -82,7 +81,7 @@ export default class Delimiter implements BlockTool {
     return this._element;
   }
 
-  save(toolsContent: HTMLElement): BlockToolData {
+  save(): BlockToolData {
     return {
       url: this.data.url,
       imagePosition: this.data.imagePosition,
@@ -101,7 +100,7 @@ export default class Delimiter implements BlockTool {
     return { tags: ["HR"] };
   }
 
-  onPaste(event: PasteEvent): void {
+  onPaste(): void {
     this.data = {};
   }
 }

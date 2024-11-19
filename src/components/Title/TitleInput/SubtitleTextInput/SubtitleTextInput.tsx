@@ -1,4 +1,3 @@
-import React from "react";
 import ContentEditable from "components/Common/ContentEditable/ContentEditable";
 import { COMMON_THEME } from "styles/Theme";
 import useTitleStore from "store/useTitleStore";

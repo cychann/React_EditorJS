@@ -10,10 +10,10 @@ interface VideoIconProps {
  * 비디오 업로드를 위한 아이콘 컴포넌트
  * 클릭 시 파일 선택 다이얼로그를 열고, 선택된 비디오를 에디터에 블록으로 추가
  */
-const VideoIcon: React.FC<VideoIconProps> = ({
+export default function VideoIcon({
   handleBlockIndex,
   addBlock,
-}) => {
+}: VideoIconProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   /**
@@ -53,6 +53,4 @@ const VideoIcon: React.FC<VideoIconProps> = ({
       />
     </S.VideoIconWrapper>
   );
-};
-
-export default VideoIcon;
+}

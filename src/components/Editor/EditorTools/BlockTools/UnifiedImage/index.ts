@@ -6,7 +6,6 @@ import {
   BlockToolData,
   ToolboxConfig,
   PasteConfig,
-  PasteEvent,
 } from "@editorjs/editorjs";
 
 export default class UnifiedImage implements BlockTool {
@@ -50,7 +49,7 @@ export default class UnifiedImage implements BlockTool {
   private _element: HTMLDivElement;
   private activateCaption: boolean;
 
-  constructor({ data, config, api }: BlockToolConstructorOptions) {
+  constructor({ data, api }: BlockToolConstructorOptions) {
     this.api = api;
     this.data = data || { images: [], caption: "" };
     this._CSS = this.initializeCSS();
@@ -612,11 +611,11 @@ export default class UnifiedImage implements BlockTool {
     this._element = newElement;
   }
 
-  save(toolsContent: HTMLElement): BlockToolData {
+  save(): BlockToolData {
     return this.data;
   }
 
-  onPaste(event: PasteEvent): void {
+  onPaste(): void {
     this.data = {};
   }
 

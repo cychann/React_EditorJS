@@ -10,7 +10,10 @@ interface FileIconProps {
  * 파일 업로드를 위한 아이콘 컴포넌트
  * 클릭 시 파일 선택 다이얼로그를 열고, 선택된 파일을 에디터에 블록으로 추가
  */
-const FileIcon: React.FC<FileIconProps> = ({ handleBlockIndex, addBlock }) => {
+export default function FileIcon({
+  handleBlockIndex,
+  addBlock,
+}: FileIconProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   /**
@@ -45,6 +48,4 @@ const FileIcon: React.FC<FileIconProps> = ({ handleBlockIndex, addBlock }) => {
       <S.FileInput type="file" ref={fileInputRef} onChange={handleFileChange} />
     </>
   );
-};
-
-export default FileIcon;
+}

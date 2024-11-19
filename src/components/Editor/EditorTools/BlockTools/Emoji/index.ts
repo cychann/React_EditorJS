@@ -6,7 +6,6 @@ import {
   BlockToolData,
   ToolboxConfig,
   PasteConfig,
-  PasteEvent,
 } from "@editorjs/editorjs";
 
 export default class Emoji implements BlockTool {
@@ -31,7 +30,7 @@ export default class Emoji implements BlockTool {
 
   private _element: HTMLDivElement;
 
-  constructor({ data, config, api }: BlockToolConstructorOptions) {
+  constructor({ data, api }: BlockToolConstructorOptions) {
     this.api = api;
 
     this._CSS = {
@@ -85,7 +84,7 @@ export default class Emoji implements BlockTool {
     return this._element;
   }
 
-  save(toolsContent: HTMLElement): BlockToolData {
+  save(): BlockToolData {
     return {
       emoji: this.data.emoji,
       align: this.data.align,
@@ -103,7 +102,7 @@ export default class Emoji implements BlockTool {
     return { tags: ["EMOJI"] };
   }
 
-  onPaste(event: PasteEvent): void {
+  onPaste(): void {
     this.data = {};
   }
 }

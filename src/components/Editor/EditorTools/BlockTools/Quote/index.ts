@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { IconAlignLeft, IconAlignCenter, IconQuote } from "@codexteam/icons";
+import { IconQuote } from "@codexteam/icons";
 import { make } from "@editorjs/dom";
 import type { API, BlockAPI, BlockTool, ToolConfig } from "@editorjs/editorjs";
 import { MenuConfig } from "@editorjs/editorjs/types/tools";

@@ -1,4 +1,3 @@
-import React from "react";
 import * as S from "./EmojiIcon.style";
 import useEditorStore from "store/useEditorStore";
 

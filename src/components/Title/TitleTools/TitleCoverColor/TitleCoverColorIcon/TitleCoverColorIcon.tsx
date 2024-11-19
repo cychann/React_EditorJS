@@ -1,4 +1,3 @@
-import React from "react";
 import * as S from "./TitleCoverColorIcon.style";
 import useTitleStore from "store/useTitleStore";
 import { TITLE_COVER_COLORS } from "styles/Theme";

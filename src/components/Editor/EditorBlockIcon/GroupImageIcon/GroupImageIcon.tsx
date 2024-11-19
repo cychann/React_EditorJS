@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import * as S from "./GroupImageIcon.style";
 
-interface GruopImageIconProps {
+interface GroupImageIconProps {
   addBlock: (type: string, data: object) => void;
   handleBlockIndex: () => void;
 }
@@ -10,10 +10,10 @@ interface GruopImageIconProps {
  * 다중 이미지 업로드를 위한 아이콘 컴포넌트
  * 여러 이미지를 선택하여 컬럼 형태로 에디터에 추가
  */
-const GroupImageIcon: React.FC<GruopImageIconProps> = ({
+export default function GroupImageIcon({
   handleBlockIndex,
   addBlock,
-}) => {
+}: GroupImageIconProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   /**
@@ -95,6 +95,4 @@ const GroupImageIcon: React.FC<GruopImageIconProps> = ({
       />
     </S.GroupImageIconWrapper>
   );
-};
-
-export default GroupImageIcon;
+}
