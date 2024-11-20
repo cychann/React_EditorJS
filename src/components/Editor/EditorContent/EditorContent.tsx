@@ -1,4 +1,5 @@
 import { memo, useEffect, useRef } from "react";
+import * as S from "./EditorContent.style";
 import EditorJS from "@editorjs/editorjs";
 import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
@@ -31,7 +32,9 @@ const EditorContent = memo(() => {
     }
   }, []);
 
-  return <div id="editorjs" />;
+  return (
+    <S.EditorContentContainer id="editorjs" style={{ cursor: "pointer" }} />
+  );
 });
 
 export default EditorContent;
