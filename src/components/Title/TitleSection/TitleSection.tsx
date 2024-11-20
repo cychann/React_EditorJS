@@ -57,7 +57,7 @@ export default function TitleSection() {
     >
       {/* 상단 메뉴바 및 저장 버튼 */}
       <S.TitleTopWrapper>
-        <S.TitleMenuWrapper>메뉴바</S.TitleMenuWrapper>
+        <S.TitleMenuWrapper> </S.TitleMenuWrapper>
         <S.TitleSaveWrapper id="save-btn" onClick={onClickSave}>
           저장
         </S.TitleSaveWrapper>

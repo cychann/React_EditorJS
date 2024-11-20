@@ -55,3 +55,7 @@
 .align-center {
   justify-content: center;
 }
+
+.ce-place--active {
+  border: 1px solid #00b8b2;
+}

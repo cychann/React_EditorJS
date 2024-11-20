@@ -41,6 +41,10 @@ export default function ImageIcon({
 
       addBlock("unifiedImage", { images: [imageData] });
     }
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   /**

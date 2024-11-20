@@ -24,6 +24,7 @@ export default class Emoji implements BlockTool {
     wrapper: string;
     emoji: string;
     emojiIcon: string;
+    active: string;
   };
 
   private data: BlockToolData;
@@ -38,6 +39,7 @@ export default class Emoji implements BlockTool {
       wrapper: "ce-emoji",
       emoji: "emoji-wrapper",
       emojiIcon: "emoji-icon",
+      active: "ce-emoji--active",
     };
 
     this.data = {
@@ -57,6 +59,22 @@ export default class Emoji implements BlockTool {
     emoji.classList.add(this._CSS.emoji);
     emojiIcon.classList.add(this._CSS.emojiIcon);
 
+    emoji.addEventListener("click", () => {
+      emojiIcon.classList.add(this._CSS.active);
+      document.addEventListener("keydown", this.handleKeyDown);
+    });
+
+    document.addEventListener(
+      "click",
+      (e: Event) => {
+        if (!this._element.contains(e.target as Node)) {
+          emojiIcon.classList.remove(this._CSS.active);
+          document.removeEventListener("keydown", this.handleKeyDown);
+        }
+      },
+      true
+    );
+
     if (this.data) {
       emojiIcon.innerText = this.data.emoji;
       emoji.appendChild(emojiIcon);
@@ -67,6 +85,13 @@ export default class Emoji implements BlockTool {
 
     return wrapper;
   }
+
+  private handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      this.api.blocks.delete();
+    }
+  };
 
   applyAlignment(element: HTMLDivElement) {
     element.classList.remove("align-left", "align-center");

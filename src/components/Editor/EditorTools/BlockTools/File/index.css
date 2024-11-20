@@ -43,3 +43,7 @@
 .align-center {
   justify-content: center;
 }
+
+.ce-file--active {
+  border: 1px solid #00b8b2;
+}

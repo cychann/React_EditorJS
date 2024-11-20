@@ -36,18 +36,29 @@ export default function EditorToolbar({ toolbarTop }: Props) {
    * 블록이 없거나 선택된 블록이 있을 때 인덱스를 업데이트
    */
   const handleBlockIndex = () => {
-    if (editor) {
-      const blockIndex = editor.blocks.getCurrentBlockIndex();
+    if (!editor) return;
 
-      if (blockIndex === -1) {
-        const index = editor.blocks.getBlocksCount();
-        setCurrentBlockIndex(index);
-      }
+    const blockIndex = editor.blocks.getCurrentBlockIndex();
+    const blocksCount = editor.blocks.getBlocksCount();
 
-      if (blockIndex > -1) {
-        setCurrentBlockIndex(blockIndex);
-      }
+    // 블록이 선택된 경우
+    if (blockIndex > -1) {
+      setCurrentBlockIndex(blockIndex);
+      return;
     }
+
+    if (blocksCount === 1) {
+      const firstBlock = editor.blocks.getBlockByIndex(0);
+
+      if (firstBlock?.name === "paragraph" && firstBlock.isEmpty) {
+        setCurrentBlockIndex(0);
+      } else {
+        setCurrentBlockIndex(1);
+      }
+      return;
+    }
+
+    setCurrentBlockIndex(Math.max(0, blocksCount - 1));
   };
 
   /**
@@ -56,19 +67,18 @@ export default function EditorToolbar({ toolbarTop }: Props) {
    */
   const addBlock = (type: string, data: object) => {
     if (editor) {
-      const blockIndex = editor.blocks.getCurrentBlockIndex();
+      const currentBlock = editor.blocks.getBlockByIndex(currentBlockIndex);
 
-      if (blockIndex === -1) {
-        const index = editor.blocks.getBlocksCount();
-        setCurrentBlockIndex(index);
+      if (
+        currentBlock &&
+        currentBlock.name === "paragraph" &&
+        currentBlock.isEmpty
+      ) {
+        editor.blocks.delete(currentBlockIndex);
+        editor.blocks.insert(type, data, undefined, currentBlockIndex);
+      } else {
+        editor.blocks.insert(type, data, undefined, currentBlockIndex + 1);
       }
-
-      if (blockIndex > -1) {
-        setCurrentBlockIndex(blockIndex);
-      }
-
-      editor.blocks.insert(type, data, undefined, currentBlockIndex + 1);
-      editor.caret.setToLastBlock("start", 0);
     }
   };
 

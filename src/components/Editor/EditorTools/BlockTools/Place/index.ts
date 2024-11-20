@@ -28,6 +28,7 @@ export default class Place implements BlockTool {
     placeTextWrapper: string;
     placeName: string;
     placeAddress: string;
+    active: string;
   };
 
   private data: BlockToolData;
@@ -46,6 +47,7 @@ export default class Place implements BlockTool {
       placeTextWrapper: "place-text-wrapper",
       placeName: "place-name",
       placeAddress: "place-address",
+      active: "ce-place--active",
     };
 
     this.data = {
@@ -73,6 +75,22 @@ export default class Place implements BlockTool {
     placeName.classList.add(this._CSS.placeName);
     placeAddress.classList.add(this._CSS.placeAddress);
 
+    place.addEventListener("click", () => {
+      placeContainer.classList.add(this._CSS.active);
+      document.addEventListener("keydown", this.handleKeyDown);
+    });
+
+    document.addEventListener(
+      "click",
+      (e: Event) => {
+        if (!this._element.contains(e.target as Node)) {
+          placeContainer.classList.remove(this._CSS.active);
+          document.removeEventListener("keydown", this.handleKeyDown);
+        }
+      },
+      true
+    );
+
     if (this.data) {
       placeName.innerText = this.data.name;
       placeAddress.innerText = this.data.address;
@@ -88,6 +106,13 @@ export default class Place implements BlockTool {
 
     return wrapper;
   }
+
+  private handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      this.api.blocks.delete();
+    }
+  };
 
   applyAlignment(element: HTMLDivElement) {
     element.classList.remove("align-left", "align-center");

@@ -11,12 +11,14 @@ export const TitleInputWrapper = styled.div<{
   left: 0;
   width: 100%;
   z-index: 100;
+  transition: all ease-in-out 0.2s;
 
   ${({ $align, $hasBackground }) =>
     $align === "bottom" &&
     !$hasBackground &&
     `
     bottom: 50px;
+    
 
   `}
 
@@ -25,7 +27,7 @@ export const TitleInputWrapper = styled.div<{
     $hasBackground &&
     `
     bottom: 70px;
-      transition: all ease-in-out 0.2s;
+      
 
   `}
 
@@ -34,5 +36,6 @@ export const TitleInputWrapper = styled.div<{
     `
     bottom: 50%;
     text-align: center;
+    
   `}
 `;
