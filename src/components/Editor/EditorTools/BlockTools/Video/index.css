@@ -15,3 +15,13 @@
 .ce-video--active {
   border: 2px solid #00b8b2;
 }
+
+.video-caption {
+  outline: none;
+  border: none;
+  color: #909090;
+  display: block;
+  font-size: 10pt;
+  line-height: 15.5pt;
+  text-align: center;
+}
