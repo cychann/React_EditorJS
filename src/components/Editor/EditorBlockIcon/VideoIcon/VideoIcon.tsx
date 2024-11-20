@@ -32,6 +32,10 @@ export default function VideoIcon({
       };
       reader.readAsDataURL(file);
     }
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleIconClick = () => {

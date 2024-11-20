@@ -33,6 +33,10 @@ export default function FileIcon({
       };
       addBlock("file", fileInfo);
     }
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleIconClick = () => {
