@@ -67,7 +67,6 @@ export default function EditorToolbar({ toolbarTop }: Props) {
    */
   const addBlock = (type: string, data: object) => {
     if (editor) {
-      console.log("currentBlockIndex", currentBlockIndex);
       const currentBlock = editor.blocks.getBlockByIndex(currentBlockIndex);
 
       if (
