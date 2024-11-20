@@ -34,9 +34,9 @@ Editor.js 기반의 커스텀 에디터 프로젝트입니다.
 - React
 - TypeScript
 - Styled-components
-- Zustand (상태 관리)
+- Zustand
 - Vite
-- Editor.js 라이브러리
+- [Editor.js](https://editorjs.io/)
 
 ## 📁 프로젝트 구조
 ```
