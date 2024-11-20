@@ -100,7 +100,10 @@ export default class UnifiedImage implements BlockTool {
       (e: Event) => {
         if (!this._element.contains(e.target as Node)) {
           wrapper.classList.remove("active");
-          this.hideCaption(caption);
+
+          caption.value === ""
+            ? this.hideCaption(caption)
+            : this.showCaption(caption);
         }
       },
       true
@@ -117,11 +120,7 @@ export default class UnifiedImage implements BlockTool {
       this.data.caption ||
       (UnifiedImage.activeImageBlock === this && this.activateCaption);
 
-    if (shouldShowCaption) {
-      this.showCaption(caption);
-    } else {
-      this.hideCaption(caption);
-    }
+    shouldShowCaption ? this.showCaption(caption) : this.hideCaption(caption);
   }
 
   private handleBlockClick(caption: HTMLInputElement) {
@@ -143,7 +142,7 @@ export default class UnifiedImage implements BlockTool {
     if (this._element) {
       this._element.classList.remove("active");
     }
-    this.updateView();
+    // this.updateView();
   }
 
   private showCaption(caption: HTMLElement): void {
@@ -224,6 +223,7 @@ export default class UnifiedImage implements BlockTool {
   onDragStart(e: DragEvent, imageData: any, index: number): void {
     if (!e.dataTransfer) return;
     e.dataTransfer.effectAllowed = "move";
+
     UnifiedImage.draggedImage = imageData;
     UnifiedImage.sourceInstance = this;
     UnifiedImage.sourceIndex = index;
@@ -236,6 +236,11 @@ export default class UnifiedImage implements BlockTool {
         blockIndex: this.api.blocks.getCurrentBlockIndex(),
       })
     );
+
+    if (UnifiedImage.activeImageBlock) {
+      UnifiedImage.activeImageBlock.deactivate();
+      UnifiedImage.activeImageBlock = null;
+    }
   }
 
   onDragOver(e: DragEvent, index: number): void {
