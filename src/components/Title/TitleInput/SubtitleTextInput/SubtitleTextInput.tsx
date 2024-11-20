@@ -1,6 +1,6 @@
-import ContentEditable from "components/Common/ContentEditable/ContentEditable";
-import { COMMON_THEME } from "styles/Theme";
-import useTitleStore from "store/useTitleStore";
+import ContentEditable from "@/components/Common/ContentEditable/ContentEditable";
+import { COMMON_THEME } from "@/styles/Theme";
+import useTitleStore from "@/store/useTitleStore";
 
 /**
  * 글의 소제목을 입력받는 컴포넌트

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as S from "./EditorSection.style";
-import EditorToolbar from "components/Editor/EditorToolbar/EditorToolbar";
-import EditorContent from "../EditorContent/EditorContent";
+import EditorToolbar from "@/components/Editor/EditorToolbar/EditorToolbar";
+import EditorContent from "@/components/Editor/EditorContent/EditorContent";
 
 /**
  * 에디터의 메인 섹션을 담당하는 컴포넌트

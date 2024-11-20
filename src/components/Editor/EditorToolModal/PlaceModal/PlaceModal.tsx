@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import * as S from "./PlaceModal.style";
-import useEditorStore from "store/useEditorStore";
-import { fetchPlaceData } from "utils/fetchPlaceData";
+import useEditorStore from "@/store/useEditorStore";
+import { fetchPlaceData } from "@/utils/fetchPlaceData";
 
 interface PlaceIconProps {
   addBlock: (type: string, data: object) => void;

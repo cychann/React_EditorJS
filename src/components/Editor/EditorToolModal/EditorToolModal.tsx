@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import * as S from "./EditorToolModal.style";
-import useEditorStore from "store/useEditorStore";
-import { useClickOutside } from "hooks/useClickOutside";
+import useEditorStore from "@/store/useEditorStore";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 interface Props {
   top: number;

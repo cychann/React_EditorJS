@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef } from "react";
 import * as S from "./TitleCoverImageTool.style";
-import useTitleStore from "store/useTitleStore";
+import useTitleStore from "@/store/useTitleStore";
 
 /**
  * 제목 섹션의 커버 이미지 업로드 도구 컴포넌트

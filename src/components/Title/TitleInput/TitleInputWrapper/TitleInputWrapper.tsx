@@ -1,7 +1,8 @@
 import * as S from "./TitleInputWrapper.style";
-import useTitleStore from "store/useTitleStore";
-import TitleTextInput from "components/Title/TitleInput/TitleTextInput/TitleTextInput";
-import SubtitleTextInput from "components/Title/TitleInput/SubtitleTextInput/SubtitleTextInput";
+import TitleTextInput from "@/components/Title/TitleInput/TitleTextInput/TitleTextInput";
+import SubtitleTextInput from "@/components/Title/TitleInput/SubtitleTextInput/SubtitleTextInput";
+
+import useTitleStore from "@/store/useTitleStore";
 
 /**
  * 제목과 부제목 입력 필드를 감싸는 컨테이너 컴포넌트

@@ -1,9 +1,10 @@
 import * as S from "./TitleToolbar.style";
-import TitleCoverImageTool from "components/Title/TitleTools/TitleCoverImageTool/TitleCoverImageTool";
-import useTitleStore from "store/useTitleStore";
-import TitleCoverImageActiveTool from "components/Title/TitleTools/TitleCoverImageActiveTool/TitleCoverImageActiveTool";
+import TitleCoverImageTool from "@/components/Title/TitleTools/TitleCoverImageTool/TitleCoverImageTool";
+import TitleCoverImageActiveTool from "@/components/Title/TitleTools/TitleCoverImageActiveTool/TitleCoverImageActiveTool";
 import TitleCoverColorIcon from "components/Title/TitleTools/TitleCoverColor/TitleCoverColorIcon/TitleCoverColorIcon";
 import TitleAlignTool from "components/Title/TitleTools/TitleAlignTool/TitleAlignTool";
+
+import useTitleStore from "@/store/useTitleStore";
 
 /**
  * 제목 섹션의 도구 모음 컴포넌트

@@ -1,8 +1,4 @@
-export type Line = {
-  modalImagePosition: string;
-  inBlockImageURL: string;
-  inBlockImagePosition: string;
-};
+import { Line } from "@/types/components/line.types";
 
 export const LineData: Line[] = [
   {

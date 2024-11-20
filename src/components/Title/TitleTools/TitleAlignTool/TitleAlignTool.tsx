@@ -1,5 +1,6 @@
+import { TitleAlignment } from "@/types/store/title.types";
 import * as S from "./TitleAlignTool.style";
-import useTitleStore from "store/useTitleStore";
+import useTitleStore from "@/store/useTitleStore";
 
 /**
  * 제목 섹션의 텍스트 정렬 도구 컴포넌트
@@ -12,7 +13,7 @@ export default function TitleAlignTool() {
   const titleAlign = useTitleStore((state) => state.alignment);
   const setTitleAlign = useTitleStore((state) => state.setAlignment);
 
-  const handleTitleAlign = (alignType: "bottom" | "center") => {
+  const handleTitleAlign = (alignType: TitleAlignment) => {
     setTitleAlign(alignType);
   };
   return (

@@ -1,9 +1,10 @@
 import * as S from "./TitleSection.style";
-import TitleToolbar from "components/Title/TitleToolbar/TitleToolbar";
-import TitleInputWrapper from "components/Title/TitleInput/TitleInputWrapper/TitleInputWrapper";
-import useTitleStore from "store/useTitleStore";
-import TitleCoverColorSwiper from "components/Title/TitleTools/TitleCoverColor/TitleCoverColorSwiper/TitleCoverColorSwiper";
-import useEditorStore from "store/useEditorStore";
+import TitleToolbar from "@/components/Title/TitleToolbar/TitleToolbar";
+import TitleInputWrapper from "@/components/Title/TitleInput/TitleInputWrapper/TitleInputWrapper";
+import TitleCoverColorSwiper from "@/components/Title/TitleTools/TitleCoverColor/TitleCoverColorSwiper/TitleCoverColorSwiper";
+
+import useTitleStore from "@/store/useTitleStore";
+import useEditorStore from "@/store/useEditorStore";
 
 /**
  * 글의 제목 섹션을 담당하는 컴포넌트
