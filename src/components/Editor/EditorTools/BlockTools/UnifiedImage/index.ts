@@ -92,18 +92,22 @@ export default class UnifiedImage implements BlockTool {
     this.updateCaptionVisibility(caption);
 
     blockWrapper.addEventListener("click", () => {
-      this.handleBlockClick(caption);
+      this.showCaption(caption);
+      this._element.classList.add("active");
+      document.addEventListener("keydown", this.handleKeyDown);
     });
 
     document.addEventListener(
       "click",
       (e: Event) => {
         if (!this._element.contains(e.target as Node)) {
-          wrapper.classList.remove("active");
+          this._element.classList.remove("active");
 
           caption.value === ""
             ? this.hideCaption(caption)
             : this.showCaption(caption);
+
+          document.removeEventListener("keydown", this.handleKeyDown);
         }
       },
       true
@@ -123,26 +127,9 @@ export default class UnifiedImage implements BlockTool {
     shouldShowCaption ? this.showCaption(caption) : this.hideCaption(caption);
   }
 
-  private handleBlockClick(caption: HTMLInputElement) {
-    if (
-      UnifiedImage.activeImageBlock &&
-      UnifiedImage.activeImageBlock !== this
-    ) {
-      UnifiedImage.activeImageBlock.deactivate();
-    }
-
-    UnifiedImage.activeImageBlock = this;
-    this.activateCaption = true;
-    this._element.classList.add("active");
-    this.updateCaptionVisibility(caption);
-  }
-
   private deactivate() {
     this.activateCaption = false;
-    if (this._element) {
-      this._element.classList.remove("active");
-    }
-    // this.updateView();
+    this._element.classList.remove("active");
   }
 
   private showCaption(caption: HTMLElement): void {
@@ -154,6 +141,15 @@ export default class UnifiedImage implements BlockTool {
     this.activateCaption = false;
     caption.style.display = "none";
   }
+
+  private handleKeyDown = (e: KeyboardEvent) => {
+    const isCaption = e.target instanceof HTMLInputElement;
+
+    if (e.key === "Backspace" && !isCaption) {
+      e.preventDefault();
+      this.api.blocks.delete();
+    }
+  };
 
   private renderImages(wrapper: HTMLDivElement): void {
     const images = this.data.images || [];
@@ -237,10 +233,8 @@ export default class UnifiedImage implements BlockTool {
       })
     );
 
-    if (UnifiedImage.activeImageBlock) {
-      UnifiedImage.activeImageBlock.deactivate();
-      UnifiedImage.activeImageBlock = null;
-    }
+    this.deactivate();
+    UnifiedImage.activeImageBlock = null;
   }
 
   onDragOver(e: DragEvent, index: number): void {

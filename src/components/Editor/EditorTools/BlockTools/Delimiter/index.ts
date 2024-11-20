@@ -23,6 +23,7 @@ export default class Delimiter implements BlockTool {
     block: string;
     wrapper: string;
     delimiter: string;
+    active: string;
   };
 
   private data: BlockToolData;
@@ -36,6 +37,7 @@ export default class Delimiter implements BlockTool {
       block: this.api.styles.block,
       wrapper: "ce-delimiter",
       delimiter: "delimiter",
+      active: "ce-delimiter--active",
     };
 
     this.data = {
@@ -53,6 +55,22 @@ export default class Delimiter implements BlockTool {
     wrapper.classList.add(this._CSS.wrapper, this._CSS.block);
     delimiter.classList.add(this._CSS.delimiter);
 
+    delimiter.addEventListener("click", () => {
+      delimiter.classList.add(this._CSS.active);
+      document.addEventListener("keydown", this.handleKeyDown);
+    });
+
+    document.addEventListener(
+      "click",
+      (e: Event) => {
+        if (!this._element.contains(e.target as Node)) {
+          delimiter.classList.remove(this._CSS.active);
+          document.removeEventListener("keydown", this.handleKeyDown);
+        }
+      },
+      true
+    );
+
     if (this.data) {
       delimiter.style.backgroundImage = `url(${this.data.url})`;
       delimiter.style.backgroundPosition =
@@ -64,6 +82,13 @@ export default class Delimiter implements BlockTool {
 
     return wrapper;
   }
+
+  private handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      this.api.blocks.delete();
+    }
+  };
 
   applyAlignment(element: HTMLDivElement) {
     element.classList.remove("align-left", "align-center");

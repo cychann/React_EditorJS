@@ -56,9 +56,9 @@ export default class Video implements BlockTool {
     caption.classList.add(this._CSS.caption);
 
     video.addEventListener("click", (e: Event) => {
-      e.stopPropagation();
       wrapper.classList.add(this._CSS.active);
       this.showCaption(caption);
+      document.addEventListener("keydown", this.handleKeyDown);
     });
 
     document.addEventListener(
@@ -67,6 +67,7 @@ export default class Video implements BlockTool {
         if (!this._element.contains(e.target as Node)) {
           wrapper.classList.remove(this._CSS.active);
           this.hideCaption(caption);
+          document.removeEventListener("keydown", this.handleKeyDown);
         }
       },
       true
@@ -105,6 +106,15 @@ export default class Video implements BlockTool {
       caption.style.display = "none";
     }
   }
+
+  private handleKeyDown = (e: KeyboardEvent) => {
+    const isCaption = e.target instanceof HTMLInputElement;
+
+    if (e.key === "Backspace" && !isCaption) {
+      e.preventDefault();
+      this.api.blocks.delete();
+    }
+  };
 
   render(): HTMLDivElement {
     return this._element;

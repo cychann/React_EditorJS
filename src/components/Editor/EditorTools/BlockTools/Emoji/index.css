@@ -12,6 +12,10 @@
   width: 100px;
   height: 100px;
   font-size: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .align-left {
@@ -20,4 +24,8 @@
 
 .align-center {
   justify-content: center;
+}
+
+.ce-emoji--active {
+  border: 2px solid #00b8b2;
 }

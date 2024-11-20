@@ -28,6 +28,7 @@ export default class File implements BlockTool {
     fileContainer: string;
     fileIcon: string;
     fileName: string;
+    active: string;
   };
 
   private data: BlockToolData;
@@ -44,6 +45,7 @@ export default class File implements BlockTool {
       fileContainer: "file-container",
       fileIcon: "file-icon",
       fileName: "file-name",
+      active: "ce-file--active",
     };
 
     const { align } = useEditorStore.getState();
@@ -68,6 +70,22 @@ export default class File implements BlockTool {
     fileIcon.classList.add(this._CSS.fileIcon);
     fileName.classList.add(this._CSS.fileName);
 
+    file.addEventListener("click", () => {
+      fileContainer.classList.add(this._CSS.active);
+      document.addEventListener("keydown", this.handleKeyDown);
+    });
+
+    document.addEventListener(
+      "click",
+      (e: Event) => {
+        if (!this._element.contains(e.target as Node)) {
+          fileContainer.classList.remove(this._CSS.active);
+          document.removeEventListener("keydown", this.handleKeyDown);
+        }
+      },
+      true
+    );
+
     if (this.data) {
       fileName.innerText = this.data.name;
       fileContainer.appendChild(fileIcon);
@@ -80,6 +98,13 @@ export default class File implements BlockTool {
 
     return wrapper;
   }
+
+  private handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      this.api.blocks.delete();
+    }
+  };
 
   applyAlignment(element: HTMLDivElement) {
     element.classList.remove("align-left", "align-center");
