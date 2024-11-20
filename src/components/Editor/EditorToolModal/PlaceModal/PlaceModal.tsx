@@ -87,11 +87,8 @@ export default function PlaceModal({ addBlock }: PlaceIconProps) {
       ) : (
         <S.PlaceListWrapper>
           {results.map((result) => (
-            <S.PlaceItemContainer>
-              <S.PlaceItem
-                key={result.id}
-                onClick={() => handleItemClick(result)}
-              >
+            <S.PlaceItemContainer key={result.id}>
+              <S.PlaceItem onClick={() => handleItemClick(result)}>
                 <S.PlaceName>{highlightMatch(result.name)}</S.PlaceName>
                 <S.PlaceAddress>{result.address}</S.PlaceAddress>
               </S.PlaceItem>
