@@ -5,8 +5,7 @@ type AddressData = {
   place_url: string;
 };
 
-const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-
+const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
 /**
  * 카카오 로컬 API를 사용하여 장소 검색 결과를 가져오는 유틸리티 함수
  * @param query 검색어
