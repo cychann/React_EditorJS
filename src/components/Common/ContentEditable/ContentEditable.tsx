@@ -1,8 +1,8 @@
 import { ChangeEvent, useRef } from "react";
 import * as S from "./ContentEditable.style";
-import { COMMON_THEME } from "styles/Theme";
-import NotificationBar from "components/Common/NotificationBar/NotificationBar";
-import { useNotification } from "hooks/useNotification";
+import { COMMON_THEME } from "@/styles/Theme";
+import NotificationBar from "@/components/Common/NotificationBar/NotificationBar";
+import { useNotification } from "@/hooks/useNotification";
 
 /**
  * ContentEditable 컴포넌트의 Props 인터페이스

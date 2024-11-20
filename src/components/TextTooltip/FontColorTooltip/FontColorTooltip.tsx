@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as S from "./FontColorTooltip.style";
-import { TITLE_TEXT_COLORS } from "styles/Theme";
-import useTitleStore from "store/useTitleStore";
+import { TITLE_TEXT_COLORS } from "@/styles/Theme";
+import useTitleStore from "@/store/useTitleStore";
 
 interface FontColorTooltipProps {
   isOpen: boolean;

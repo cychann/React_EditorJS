@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as S from "./FontFamilyTooltip.style";
-import { FontType } from "types/Font";
+import { FontType } from "@/types/Font";
 
 // 드롭다운에서 사용할 폰트 옵션 목록
 const FONT_OPTIONS: { value: FontType; label: string }[] = [

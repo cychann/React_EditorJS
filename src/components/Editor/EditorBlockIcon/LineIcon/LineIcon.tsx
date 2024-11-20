@@ -1,5 +1,5 @@
 import * as S from "./LineIcon.style";
-import useEditorStore from "store/useEditorStore";
+import useEditorStore from "@/store/useEditorStore";
 
 interface LineIconProps {
   handleBlockIndex: () => void;

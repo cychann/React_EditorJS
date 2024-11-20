@@ -1,5 +1,5 @@
 import * as S from "./TitleAlignTool.style";
-import useTitleStore from "store/useTitleStore";
+import useTitleStore from "@/store/useTitleStore";
 
 /**
  * 제목 섹션의 텍스트 정렬 도구 컴포넌트

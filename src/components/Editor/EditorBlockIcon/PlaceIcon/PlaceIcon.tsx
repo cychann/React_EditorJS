@@ -1,5 +1,5 @@
 import * as S from "./PlaceIcon.style";
-import useEditorStore from "store/useEditorStore";
+import useEditorStore from "@/store/useEditorStore";
 
 interface PlaceIconProps {
   handleBlockIndex: () => void;

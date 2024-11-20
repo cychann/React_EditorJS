@@ -1,6 +1,6 @@
 import * as S from "./TitleCoverColorIcon.style";
-import useTitleStore from "store/useTitleStore";
-import { TITLE_COVER_COLORS } from "styles/Theme";
+import useTitleStore from "@/store/useTitleStore";
+import { TITLE_COVER_COLORS } from "@/styles/Theme";
 
 /**
  * 제목 섹션의 커버 컬러 토글 아이콘 컴포넌트

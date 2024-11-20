@@ -1,5 +1,5 @@
 import * as S from "./LineModal.style";
-import useEditorStore from "store/useEditorStore";
+import useEditorStore from "@/store/useEditorStore";
 import { LineData, Line } from "./LineData";
 
 interface LineIconProps {

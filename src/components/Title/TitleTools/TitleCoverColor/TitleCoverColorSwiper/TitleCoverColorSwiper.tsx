@@ -1,6 +1,6 @@
 import * as S from "./TitleCoverColorSwiper.style";
-import useTitleStore from "store/useTitleStore";
-import { TITLE_COVER_COLORS } from "styles/Theme";
+import useTitleStore from "@/store/useTitleStore";
+import { TITLE_COVER_COLORS } from "@/styles/Theme";
 
 /**
  * 제목 섹션의 배경 색상을 선택할 수 있는 스와이퍼 컴포넌트

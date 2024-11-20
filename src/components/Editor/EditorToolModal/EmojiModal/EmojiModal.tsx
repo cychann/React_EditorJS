@@ -1,7 +1,7 @@
-import * as S from "./EmojiModal.style";
-import useEditorStore from "store/useEditorStore";
-import emojiData from "assets/data/emoji.json";
 import { useEffect, useState } from "react";
+import * as S from "./EmojiModal.style";
+import useEditorStore from "@/store/useEditorStore";
+import emojiData from "@/assets/data/emoji.json";
 
 type Emoji = {
   emoji: string;

@@ -1,18 +1,23 @@
-import Delimiter from "components/Editor/EditorTools/BlockTools/Delimiter";
-import Emoji from "components/Editor/EditorTools/BlockTools/Emoji";
-import File from "components/Editor/EditorTools/BlockTools/File";
-import Header from "components/Editor/EditorTools/BlockTools/Header";
-import List from "components/Editor/EditorTools/BlockTools/List";
-import CustomParagraph from "components/Editor/EditorTools/BlockTools/Paragraph";
-import Place from "components/Editor/EditorTools/BlockTools/Place";
-import Quote from "components/Editor/EditorTools/BlockTools/Quote";
-import UnifiedImage from "components/Editor/EditorTools/BlockTools/UnifiedImage";
-import Video from "components/Editor/EditorTools/BlockTools/Video";
-import FontPicker from "components/Editor/EditorTools/InlineTools/FontPicker";
-import Strikethrough from "components/Editor/EditorTools/InlineTools/StrikeThrough";
-import BackgroundColorPicker from "components/Editor/EditorTools/InlineTools/TextBackgroundColor";
-import ColorPicker from "components/Editor/EditorTools/InlineTools/TextColor";
-import Underline from "components/Editor/EditorTools/InlineTools/Underline";
+import {
+  Delimiter,
+  Emoji,
+  File,
+  Header,
+  List,
+  CustomParagraph,
+  Place,
+  Quote,
+  UnifiedImage,
+  Video,
+} from "@/components/Editor/EditorTools/BlockTools/index";
+
+import {
+  FontPicker,
+  Strikethrough,
+  TextBackgroundColor,
+  TextColor,
+  Underline,
+} from "@/components/Editor/EditorTools/InlineTools/index";
 
 /**
  * Editor.js에서 사용되는 도구들의 설정 객체
@@ -62,7 +67,7 @@ export const EDITOR_JS_TOOLS = {
   underline: Underline,
   strikethrough: Strikethrough,
   color: {
-    class: ColorPicker,
+    class: TextColor,
     config: {
       colorCollections: [
         "#ffffff",
@@ -79,7 +84,7 @@ export const EDITOR_JS_TOOLS = {
     },
   },
   backgroundColor: {
-    class: BackgroundColorPicker,
+    class: TextBackgroundColor,
     config: {
       colorCollections: [
         "#ffffff",

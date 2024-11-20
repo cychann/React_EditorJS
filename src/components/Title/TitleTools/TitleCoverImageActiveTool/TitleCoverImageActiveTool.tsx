@@ -1,5 +1,5 @@
 import * as S from "./TitleCoverImageActive.style";
-import useTitleStore from "store/useTitleStore";
+import useTitleStore from "@/store/useTitleStore";
 
 /**
  * 커버 이미지가 활성화되었을 때 표시되는 도구 컴포넌트
