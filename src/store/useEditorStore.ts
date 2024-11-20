@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { EditorStore } from "@/types/editor.types";
+import { EditorStore } from "@/types/store/editor.types";
 
 /**
  * 에디터 관련 전역 상태를 관리하는 Zustand 스토어

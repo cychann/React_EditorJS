@@ -1,16 +1,6 @@
 import { useState } from "react";
 import * as S from "./FontFamilyTooltip.style";
-import { FontType } from "@/types/Font";
-
-// 드롭다운에서 사용할 폰트 옵션 목록
-const FONT_OPTIONS: { value: FontType; label: string }[] = [
-  { value: "NotoSans", label: "본고딕" },
-  { value: "NanumMyeongjo", label: "나눔명조" },
-  { value: "NanumGothic", label: "나눔고딕" },
-  { value: "NanumBarunGothic", label: "나눔바른고딕" },
-  { value: "Helvetica", label: "Helvetica" },
-  { value: "Georgia", label: "Georgia" },
-];
+import { FONT_OPTIONS, FontType } from "@/types/common/font.types";
 
 interface FontFamilyTooltipProps {
   selectedFont: FontType;

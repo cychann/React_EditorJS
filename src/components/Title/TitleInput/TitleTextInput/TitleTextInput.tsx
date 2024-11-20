@@ -7,7 +7,7 @@ import FontFamilyTooltip from "@/components/TextTooltip/FontFamilyTooltip/FontFa
 import FontColorTooltip from "@/components/TextTooltip/FontColorTooltip/FontColorTooltip";
 
 import { COMMON_THEME } from "@/styles/Theme";
-import { FontType } from "@/types/Font";
+import { FontType } from "@/types/common/font.types";
 
 import useTitleStore from "@/store/useTitleStore";
 

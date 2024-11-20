@@ -2,17 +2,7 @@ import { useEffect, useState } from "react";
 import * as S from "./EmojiModal.style";
 import useEditorStore from "@/store/useEditorStore";
 import emojiData from "@/assets/data/emoji.json";
-
-type Emoji = {
-  emoji: string;
-  description: string;
-  category: string;
-  aliases: string[];
-  tags: string[];
-  unicode_version: string;
-  ios_version: string;
-  skin_tones?: boolean;
-};
+import { Emoji } from "@/types/components/emoji.types";
 
 interface EmojiIconProps {
   addBlock: (type: string, data: object) => void;

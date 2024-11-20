@@ -1,17 +1,15 @@
-type AddressData = {
-  id: string;
-  place_name: string;
-  road_address_name: string;
-  place_url: string;
-};
+import { KakaoAddressData, PlaceSearchResult } from "@/types/kakao.types";
 
 const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
+
 /**
  * 카카오 로컬 API를 사용하여 장소 검색 결과를 가져오는 유틸리티 함수
  * @param query 검색어
  * @returns 검색 결과 배열 (id, name, address, url 포함)
  */
-export const fetchPlaceData = async (query: string) => {
+export const fetchPlaceData = async (
+  query: string
+): Promise<PlaceSearchResult[]> => {
   if (!query) {
     return [];
   }
@@ -34,7 +32,7 @@ export const fetchPlaceData = async (query: string) => {
 
     const data = await response.json();
     return data.documents.map(
-      ({ id, place_name, road_address_name, place_url }: AddressData) => ({
+      ({ id, place_name, road_address_name, place_url }: KakaoAddressData) => ({
         id,
         name: place_name,
         address: road_address_name,

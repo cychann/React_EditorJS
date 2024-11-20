@@ -4,10 +4,6 @@ import { COMMON_THEME } from "@/styles/Theme";
 import NotificationBar from "@/components/Common/NotificationBar/NotificationBar";
 import { useNotification } from "@/hooks/useNotification";
 
-/**
- * ContentEditable 컴포넌트의 Props 인터페이스
- */
-
 interface ContentEditableProps {
   initialText?: string;
   placeholder?: string;

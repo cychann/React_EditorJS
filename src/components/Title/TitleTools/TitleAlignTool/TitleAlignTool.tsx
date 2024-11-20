@@ -1,3 +1,4 @@
+import { TitleAlignment } from "@/types/store/title.types";
 import * as S from "./TitleAlignTool.style";
 import useTitleStore from "@/store/useTitleStore";
 
@@ -12,7 +13,7 @@ export default function TitleAlignTool() {
   const titleAlign = useTitleStore((state) => state.alignment);
   const setTitleAlign = useTitleStore((state) => state.setAlignment);
 
-  const handleTitleAlign = (alignType: "bottom" | "center") => {
+  const handleTitleAlign = (alignType: TitleAlignment) => {
     setTitleAlign(alignType);
   };
   return (
