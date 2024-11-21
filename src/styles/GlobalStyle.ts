@@ -13,6 +13,36 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-tap-highlight-color: transparent;
   }
 
+  * {
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #d9d9d9;
+      border-radius: 4px;
+      
+      &:hover {
+        background-color: #bfbfbf;
+      }
+    }
+  }
+
+  /* Firefox 스크롤바 스타일링 */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #d9d9d9 transparent;
+  }
+
+  html {
+    overflow-y: scroll;
+  }
+
+
   html,
   body,
   #root {
