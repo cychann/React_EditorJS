@@ -15,6 +15,7 @@ import type {
   ToolConfig,
   ToolboxConfig,
 } from "@editorjs/editorjs";
+import useEditorStore from "@/store/useEditorStore";
 
 export interface ParagraphConfig extends ToolConfig {
   placeholder?: string;
@@ -78,9 +79,11 @@ export default class Paragraph {
     this._placeholder = config.placeholder
       ? config.placeholder
       : Paragraph.DEFAULT_PLACEHOLDER;
+
+    const { align } = useEditorStore.getState();
     this._data = {
-      text: data?.text ?? "",
-      align: data.align || "left",
+      ...data,
+      align: align,
     };
     this._element = null;
     this._preserveBlank = config.preserveBlank ?? false;

@@ -1,3 +1,4 @@
+import useEditorStore from "@/store/useEditorStore";
 import "./index.css";
 import {
   API,
@@ -50,9 +51,10 @@ export default class Place implements BlockTool {
       active: "ce-place--active",
     };
 
+    const { align } = useEditorStore.getState();
     this.data = {
       ...data,
-      align: data.align || "left",
+      align: align,
     };
 
     this._element = this.drawView();
