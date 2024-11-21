@@ -1,3 +1,4 @@
+import useEditorStore from "@/store/useEditorStore";
 import "./index.css";
 import {
   API,
@@ -40,11 +41,11 @@ export default class Delimiter implements BlockTool {
       active: "ce-delimiter--active",
     };
 
+    const { align } = useEditorStore.getState();
     this.data = {
       ...data,
-      align: data.align || "left",
+      align: align,
     };
-
     this._element = this.drawView();
   }
 
