@@ -3,8 +3,8 @@ import * as S from "./TitleTextInput.style";
 import ContentEditable from "@/components/Common/ContentEditable/ContentEditable";
 import InlineTooltip from "@/components/Common/InlineTooltip/InlineTooltip";
 
-import FontFamilyTooltip from "@/components/TextTooltip/FontFamilyTooltip/FontFamilyTooltip";
-import FontColorTooltip from "@/components/TextTooltip/FontColorTooltip/FontColorTooltip";
+import FontFamilyTooltip from "@/components/Title/TitleTextTooltip/FontFamilyTooltip/FontFamilyTooltip";
+import FontColorTooltip from "@/components/Title/TitleTextTooltip/FontColorTooltip/FontColorTooltip";
 
 import { COMMON_THEME } from "@/styles/Theme";
 import { FontType } from "@/types/common/font.types";

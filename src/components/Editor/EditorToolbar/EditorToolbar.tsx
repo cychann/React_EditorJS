@@ -47,38 +47,36 @@ export default function EditorToolbar({ toolbarTop }: Props) {
       return;
     }
 
+    // 블록이 하나만 있는 경우
     if (blocksCount === 1) {
       const firstBlock = editor.blocks.getBlockByIndex(0);
-
-      if (firstBlock?.name === "paragraph" && firstBlock.isEmpty) {
-        setCurrentBlockIndex(0);
-      } else {
-        setCurrentBlockIndex(1);
-      }
+      const shouldUseFirstBlock =
+        firstBlock?.name === "paragraph" && firstBlock.isEmpty;
+      setCurrentBlockIndex(shouldUseFirstBlock ? 0 : 1);
       return;
     }
 
+    // 그 외의 경우 마지막 블록의 인덱스 사용
     setCurrentBlockIndex(Math.max(0, blocksCount - 1));
   };
 
   /**
    * 새로운 블록을 추가하는 함수
-   * 현재 블록 다음 위치에 새 블록을 삽입하고 캐럿을 이동
    */
   const addBlock = (type: string, data: object) => {
-    if (editor) {
-      const currentBlock = editor.blocks.getBlockByIndex(currentBlockIndex);
+    if (!editor) return;
 
-      if (
-        currentBlock &&
-        currentBlock.name === "paragraph" &&
-        currentBlock.isEmpty
-      ) {
-        editor.blocks.delete(currentBlockIndex);
-        editor.blocks.insert(type, data, undefined, currentBlockIndex);
-      } else {
-        editor.blocks.insert(type, data, undefined, currentBlockIndex + 1);
-      }
+    const currentBlock = editor.blocks.getBlockByIndex(currentBlockIndex);
+    const isEmptyParagraph =
+      currentBlock?.name === "paragraph" && currentBlock.isEmpty;
+
+    if (isEmptyParagraph) {
+      // 현재 블록이 빈 단락이면 교체
+      editor.blocks.delete(currentBlockIndex);
+      editor.blocks.insert(type, data, undefined, currentBlockIndex);
+    } else {
+      // 그 외의 경우 다음 위치에 삽입
+      editor.blocks.insert(type, data, undefined, currentBlockIndex + 1);
     }
   };
 
