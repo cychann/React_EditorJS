@@ -21,7 +21,7 @@ export default class FontPicker implements InlineTool {
   private currentFont: string | null = null;
   private fontPickerContainer: HTMLElement | null = null;
   private static FONT_OPTIONS: { value: string; label: string }[] = [
-    { value: "Malgun Gothic", label: "Malgun Gothic" },
+    { value: "MalgunGothic", label: "Malgun Gothic" },
     { value: "NotoSans", label: "본고딕" },
     { value: "NanumMyeongjo", label: "나눔명조" },
     { value: "NanumGothic", label: "나눔고딕" },
@@ -168,9 +168,9 @@ export default class FontPicker implements InlineTool {
     const termTag = this.api.selection.findParentTag(this.tag, FontPicker.CSS);
 
     if (!termTag) {
-      this.currentFont = "Malgun Gothic";
+      this.currentFont = "MalgunGothic";
     } else {
-      const font = termTag.style.fontFamily;
+      const font = termTag.style.fontFamily.replace(/['"]+/g, "");
       this.currentFont = font;
     }
 
