@@ -72,12 +72,12 @@
 /* Georgia */
 @font-face {
   font-family: "Georgia";
-  src: url("/assets/fonts/Georgia.woff2") format("woff2");
+  src: local("Georgia");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Georgia";
-  src: url("/assets/fonts/GeorgiaBold.woff2") format("woff2");
+  src: local("Georgia Bold");
   font-weight: 700;
 }
