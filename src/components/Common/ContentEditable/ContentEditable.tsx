@@ -32,7 +32,7 @@ export default function ContentEditable({
   exceedMessage = "2000자 이상 입력할 수 없습니다.",
   fontSize = 16,
   fontWeight = 400,
-  fontFamily = "Noto Sans",
+  fontFamily = "NotoSans",
   lineHeight = 19,
   onChange,
   fontColor = COMMON_THEME.black_primary,
@@ -43,6 +43,26 @@ export default function ContentEditable({
   const contentEditable = useRef<HTMLDivElement>(null);
 
   const { isVisible, showNotification } = useNotification(2000);
+
+  /**
+   * 서식 관련 단축키 방지 핸들러
+   * Ctrl/Cmd + B (Bold)
+   * Ctrl/Cmd + U (Underline)
+   * Ctrl/Cmd + I (Italic)
+   */
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.ctrlKey || e.metaKey) {
+      switch (e.key.toLowerCase()) {
+        case "b": // Bold
+        case "u": // Underline
+        case "i": // Italic
+          e.preventDefault();
+          break;
+        default:
+          break;
+      }
+    }
+  };
 
   /**
    * 텍스트 입력 핸들러
@@ -87,6 +107,7 @@ export default function ContentEditable({
         ref={contentEditable}
         contentEditable
         onInput={handleText}
+        onKeyDown={handleKeyDown}
         placeholder={placeholder}
         $fontFamily={fontFamily}
         $fontSize={fontSize}
