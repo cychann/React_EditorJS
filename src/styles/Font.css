@@ -12,9 +12,8 @@
 }
 
 @font-face {
-  font-family: "NotoSans";
+  font-family: "NotoSansBold";
   src: url("/assets/fonts/NotoSansKR-Bold.woff2") format("woff2");
-  font-weight: 700;
 }
 
 /* 나눔명조 */
@@ -25,9 +24,8 @@
 }
 
 @font-face {
-  font-family: "NanumMyeongjo";
+  font-family: "NanumMyeongjoBold";
   src: url("/assets/fonts/NanumMyeongjoBold.woff2") format("woff2");
-  font-weight: 700;
 }
 
 /* 나눔고딕 */
@@ -38,9 +36,8 @@
 }
 
 @font-face {
-  font-family: "NanumGothic";
+  font-family: "NanumGothicBold";
   src: url("/assets/fonts/NanumGothicBold.woff2") format("woff2");
-  font-weight: 700;
 }
 
 /* 나눔바른고딕 */
@@ -51,9 +48,8 @@
 }
 
 @font-face {
-  font-family: "NanumBarunGothic";
+  font-family: "NanumBarunGothicBold";
   src: url("/assets/fonts/NanumBarunGothicBold.woff2") format("woff2");
-  font-weight: 700;
 }
 
 /* Helvetica */
@@ -64,9 +60,8 @@
 }
 
 @font-face {
-  font-family: "Helvetica";
+  font-family: "HelveticaBold";
   src: url("/assets/fonts/HelveticaBold.woff2") format("woff2");
-  font-weight: 700;
 }
 
 /* Georgia */
@@ -77,7 +72,31 @@
 }
 
 @font-face {
-  font-family: "Georgia";
+  font-family: "GeorgiaBold";
   src: local("Georgia Bold");
-  font-weight: 700;
+}
+
+/* 폰트가 적용된 모든 요소의 b 태그에 Bold 폰트 적용 */
+[style*="font-family: NotoSans"] b {
+  font-family: "NotoSansBold";
+}
+
+[style*="font-family: NanumMyeongjo"] b {
+  font-family: "NanumMyeongjoBold";
+}
+
+[style*="font-family: NanumGothic"] b {
+  font-family: "NanumGothicBold";
+}
+
+[style*="font-family: NanumBarunGothic"] b {
+  font-family: "NanumBarunGothicBold";
+}
+
+[style*="font-family: Helvetica"] b {
+  font-family: "HelveticaBold";
+}
+
+[style*="font-family: Georgia"] b {
+  font-family: "GeorgiaBold";
 }

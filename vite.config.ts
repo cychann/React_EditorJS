@@ -1,9 +1,19 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import { injectFontsToHead } from "./src/utils/fontPreload";
+import { createHtmlPlugin } from "vite-plugin-html";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    createHtmlPlugin({
+      minify: true,
+      inject: {
+        tags: injectFontsToHead,
+      },
+    }),
+  ],
   publicDir: "public",
   base: "/",
   resolve: {
