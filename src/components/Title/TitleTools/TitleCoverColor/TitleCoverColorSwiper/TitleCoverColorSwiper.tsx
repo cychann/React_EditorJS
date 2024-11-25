@@ -7,13 +7,13 @@ import { TITLE_COVER_COLORS } from "@/styles/Theme";
  * 색상 원형 버튼들을 나열하고 좌우 버튼으로 색상 변경 가능
  */
 const TitleCoverColorSwiper = () => {
-  const currentColor = useTitleStore((state) => state.titleCoverColor);
+  const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
   const setTitleCoverColor = useTitleStore((state) => state.setTitleCoverColor);
 
   const colorKeys = Object.keys(TITLE_COVER_COLORS);
   const currentIndex = colorKeys.indexOf(
     Object.keys(TITLE_COVER_COLORS).find(
-      (key) => TITLE_COVER_COLORS[key] === currentColor
+      (key) => TITLE_COVER_COLORS[key] === titleCoverColor
     ) || ""
   );
 
@@ -27,6 +27,8 @@ const TitleCoverColorSwiper = () => {
     setTitleCoverColor(TITLE_COVER_COLORS[colorKeys[prevIndex]]);
   };
 
+  if (!titleCoverColor) return null;
+
   return (
     <S.SwiperContainer>
       <S.PrevButton onClick={prevSlide} />
@@ -37,7 +39,7 @@ const TitleCoverColorSwiper = () => {
             onClick={() => setTitleCoverColor(TITLE_COVER_COLORS[colorKey])}
           >
             <S.ColorCircle
-              $isSelected={TITLE_COVER_COLORS[colorKey] === currentColor}
+              $isSelected={TITLE_COVER_COLORS[colorKey] === titleCoverColor}
               color={TITLE_COVER_COLORS[colorKey]}
             />
           </S.ColorCircleContainer>

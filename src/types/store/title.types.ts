@@ -13,6 +13,7 @@ export interface TitleStore {
   subtitleText: string;
   titleCoverImage: string | null;
   titleCoverColor: string | null;
+  hasTitleBackground: boolean;
   isExpanded: boolean;
   alignment: TitleAlignment;
   titleFont: TitleFont;

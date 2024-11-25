@@ -10,6 +10,7 @@ const useTitleStore = create<TitleStore>((set) => ({
   subtitleText: "",
   titleCoverImage: null,
   titleCoverColor: null,
+  hasTitleBackground: false,
   isExpanded: false,
   alignment: "bottom",
   titleFont: "Noto Sans",
@@ -26,11 +27,13 @@ const useTitleStore = create<TitleStore>((set) => ({
     set({
       titleCoverImage: image,
       titleCoverColor: null,
+      hasTitleBackground: !!image,
     }),
   setTitleCoverColor: (color) =>
     set({
       titleCoverColor: color,
       titleCoverImage: null,
+      hasTitleBackground: !!color,
     }),
   setIsExpanded: (expanded) => set({ isExpanded: expanded }),
   setAlignment: (alignment) => set({ alignment }),

@@ -17,8 +17,7 @@ import useTitleStore from "@/store/useTitleStore";
  */
 export default function TitleTextInput() {
   const setTitleText = useTitleStore((state) => state.setTitleText);
-  const titleImage = useTitleStore((state) => state.titleCoverImage);
-  const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
+  const hasTitleBackground = useTitleStore((state) => state.hasTitleBackground);
   const titleColor = useTitleStore((state) => state.titleColor);
 
   const [isTooltipVisible, setTooltipVisible] = useState(false);
@@ -110,17 +109,17 @@ export default function TitleTextInput() {
         fontColor={
           titleColor
             ? titleColor
-            : titleImage || titleCoverColor
+            : hasTitleBackground
             ? COMMON_THEME.white_primary
             : COMMON_THEME.black_primary
         }
         placeholderColor={
-          titleCoverColor
+          hasTitleBackground
             ? COMMON_THEME.white_primary
             : COMMON_THEME.gray_primary
         }
         cursorColor={
-          titleImage || titleCoverColor
+          hasTitleBackground
             ? COMMON_THEME.white_primary
             : COMMON_THEME.black_primary
         }
@@ -136,7 +135,7 @@ export default function TitleTextInput() {
           isOpen={isFontFamilyOpen}
           onToggle={toggleFontFamilyTooltip}
         />
-        {!titleImage && !titleCoverColor && (
+        {!hasTitleBackground && (
           <FontColorTooltip
             isOpen={isFontColorOpen}
             onToggle={toggleFontColorTooltip}
