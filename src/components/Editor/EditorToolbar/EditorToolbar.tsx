@@ -18,18 +18,24 @@ import {
 
 import FixedToolbar from "@/components/Common/FixedToolbar/FixedToolbar";
 import useEditorStore from "@/store/useEditorStore";
+import { RefObject, useEffect, useState } from "react";
 
 interface Props {
-  toolbarTop: number;
+  editorSectionRef: RefObject<HTMLDivElement>;
 }
 
 /**
  * 에디터의 툴바 컴포넌트
  * 블록을 추가할 수 있는 도구들을 제공
  */
-export default function EditorToolbar({ toolbarTop }: Props) {
-  const { editor, activeModal, currentBlockIndex, setCurrentBlockIndex } =
-    useEditorStore();
+export default function EditorToolbar({ editorSectionRef }: Props) {
+  const [toolbarTop, setToolbarTop] = useState(487);
+
+  const editor = useEditorStore((state) => state.editor);
+  const currentBlockIndex = useEditorStore((state) => state.currentBlockIndex);
+  const setCurrentBlockIndex = useEditorStore(
+    (state) => state.setCurrentBlockIndex
+  );
 
   /**
    * 현재 블록의 인덱스를 처리하는 함수
@@ -53,6 +59,7 @@ export default function EditorToolbar({ toolbarTop }: Props) {
       const shouldUseFirstBlock =
         firstBlock?.name === "paragraph" && firstBlock.isEmpty;
       setCurrentBlockIndex(shouldUseFirstBlock ? 0 : 1);
+
       return;
     }
 
@@ -80,15 +87,39 @@ export default function EditorToolbar({ toolbarTop }: Props) {
     }
   };
 
+  useEffect(() => {
+    /**
+     * 스크롤 이벤트 핸들러
+     * 에디터 섹션의 위치에 따라 툴바의 위치를 동적으로 조정
+     */
+    const handleScroll = () => {
+      if (editorSectionRef.current) {
+        const rect = editorSectionRef.current.getBoundingClientRect();
+
+        if (rect.top > 0) {
+          setToolbarTop(rect.top + 40);
+        }
+
+        if (rect.top <= 0) {
+          setToolbarTop(40);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
-      {activeModal && (
-        <EditorToolModal top={toolbarTop}>
-          {activeModal === "place" && <PlaceModal addBlock={addBlock} />}
-          {activeModal === "emoji" && <EmojiModal addBlock={addBlock} />}
-          {activeModal === "line" && <LineModal addBlock={addBlock} />}
-        </EditorToolModal>
-      )}
+      <EditorToolModal top={toolbarTop}>
+        <PlaceModal addBlock={addBlock} />
+        <EmojiModal addBlock={addBlock} />
+        <LineModal addBlock={addBlock} />
+      </EditorToolModal>
       <FixedToolbar position={{ top: toolbarTop, right: 15 }}>
         <ImageIcon handleBlockIndex={handleBlockIndex} addBlock={addBlock} />
         <GroupImageIcon

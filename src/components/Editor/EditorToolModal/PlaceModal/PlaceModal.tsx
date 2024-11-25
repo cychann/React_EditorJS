@@ -18,7 +18,8 @@ export default function PlaceModal({ addBlock }: PlaceIconProps) {
     { name: string; id: string; address: string; url: string }[]
   >([]);
 
-  const { closeModal } = useEditorStore();
+  const activeModal = useEditorStore((state) => state.activeModal);
+  const closeModal = useEditorStore((state) => state.closeModal);
 
   /**
    * 장소 검색 처리 함수
@@ -62,6 +63,8 @@ export default function PlaceModal({ addBlock }: PlaceIconProps) {
   useEffect(() => {
     handleSearch(searchTerm);
   }, [searchTerm]);
+
+  if (activeModal !== "place") return null;
 
   return (
     <S.PlaceModalWrapper>
