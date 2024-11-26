@@ -7,7 +7,9 @@ import { TITLE_COVER_COLORS } from "@/styles/Theme";
  * 커버 컬러의 활성화/비활성화를 담당
  */
 export default function TitleCoverColorIcon() {
-  const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
+  const titleImage = useTitleStore((state) => state.titleCoverImage);
+  const hasTitleBackground = useTitleStore((state) => state.hasTitleBackground);
+
   const setTitleCoverColor = useTitleStore((state) => state.setTitleCoverColor);
   const setTitleColor = useTitleStore((state) => state.setTitleColor);
 
@@ -18,15 +20,18 @@ export default function TitleCoverColorIcon() {
    * - 커버 컬러 변경 시 제목 텍스트 컬러는 초기화
    */
   const toggleTitleCoverColor = () => {
-    if (titleCoverColor) setTitleCoverColor(null);
-    if (!titleCoverColor) setTitleCoverColor(TITLE_COVER_COLORS.red);
+    if (hasTitleBackground) setTitleCoverColor(null);
+    if (!hasTitleBackground) setTitleCoverColor(TITLE_COVER_COLORS.red);
 
     setTitleColor(null);
   };
+
+  if (titleImage) return null;
+
   return (
     <S.ImageColorIcon
       onClick={toggleTitleCoverColor}
-      $hasCoverBg={!!titleCoverColor}
+      $hasCoverBg={hasTitleBackground}
     />
   );
 }

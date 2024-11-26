@@ -13,7 +13,8 @@ interface Props {
  * 이모지, 구분선, 장소 등의 추가 옵션을 제공하는 모달 창을 관리
  */
 export default function EditorToolModal({ top, children }: Props) {
-  const { activeModal, closeModal } = useEditorStore();
+  const activeModal = useEditorStore((state) => state.activeModal);
+  const closeModal = useEditorStore((state) => state.closeModal);
 
   /**
    * 모달 외부 클릭 감지 훅 사용
@@ -28,6 +29,8 @@ export default function EditorToolModal({ top, children }: Props) {
       return activeModal && element.classList.contains("modal-active-icon");
     }
   );
+
+  if (!activeModal) return null;
 
   return (
     <S.EditorToolModalContainer $top={top} ref={$ref}>
