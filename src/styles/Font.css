@@ -2,6 +2,7 @@
  * 프로젝트에서 사용되는 웹 폰트 정의
  * 각 폰트마다 Regular(400)와 Bold(700) 두 가지 weight를 지원
  * 최적화된 로딩을 위해 woff2 포맷 사용
+ * font-display: swap으로 FOIT 방지
  */
 
 /* 본고딕 */
@@ -9,11 +10,14 @@
   font-family: "NotoSans";
   src: url("/assets/fonts/NotoSansKR-Regular.woff2") format("woff2");
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "NotoSansBold";
+  font-family: "NotoSans";
   src: url("/assets/fonts/NotoSansKR-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
 }
 
 /* 나눔명조 */
@@ -21,11 +25,14 @@
   font-family: "NanumMyeongjo";
   src: url("/assets/fonts/NanumMyeongjo.woff2") format("woff2");
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "NanumMyeongjoBold";
+  font-family: "NanumMyeongjo";
   src: url("/assets/fonts/NanumMyeongjoBold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
 }
 
 /* 나눔고딕 */
@@ -33,11 +40,14 @@
   font-family: "NanumGothic";
   src: url("/assets/fonts/NanumGothic.woff2") format("woff2");
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "NanumGothicBold";
+  font-family: "NanumGothic";
   src: url("/assets/fonts/NanumGothicBold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
 }
 
 /* 나눔바른고딕 */
@@ -45,11 +55,14 @@
   font-family: "NanumBarunGothic";
   src: url("/assets/fonts/NanumBarunGothic.woff2") format("woff2");
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "NanumBarunGothicBold";
+  font-family: "NanumBarunGothic";
   src: url("/assets/fonts/NanumBarunGothicBold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
 }
 
 /* Helvetica */
@@ -57,46 +70,27 @@
   font-family: "Helvetica";
   src: url("/assets/fonts/Helvetica.woff2") format("woff2");
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "HelveticaBold";
+  font-family: "Helvetica";
   src: url("/assets/fonts/HelveticaBold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
 }
 
-/* Georgia */
+/* Georgia - 시스템 폰트 활용 */
 @font-face {
   font-family: "Georgia";
   src: local("Georgia");
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "GeorgiaBold";
-  src: local("Georgia Bold");
-}
-
-/* 폰트가 적용된 모든 요소의 b 태그에 Bold 폰트 적용 */
-[style*="font-family: NotoSans"] b {
-  font-family: "NotoSansBold";
-}
-
-[style*="font-family: NanumMyeongjo"] b {
-  font-family: "NanumMyeongjoBold";
-}
-
-[style*="font-family: NanumGothic"] b {
-  font-family: "NanumGothicBold";
-}
-
-[style*="font-family: NanumBarunGothic"] b {
-  font-family: "NanumBarunGothicBold";
-}
-
-[style*="font-family: Helvetica"] b {
-  font-family: "HelveticaBold";
-}
-
-[style*="font-family: Georgia"] b {
-  font-family: "GeorgiaBold";
+  font-family: "Georgia";
+  src: local("Georgia Bold"), local("Georgia-Bold");
+  font-weight: 700;
+  font-display: swap;
 }
