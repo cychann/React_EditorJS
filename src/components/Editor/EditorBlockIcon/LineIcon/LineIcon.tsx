@@ -10,7 +10,7 @@ interface LineIconProps {
  * 클릭 시 선 그리기 모달을 열고 블록 인덱스를 업데이트
  */
 export default function LineIcon({ handleBlockIndex }: LineIconProps) {
-  const { toggleModal } = useEditorStore();
+  const toggleModal = useEditorStore((state) => state.toggleModal);
 
   const handleIconClick = () => {
     handleBlockIndex();

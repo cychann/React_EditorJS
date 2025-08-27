@@ -7,8 +7,7 @@ import useTitleStore from "@/store/useTitleStore";
  * 제목 텍스트의 수직 정렬(하단/중앙)을 토글하는 기능 제공
  */
 export default function TitleAlignTool() {
-  const titleCoverImage = useTitleStore((state) => state.titleCoverImage);
-  const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
+  const hasTitleBackground = useTitleStore((state) => state.hasTitleBackground);
 
   const titleAlign = useTitleStore((state) => state.alignment);
   const setTitleAlign = useTitleStore((state) => state.setAlignment);
@@ -21,13 +20,13 @@ export default function TitleAlignTool() {
       {titleAlign === "bottom" && (
         <S.AlignBottomIcon
           onClick={() => handleTitleAlign("center")}
-          $hasCoverBg={!!titleCoverImage || !!titleCoverColor}
+          $hasCoverBg={hasTitleBackground}
         />
       )}
       {titleAlign === "center" && (
         <S.AlignCenterIcon
           onClick={() => handleTitleAlign("bottom")}
-          $hasCoverBg={!!titleCoverImage || !!titleCoverColor}
+          $hasCoverBg={hasTitleBackground}
         />
       )}
     </>

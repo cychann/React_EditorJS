@@ -6,6 +6,7 @@ import useTitleStore from "@/store/useTitleStore";
  * 이미지 확장/축소 및 삭제 기능 제공
  */
 export default function TitleCoverImageActiveTool() {
+  const titleImage = useTitleStore((state) => state.titleCoverImage);
   const setTitleImage = useTitleStore((state) => state.setTitleCoverImage);
   const setImageExpanded = useTitleStore((state) => state.setIsExpanded);
   const isTitleImageExpanded = useTitleStore((state) => state.isExpanded);
@@ -18,6 +19,8 @@ export default function TitleCoverImageActiveTool() {
   const expandImage = () => {
     setImageExpanded(!isTitleImageExpanded);
   };
+
+  if (!titleImage) return null;
 
   return (
     <S.IconWrapper>

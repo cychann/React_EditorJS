@@ -10,7 +10,7 @@ interface EmojiIconProps {
  * 클릭 시 이모지 선택 모달을 열고 블록 인덱스를 업데이트
  */
 export default function EmojiIcon({ handleBlockIndex }: EmojiIconProps) {
-  const { toggleModal } = useEditorStore();
+  const toggleModal = useEditorStore((state) => state.toggleModal);
 
   const handleIconClick = () => {
     handleBlockIndex();

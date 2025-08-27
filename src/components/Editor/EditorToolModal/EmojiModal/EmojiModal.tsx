@@ -18,7 +18,8 @@ export default function EmojiModal({ addBlock }: EmojiIconProps) {
   const [page, setPage] = useState(0);
   const ITEMS_PER_PAGE = 150;
 
-  const { closeModal } = useEditorStore();
+  const activeModal = useEditorStore((state) => state.activeModal);
+  const closeModal = useEditorStore((state) => state.closeModal);
 
   const handleEmojiClick = (emojiData: Emoji) => {
     addBlock("emoji", {
@@ -35,6 +36,8 @@ export default function EmojiModal({ addBlock }: EmojiIconProps) {
     page * ITEMS_PER_PAGE,
     (page + 1) * ITEMS_PER_PAGE
   );
+
+  if (activeModal !== "emoji") return null;
 
   return (
     <S.EmojiModalWrapper>

@@ -8,8 +8,8 @@ import useTitleStore from "@/store/useTitleStore";
  */
 export default function TitleCoverImageTool() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const titleCoverImage = useTitleStore((state) => state.titleCoverImage);
-  const titleCoverColor = useTitleStore((state) => state.titleCoverColor);
+  const hasTitleBackground = useTitleStore((state) => state.hasTitleBackground);
+
   const setTitleImage = useTitleStore((state) => state.setTitleCoverImage);
   const setTitleColor = useTitleStore((state) => state.setTitleColor);
 
@@ -44,7 +44,7 @@ export default function TitleCoverImageTool() {
       />
       <S.ImageInputIcon
         onClick={handleIconClick}
-        $hasCoverBg={!!titleCoverImage || !!titleCoverColor}
+        $hasCoverBg={hasTitleBackground}
       />
     </S.ImageInputWrapper>
   );

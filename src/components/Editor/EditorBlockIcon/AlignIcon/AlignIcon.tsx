@@ -6,7 +6,9 @@ import useEditorStore from "store/useEditorStore";
  * 클릭 시 왼쪽 정렬과 가운데 정렬을 토글
  */
 export default function AlignIcon() {
-  const { editor, align, toggleAlign } = useEditorStore();
+  const editor = useEditorStore((state) => state.editor);
+  const align = useEditorStore((state) => state.align);
+  const toggleAlign = useEditorStore((state) => state.toggleAlign);
 
   /**
    * 텍스트 정렬 상태를 토글하고 에디터의 블록들을 업데이트하는 함수

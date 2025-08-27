@@ -12,7 +12,8 @@ interface LineIconProps {
  * 다양한 스타일의 구분선을 제공하고 선택한 구분선을 에디터에 추가
  */
 export default function LineModal({ addBlock }: LineIconProps) {
-  const { closeModal } = useEditorStore();
+  const activeModal = useEditorStore((state) => state.activeModal);
+  const closeModal = useEditorStore((state) => state.closeModal);
 
   const handleLineClick = (line: Line) => {
     const lineData = {
@@ -22,6 +23,8 @@ export default function LineModal({ addBlock }: LineIconProps) {
     addBlock("delimiter", lineData);
     closeModal();
   };
+
+  if (activeModal !== "line") return null;
 
   return (
     <S.LineModalWrapper>
